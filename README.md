@@ -12,19 +12,12 @@ solvd_laba/
 ├── README.md
 
 └── tasks/
-
-    ├── task1/
-    
+    ├── task1/    
     │   └── sol.ts     # File that contains either the task description ant its solution.
-    
-    ├── task2/
-    
-    │   └── sol.ts
-    
-    └── taskn/
-    
-        └── sol.ts
-        
+    ├── task2/    
+    │   └── sol.ts    
+    └── taskn/    
+        └── sol.ts        
 
 # Usage
 As seen, the language utilized is Typescript. (.ts files) For this reason it will be necessary to install Node.js and typescript in order to run the files'
