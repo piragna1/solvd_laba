@@ -9,6 +9,7 @@ Solvd. Inc. Node Js course LABA
 
 ## Project Structure
 solvd_laba/
+
 ├── README.md
 └── tasks/
     ├── task1/    
