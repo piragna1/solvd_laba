@@ -11,8 +11,9 @@ Solvd. Inc. Node Js course LABA
 solvd_laba/
 
 ├── README.md
-└── tasks/
-    ├── task1/    
+└── tasks
+
+    ├── task1
     │   └── sol.ts     # File that contains either the task description ant its solution.
     ├── task2/    
     │   └── sol.ts    
