@@ -10,7 +10,6 @@ Solvd. Inc. Node Js course LABA
 ## Project Structure
 solvd_laba/
 ├── README.md
-
 └── tasks/
     ├── task1/    
     │   └── sol.ts     # File that contains either the task description ant its solution.
