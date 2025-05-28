@@ -6,8 +6,6 @@ Solvd. Inc. Node Js course LABA
 #
 This Github repository is to store every task sent to us (the students) during the journey of this course
 
-The structure of the directories and files will be like following:
-
 ## Project Structure
 solvd_laba/
 ├── README.md
@@ -19,6 +17,7 @@ solvd_laba/
     └── taskn/
         └── sol.ts
 
+# Usage
 As seen, the language utilized is Typescript. (.ts files) For this reason it will be necessary to install Node.js and typescript in order to run the files'
 content.
 
