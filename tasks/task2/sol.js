@@ -263,8 +263,9 @@ function coerceToType(value, type) {
   else if (type === "boolean") {
     return convertToBoolean(value);
   } else if (type === "object") {
-
+    return convertToObject(value);
   } else if (type === "array") {
+    return convertToArray(value);
   } else {
     throw new Error("Unsupported type for coercion");
   }
@@ -340,8 +341,35 @@ function convertToBoolean(value) {
     }
 }
 
+/**
+ * Converts the given value into an object with a single property 'value'.
+ *
+ * @param {*} value - The value to be wrapped in an object.
+ * @returns {{ value: * }} An object containing the provided value.
+ */
 function convertToObject(value){
-    
+    return {
+        value:value
+    };
+}
+
+/**
+ * Converts the given value to an array.
+ * - If the value is already an array, it is returned as-is.
+ * - If the value is `undefined` or `null`, an empty array is returned.
+ * - Otherwise, the value is wrapped in a new array.
+ *
+ * @param {*} value - The value to convert to an array.
+ * @returns {Array} The resulting array.
+ */
+function convertToArray(value){
+    if (Array.isArray(value)) {
+        return value;
+    } else if (typeof value === "undefined" || value === null) {
+        return [];
+    } else {
+        return [value];
+    }
 }
 
 // Export for Node.js/CommonJS
