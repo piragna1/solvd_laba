@@ -15,18 +15,16 @@ solvd_laba/
 └── tasks
 
     ├── task1
-    │   └── sol.ts     # File that contains either the task description ant its solution.
+    │   └── sol.js     # File that contains either the task description ant its solution.
     ├── task2/    
-    │   └── sol.ts    
+    │   └── sol.js    
     └── taskn/    
-        └── sol.ts        
+        └── sol.js        
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
 - You should install Node.js -> https://nodejs.org/en/download
-- For installing typescript you can run this script 'npm install-g typescript'
 
 # Usage
 - navigate through your terminal to the location of the file desired to  run
-- run 'tsc sol.ts' to compile the file
 - and finally you should run 'node sol.js' command to execute the file
