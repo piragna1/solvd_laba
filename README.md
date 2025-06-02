@@ -21,12 +21,12 @@ solvd_laba/
     └── taskn/    
         └── sol.ts        
 
-# Usage
-As seen, the language utilized is Typescript. (.ts files) For this reason it will be necessary to install Node.js and typescript in order to run the files'
-content.
+# Requirements
+it will be necessary to install Node.js and typescript in order to run the files' content.
+- You should install Node.js -> https://nodejs.org/en/download
+- For installing typescript you can run this script 'npm install-g typescript'
 
-Once you've installed Node.js:
-- you can run this script 'npm install-g typescript'
-- you should navigate through your terminal to the location of the file desired to  run
-- you should run this command 'tsc sol.ts' to compile the file
+# Usage
+- navigate through your terminal to the location of the file desired to  run
+- run 'tsc sol.ts' to compile the file
 - and finally you should run 'node sol.js' command to execute the file
