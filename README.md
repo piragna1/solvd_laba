@@ -16,9 +16,9 @@ solvd_laba/
 
     ├── homework-1
     │   └── solution.js     # File that contains either the task description ant its solution.
-    ├── task2/    
-    │   └── sol.js    
-    └── taskn/    
+    ├── homework-2/    
+    │   └── solution.js    
+    └── homework-n/    
         └── sol.js        
 
 # Requirements
@@ -27,4 +27,4 @@ it will be necessary to install Node.js and typescript in order to run the files
 
 # Usage
 - navigate through your terminal to the location of the file desired to  run
-- and finally you should run 'node sol.js' command to execute the file
+- and finally you should run 'node solution.js' command to execute the file
