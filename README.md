@@ -12,10 +12,10 @@ solvd_laba/
 
 ├── README.md
 
-└── tasks
+└── homeworks
 
-    ├── task1
-    │   └── sol.js     # File that contains either the task description ant its solution.
+    ├── homework-1
+    │   └── solution.js     # File that contains either the task description ant its solution.
     ├── task2/    
     │   └── sol.js    
     └── taskn/    
