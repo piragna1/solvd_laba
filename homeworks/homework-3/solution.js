@@ -1,11 +1,5 @@
 /**
  * # Homework 3
-
-### **Task 1: Immutability and Pure Functions**
-
-1. Implement a pure function called `calculateDiscountedPrice` that takes an array of products and a discount percentage as arguments. The function should return a new array of products with discounted prices based on the given percentage, without modifying the original products.
-2. Create a pure function called `calculateTotalPrice` that takes an array of products as an argument. The function should return the total price of all products, without modifying the original array or its items.
-
 ### **Task 2: Function Composition and Point-Free Style**
 
 1. Implement a function called `getFullName` that takes a person object with `firstName` and `lastName` properties. The function should return the person's full name in the format "FirstName LastName".
@@ -27,3 +21,45 @@
 1. Implement a lazy evaluation function called `lazyMap` that takes an array and a mapping function. The function should return a lazy generator that applies the mapping function to each element of the array one at a time.
 2. Create a lazy generator function called `fibonacciGenerator` that generates Fibonacci numbers one at a time using lazy evaluation. 
 */
+
+// ### **Task 1: Immutability and Pure Functions**
+/**
+ * Calculates the discounted price for each product in the given array.
+ *
+ * @param {Array<{ price: number, [key: string]: any }>} products - Array of product objects, each containing a price property.
+ * @param {number} discountPercentage - The discount percentage to apply to each product's price.
+ * @returns {Array<{ price: number, [key: string]: any }>} A new array of products with updated prices after applying the discount.
+ */
+function calculateDiscountedPrice(products, discountPercentage) {
+  return products.map(product => ({
+    ...product,
+    price: product.price - (product.price * discountPercentage / 100)
+  }));
+}
+/**
+ * Calculates the total price of all products in the given array.
+ *
+ * @param {Array<{price: number}>} products - An array of product objects, each containing a price property.
+ * @returns {number} The sum of all product prices.
+ */
+function calculateTotalPrice(products) {
+  return products.reduce((total, product) => total + product.price,0);
+}
+
+/**### **Task 2: Function Composition and Point-Free Style**
+    1. Implement a function called `getFullName` that takes a person object with `firstName` and `lastName` properties. The function should return the person's full name in the format "FirstName LastName".
+    2. Create a function called `filterUniqueWords` that takes a string of text and returns an array of unique words, sorted in alphabetical order, without using explicit loops. Use function composition and point-free style.
+    3. Implement a function called `getAverageGrade` that takes an array of student objects, each containing a `name` and `grades` property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.
+*/
+
+
+
+
+
+
+
+
+
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+  module.exports = {};
+}
