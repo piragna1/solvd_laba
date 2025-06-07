@@ -27,4 +27,4 @@ it will be necessary to install Node.js and typescript in order to run the files
 
 # Usage
 - navigate through your terminal to the location of the file desired to  run
-- and finally you should run 'node solution.js' command to execute the file
+- then you should run 'node solution.js' command to execute the file
