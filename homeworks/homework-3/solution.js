@@ -22,7 +22,11 @@
 2. Create a lazy generator function called `fibonacciGenerator` that generates Fibonacci numbers one at a time using lazy evaluation. 
 */
 
+console.log('--------------------------------HOMEWORK 3--------------------------------')
+console.log('\n\n');
+
 //  =============================================================== TASK 1
+console.log('                     ############TASK 1############');
 /**
  * Calculates the discounted price for each product in the given array.
  *
@@ -46,12 +50,22 @@ function calculateTotalPrice(products) {
   return products.reduce((total, product) => total + product.price, 0);
 }
 
-/**### **Task 2: Function Composition and Point-Free Style**
-    1. Implement a function called `getFullName` that takes a person object with `firstName` and `lastName` properties. The function should return the person's full name in the format "FirstName LastName".
-    2. Create a function called `filterUniqueWords` that takes a string of text and returns an array of unique words, sorted in alphabetical order, without using explicit loops. Use function composition and point-free style.
-    3. Implement a function called `getAverageGrade` that takes an array of student objects, each containing a `name` and `grades` property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.
-*/
-//1.
+let products = [
+  {name:'banana',price:400},
+  {name:'apple',price:350},
+  {name:'watermelon',price:450},
+  {name:'strawberry',price:500},
+]
+
+console.log('Given the array of products:')
+console.log(JSON.stringify(products),':')
+console.log('Calculate the price of each product after discounting the price by some percentage, for example 50%')
+console.log(JSON.stringify(calculateDiscountedPrice(products)));
+console.log(calculateTotalPrice(products));
+
+
+//  =============================================================== TASK 2
+//  1.
 /**
  * Returns the full name of a person by concatenating their first and last names.
  *
@@ -63,7 +77,6 @@ function calculateTotalPrice(products) {
 function getFullName(person) {
   return `${person.firstName} ${person.lastName}`;
 }
-//  =============================================================== TASK 2
 /**
  * A sample text string containing multiple sentences, used for demonstration or testing purposes.
  * The string consists of several sentences with various words and punctuation.
