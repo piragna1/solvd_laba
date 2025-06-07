@@ -1,0 +1,10 @@
+Functions
+	arrow function as a method cannot access to the object attributes. 
+		Example
+			{
+				name: 'Carlos',
+				hi:()=> {
+					console.log(`Hi I am ${this.name}!`);
+				}
+			}
+			// It will print: Hi I am undefined!
