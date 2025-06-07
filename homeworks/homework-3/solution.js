@@ -22,7 +22,7 @@
 2. Create a lazy generator function called `fibonacciGenerator` that generates Fibonacci numbers one at a time using lazy evaluation. 
 */
 
-// ### **Task 1: Immutability and Pure Functions**
+//  =============================================================== TASK 1
 /**
  * Calculates the discounted price for each product in the given array.
  *
@@ -63,7 +63,7 @@ function calculateTotalPrice(products) {
 function getFullName(person) {
   return `${person.firstName} ${person.lastName}`;
 }
-//2.
+//  =============================================================== TASK 2
 /**
  * A sample text string containing multiple sentences, used for demonstration or testing purposes.
  * The string consists of several sentences with various words and punctuation.
@@ -117,7 +117,109 @@ let filterUniqueWords = compose(sortWords, getUniqueWords);
 
 filterUniqueWords(inputString); // ['aenean', 'adipiscing', 'amet', 'consectetur', 'convallis', 'cursus', 'duis', 'ex', 'faucibus', 'id', 'in', 'leo', 'lorem', 'mi', 'pellentesque', 'placerat', 'pretium', 'quisque', 'sapien', 'sem', 'sit', 'tempus', 'tellus']`
 
-/**3. Implement a function called `getAverageGrade` that takes an array of student objects, each containing a `name` and `grades` property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.*/
+
+//  =============================================================== TASK 3
+/**
+ * An array of student objects, each containing the student's name and their grades.
+ * @type {Array<{
+ *   name: string,
+ *   grades: Array<{
+ *     subject: string,
+ *     scores: number[]
+ *   }>
+ * }>}
+ */
+let students = [
+  {
+    name: "Alice",
+    grades: [
+      { subject: "Math", scores: [85, 90, 78] },
+      { subject: "English", scores: [88, 92, 85] },
+    ],
+  },
+  {
+    name: "Bob",
+    grades: [
+      { subject: "Math", scores: [80, 85, 82] },
+      { subject: "English", scores: [78, 80, 75] },
+    ],
+  },
+  {
+    name: "Charlie",
+    grades: [
+      { subject: "Math", scores: [90, 95, 92] },
+      { subject: "English", scores: [88, 90, 85] },
+    ],
+  },
+];
+
+/**
+ * Flattens a one-level nested array into a single array.
+ *
+ * @param {Array} arr - The array to flatten, which may contain nested arrays at one level.
+ * @returns {Array} A new array with the sub-array elements concatenated into it.
+ */
+const flat = arr => arr.reduce((a, b) => a.concat(b), []);
+
+/**
+ * Composes two functions into a single function.
+ *
+ * @template A, B, C
+ * @param {(b: B) => C} f - The outer function to apply.
+ * @param {(a: A) => B} g - The inner function to apply.
+ * @returns {(a: A) => C} A function that applies `g` to its argument, then applies `f` to the result.
+ */
+const compose1 = (f, g) => x => f(g(x));
+
+/**
+ * Extracts all score values from a list of students, flattening nested arrays.
+ *
+ * @param {Array<Object>} students - Array of student objects, each containing a 'grades' array.
+ * @returns {Array<*>} A flattened array containing all score values from all subjects of all students.
+ */
+const getAllScores = students =>
+  flat(
+    flat(
+      students.map(student =>
+        student.grades.map(subject => subject.scores)
+      )
+    )
+  );
+
+/**
+ * Calculates the average of an array of numbers and returns the result as a string with two decimal places.
+ *
+ * @param {number[]} arr - The array of numbers to average.
+ * @returns {string} The average of the numbers in the array, formatted to two decimal places.
+ */
+const average = arr => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
+
+/**
+ * Calculates the overall average grade by composing the functions `getAllScores` and `average`.
+ * 
+ * @function
+ * @param {...any} args - Arguments to be passed to `getAllScores`.
+ * @returns {number} The overall average grade computed from all scores.
+ */
+const overallAverageGrade = compose1(average, getAllScores);
+
+// Usage:
+console.log(overallAverageGrade(students)); // e.g. 85.5
+
+//  =============================================================== TASK 4
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**Practice purposes:
