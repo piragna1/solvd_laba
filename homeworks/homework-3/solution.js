@@ -59,12 +59,17 @@ let products = [
 
 console.log('Given the array of products:')
 console.log(JSON.stringify(products),':')
-console.log('Calculate the price of each product after discounting the price by some percentage, for example 50%')
+console.log('1 -')
+console.log('Implement a pure function called calculateDiscountedPrice that takes an array of products and a discount percentage as arguments. The function should return a new array of products with discounted prices based on the given percentage, without modifying the original products.')
 console.log(JSON.stringify(calculateDiscountedPrice(products)));
+console.log('2 -')
+console.log('Create a pure function called calculateTotalPrice that takes an array of products as an argument. The function should return the total price of all products, without modifying the original array or its items.')
 console.log(calculateTotalPrice(products));
 
 
 //  =============================================================== TASK 2
+console.log('                     ############TASK 2############');
+
 //  1.
 /**
  * Returns the full name of a person by concatenating their first and last names.
@@ -77,6 +82,8 @@ console.log(calculateTotalPrice(products));
 function getFullName(person) {
   return `${person.firstName} ${person.lastName}`;
 }
+console.log('1 -')
+console.log("Implement a function called getFullName that takes a person object with firstName and lastName properties. The function should return the person's full name in the format 'FirstName LastName'")
 /**
  * A sample text string containing multiple sentences, used for demonstration or testing purposes.
  * The string consists of several sentences with various words and punctuation.
@@ -128,10 +135,10 @@ function compose(f, g) {
  */
 let filterUniqueWords = compose(sortWords, getUniqueWords);
 
-filterUniqueWords(inputString); // ['aenean', 'adipiscing', 'amet', 'consectetur', 'convallis', 'cursus', 'duis', 'ex', 'faucibus', 'id', 'in', 'leo', 'lorem', 'mi', 'pellentesque', 'placerat', 'pretium', 'quisque', 'sapien', 'sem', 'sit', 'tempus', 'tellus']`
-
-
-//  =============================================================== TASK 3
+console.log('2-')
+console.log("Create a function called filterUniqueWords that takes a string of text and returns an array of unique words, sorted in alphabetical order, without using explicit loops. Use function composition and point-free style")
+console.log("Input text for this case: ", inputString)
+console.log("\n\nUNIQUE WORDS \n",filterUniqueWords(inputString))
 /**
  * An array of student objects, each containing the student's name and their grades.
  * @type {Array<{
@@ -217,21 +224,20 @@ const average = arr => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
 const overallAverageGrade = compose1(average, getAllScores);
 
 // Usage:
-console.log(overallAverageGrade(students)); // e.g. 85.5
+console.log('3-')
+console.log("Implement a function called getAverageGrade that takes an array of student objects, each containing a name and grades property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.\n")
+console.log("Given an array of student objects calculate the overall average grade:\n")
+console.log("STUDENTS' ARRAY:\n",JSON.stringify(students))
+console.log("\nOVERALL AVERAGE GRADE:",overallAverageGrade(students)); // e.g. 85.5
 
-//  =============================================================== TASK 4
-
-
-
-
-
-
-
-
-
+//  =============================================================== TASK 3
+console.log('                     ############TASK 3############');
+console.log('1-')
+console.log('Create a function called createCounter that returns a closure. The closure should be a counter function that increments the count on each call and returns the updated count. Each closure should have its own independent count.')
 
 
 
+// OUTPUTS of the execution of functions:
 
 
 
