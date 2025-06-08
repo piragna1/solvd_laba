@@ -1,33 +1,4 @@
 /**
- * # Homework 3
-### **Task 2: Function Composition and Point-Free Style**
-
-1. Implement a function called `getFullName` that takes a person object with `firstName` and `lastName` properties. The function should return the person's full name in the format "FirstName LastName".
-2. Create a function called `filterUniqueWords` that takes a string of text and returns an array of unique words, sorted in alphabetical order, without using explicit loops. Use function composition and point-free style.
-3. Implement a function called `getAverageGrade` that takes an array of student objects, each containing a `name` and `grades` property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.
-
-### **Task 3: Closures and Higher-Order Functions**
-
-1. Create a function called `createCounter` that returns a closure. The closure should be a counter function that increments the count on each call and returns the updated count. Each closure should have its own independent count.
-2. Implement a higher-order function called `repeatFunction` that takes a function and a number as arguments. The function should return a new function that invokes the original function multiple times based on the provided number. If the number is negative, the new function should invoke the original function indefinitely until stopped.
-
-### **Task 4: Recursion and Tail Call Optimization**
-
-1. Implement a recursive function called `calculateFactorial` that calculates the factorial of a given number. Optimize the function to use tail call optimization to avoid stack overflow for large input numbers.
-2. Create a recursive function called `power` that takes a base and an exponent as arguments. The function should calculate the power of the base to the exponent using recursion.
-
-### **Task 5: Lazy Evaluation and Generators (do not use yield)**
-
-1. Implement a lazy evaluation function called `lazyMap` that takes an array and a mapping function. The function should return a lazy generator that applies the mapping function to each element of the array one at a time.
-2. Create a lazy generator function called `fibonacciGenerator` that generates Fibonacci numbers one at a time using lazy evaluation. 
-*/
-
-console.log('--------------------------------HOMEWORK 3--------------------------------')
-console.log('\n\n');
-
-//  =============================================================== TASK 1
-console.log('                     ############TASK 1############');
-/**
  * Calculates the discounted price for each product in the given array.
  *
  * @param {Array<{ price: number, [key: string]: any }>} products - Array of product objects, each containing a price property.
@@ -40,6 +11,7 @@ function calculateDiscountedPrice(products, discountPercentage) {
     price: product.price - (product.price * discountPercentage) / 100,
   }));
 }
+
 /**
  * Calculates the total price of all products in the given array.
  *
@@ -50,27 +22,6 @@ function calculateTotalPrice(products) {
   return products.reduce((total, product) => total + product.price, 0);
 }
 
-let products = [
-  {name:'banana',price:400},
-  {name:'apple',price:350},
-  {name:'watermelon',price:450},
-  {name:'strawberry',price:500},
-]
-
-console.log('Given the array of products:')
-console.log(JSON.stringify(products),':')
-console.log('1 -')
-console.log('Implement a pure function called calculateDiscountedPrice that takes an array of products and a discount percentage as arguments. The function should return a new array of products with discounted prices based on the given percentage, without modifying the original products.')
-console.log(JSON.stringify(calculateDiscountedPrice(products)));
-console.log('2 -')
-console.log('Create a pure function called calculateTotalPrice that takes an array of products as an argument. The function should return the total price of all products, without modifying the original array or its items.')
-console.log(calculateTotalPrice(products));
-
-
-//  =============================================================== TASK 2
-console.log('                     ############TASK 2############');
-
-//  1.
 /**
  * Returns the full name of a person by concatenating their first and last names.
  *
@@ -82,15 +33,7 @@ console.log('                     ############TASK 2############');
 function getFullName(person) {
   return `${person.firstName} ${person.lastName}`;
 }
-console.log('1 -')
-console.log("Implement a function called getFullName that takes a person object with firstName and lastName properties. The function should return the person's full name in the format 'FirstName LastName'")
-/**
- * A sample text string containing multiple sentences, used for demonstration or testing purposes.
- * The string consists of several sentences with various words and punctuation.
- * @type {string}
- */
-let inputString =
-  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.";
+
 /**
  * Returns an array of unique words from the given text.
  * A word is considered unique if it appears exactly once in the text (case-insensitive).
@@ -104,6 +47,7 @@ let getUniqueWords = (text) => {
     (word, _, arr) => arr.indexOf(word) === arr.lastIndexOf(word)
   );
 };
+
 /**
  * Sorts an array of words in ascending alphabetical order.
  *
@@ -111,6 +55,7 @@ let getUniqueWords = (text) => {
  * @returns {string[]} The sorted array of words.
  */
 let sortWords = (words) => words.sort((a, b) => a.localeCompare(b));
+
 /**
  * Composes two functions into a single function.
  *
@@ -135,20 +80,202 @@ function compose(f, g) {
  */
 let filterUniqueWords = compose(sortWords, getUniqueWords);
 
-console.log('2-')
-console.log("Create a function called filterUniqueWords that takes a string of text and returns an array of unique words, sorted in alphabetical order, without using explicit loops. Use function composition and point-free style")
-console.log("Input text for this case: ", inputString)
-console.log("\n\nUNIQUE WORDS \n",filterUniqueWords(inputString))
 /**
- * An array of student objects, each containing the student's name and their grades.
- * @type {Array<{
- *   name: string,
- *   grades: Array<{
- *     subject: string,
- *     scores: number[]
- *   }>
- * }>}
+ * Flattens a one-level nested array into a single array.
+ *
+ * @param {Array} arr - The array to flatten, which may contain nested arrays at one level.
+ * @returns {Array} A new array with the sub-array elements concatenated into it.
  */
+const flat = (arr) => arr.reduce((a, b) => a.concat(b), []);
+
+/**
+ * Composes two functions into a single function.
+ *
+ * @template A, B, C
+ * @param {(b: B) => C} f - The outer function to apply.
+ * @param {(a: A) => B} g - The inner function to apply.
+ * @returns {(a: A) => C} A function that applies `g` to its argument, then applies `f` to the result.
+ */
+const compose1 = (f, g) => (x) => f(g(x));
+
+/**
+ * Extracts all score values from a list of students, flattening nested arrays.
+ *
+ * @param {Array<Object>} students - Array of student objects, each containing a 'grades' array.
+ * @returns {Array<*>} A flattened array containing all score values from all subjects of all students.
+ */
+const getAllScores = (students) =>
+  flat(
+    flat(
+      students.map((student) => student.grades.map((subject) => subject.scores))
+    )
+  );
+
+/**
+ * Calculates the average of an array of numbers and returns the result as a string with two decimal places.
+ *
+ * @param {number[]} arr - The array of numbers to average.
+ * @returns {string} The average of the numbers in the array, formatted to two decimal places.
+ */
+const average = (arr) =>
+  (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
+
+/**
+ * Calculates the overall average grade by composing the functions `getAllScores` and `average`.
+ *
+ * @function
+ * @param {...any} args - Arguments to be passed to `getAllScores`.
+ * @returns {number} The overall average grade computed from all scores.
+ */
+const overallAverageGrade = compose1(average, getAllScores);
+
+/**
+ * Creates a counter function with a private count variable.
+ * Each call to the returned function increments and returns the count.
+ *
+ * @returns {function(): number} A function that, when called, increments and returns the current count.
+ */
+function createCounter() {
+  let count = 0;
+  return function () {
+    count += 1;
+    return count;
+  };
+}
+
+/**
+ * Returns a function that executes the provided function a specified number of times,
+ * or indefinitely at 1-second intervals if times is negative.
+ *
+ * @param {Function} fn - The function to be executed.
+ * @param {number} times - The number of times to execute the function. If negative, executes indefinitely every second.
+ * @returns {Function} If times is non-negative, returns a function that executes `fn` the specified number of times.
+ *                     If times is negative, returns a function that starts an interval and returns a function to clear it.
+ */
+function repeatFunction(fn, times) {
+  return function executor() {
+    if (times >= 0) {
+      for (let i = 0; i < times; i++) {
+        fn();
+      }
+    } else {
+      const id = setInterval(fn, 1000);
+      return () => clearInterval(id);
+    }
+  };
+}
+
+/**
+ * Logs 'Hello!' to the console.
+ *
+ * @function
+ * @returns {void}
+ */
+function sayHello() {
+  console.log("Hello!");
+}
+
+/**
+ * Calculates the factorial of a given number using recursion and an accumulator.
+ * Returns a thunk (function) for each recursive step, enabling manual or trampolined evaluation.
+ *
+ * @param {number} n - The number to calculate the factorial of.
+ * @param {number} [acc=1] - The accumulator for the factorial calculation (used internally).
+ * @returns {number|function} The factorial result if base case is reached, otherwise a thunk for the next recursive step.
+ */
+function calculateFactorial(n, acc = 1) {
+  if (n <= 1) {
+    return acc;
+  }
+  return () => calculateFactorial(n - 1, acc * n);
+}
+
+/**
+ * Executes a recursive function using the trampoline technique to avoid stack overflows.
+ * The function `fn` should return either another function (to continue recursion)
+ * or a final value (to terminate recursion).
+ *
+ * @param {Function} fn - The initial function to execute. Should return either another function or a value.
+ * @returns {*} The final value returned by the recursive function chain.
+ */
+function trampoline(fn) {
+  while (typeof fn === "function") {
+    fn = fn();
+  }
+  return fn;
+}
+
+/**
+ * Computes the power of a base raised to an exponent using recursion and accumulator.
+ * Returns a thunk (function) for each recursive step, enabling trampolining.
+ *
+ * @param {number} base - The base number.
+ * @param {number} exponent - The exponent to raise the base to.
+ * @param {number} [acc=1] - The accumulator for the result (used internally).
+ * @returns {number|Function} The result if the exponent is 0, otherwise a thunk for the next recursive step.
+ */
+function power(base, exponent, acc = 1) {
+  if (exponent === 0) {
+    return acc;
+  }
+
+  if (exponent % 2 === 0) {
+    return () => power(base * base, exponent / 2, acc);
+  } else {
+    return () => power(base, exponent - 1, acc * base);
+  }
+}
+
+/**
+ * Creates a lazy iterator that applies a mapping function to each element of the input array.
+ *
+ * @param {Array} array - The array to iterate over.
+ * @param {Function} mapFn - The function to apply to each element of the array.
+ * @returns {{ next: function(): { value: any, done: boolean } }} An iterator object with a `next` method that returns the next mapped value and a done flag.
+ */
+function lazyMap(array, mapFn) {
+  let index = 0;
+  return {
+    next: function () {
+      if (index < array.length) {
+        const value = mapFn(array[index]);
+        index++;
+        return { value, done: false };
+      } else {
+        return { done: true };
+      }
+    },
+  };
+}
+
+/**
+ * Creates a Fibonacci sequence generator.
+ *
+ * @returns {{ next: function(): { value: number } }} An object with a `next` method that returns the next Fibonacci number.
+ */
+function fibonacciGenerator() {
+  let a = 0,
+    b = 1;
+  return {
+    next: function () {
+      const value = a;
+      [a, b] = [b, a + b];
+      return { value };
+    },
+  };
+}
+
+/* --- Datos para las pruebas --- */
+let products = [
+  { name: "banana", price: 400 },
+  { name: "apple", price: 350 },
+  { name: "watermelon", price: 450 },
+  { name: "strawberry", price: 500 },
+];
+
+let inputString =
+  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.";
+
 let students = [
   {
     name: "Alice",
@@ -173,131 +300,93 @@ let students = [
   },
 ];
 
-/**
- * Flattens a one-level nested array into a single array.
- *
- * @param {Array} arr - The array to flatten, which may contain nested arrays at one level.
- * @returns {Array} A new array with the sub-array elements concatenated into it.
- */
-const flat = arr => arr.reduce((a, b) => a.concat(b), []);
+const numbers = [1, 2, 3, 4, 5];
 
-/**
- * Composes two functions into a single function.
- *
- * @template A, B, C
- * @param {(b: B) => C} f - The outer function to apply.
- * @param {(a: A) => B} g - The inner function to apply.
- * @returns {(a: A) => C} A function that applies `g` to its argument, then applies `f` to the result.
- */
-const compose1 = (f, g) => x => f(g(x));
+const counter1 = createCounter();
+const counter2 = createCounter();
 
-/**
- * Extracts all score values from a list of students, flattening nested arrays.
- *
- * @param {Array<Object>} students - Array of student objects, each containing a 'grades' array.
- * @returns {Array<*>} A flattened array containing all score values from all subjects of all students.
- */
-const getAllScores = students =>
-  flat(
-    flat(
-      students.map(student =>
-        student.grades.map(subject => subject.scores)
-      )
-    )
-  );
+let repeatHello = repeatFunction(sayHello, 10);
 
-/**
- * Calculates the average of an array of numbers and returns the result as a string with two decimal places.
- *
- * @param {number[]} arr - The array of numbers to average.
- * @returns {string} The average of the numbers in the array, formatted to two decimal places.
- */
-const average = arr => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
+let factorized = 150;
+let base = 2;
+let exponent = 20;
 
-/**
- * Calculates the overall average grade by composing the functions `getAllScores` and `average`.
- * 
- * @function
- * @param {...any} args - Arguments to be passed to `getAllScores`.
- * @returns {number} The overall average grade computed from all scores.
- */
-const overallAverageGrade = compose1(average, getAllScores);
+const fib = fibonacciGenerator();
 
-// Usage:
-console.log('3-')
-console.log("Implement a function called getAverageGrade that takes an array of student objects, each containing a name and grades property. The function should return the average grade of all students, without modifying the original array or its items. Use function composition and point-free style.\n")
-console.log("Given an array of student objects calculate the overall average grade:\n")
-console.log("STUDENTS' ARRAY:\n",JSON.stringify(students))
-console.log("\nOVERALL AVERAGE GRADE:",overallAverageGrade(students)); // e.g. 85.5
+/* --- Consola con resultados y pruebas --- */
+console.log(
+  "----------------------------- HOMEWORK 3 -----------------------------\n\n"
+);
 
-//  =============================================================== TASK 3
-console.log('                     ############TASK 3############');
-console.log('1-')
-console.log('Create a function called createCounter that returns a closure. The closure should be a counter function that increments the count on each call and returns the updated count. Each closure should have its own independent count.')
+// =============================== TASK 1 ===============================
+console.log("########################## TASK 1 ##########################\n");
 
+console.log("Array of products:");
+console.log(products);
 
+console.log("\n1) Discounted prices (10% off):");
+console.log(calculateDiscountedPrice(products, 10));
 
-// OUTPUTS of the execution of functions:
+console.log("\n2) Total price of original products:");
+console.log(calculateTotalPrice(products));
 
+console.log("\n-------------------------------------------------------------\n");
 
+// =============================== TASK 2 ===============================
+console.log("########################## TASK 2 ##########################\n");
 
-/**Practice purposes:
- * 
- * 
- * 
- * 
- * const test = {
-  fn: function () {
-    console.log(this);
-  },
-};
-// test.fn(); // { fn: [Function: fn] }
+console.log("1) Full name example:");
+console.log(getFullName({ firstName: "John", lastName: "Doe" }));
 
-// const something = (function(){return 'something'})()
-// const anotherThing = (function(){console.log('another thing')})()
-// console.log(something); // 'something'
+console.log("\n2) Unique words in the input text:");
+console.log("Input text:", inputString);
+console.log(filterUniqueWords(inputString));
 
-const myFunction = function () {};
-const myFunction1 = () => {
-  "return something";
-};
-const myFunction2 = () => "return something else";
-const myFunction3 = (a) =>
-  "no need for parentheses around the argument when receiving 1 argument"; // works without parentheses around the argument
-const myFunction4 = (a) => (a % 2 === 0 ? "even" : "odd"); // also works without parentheses around the arrow function body
-// const myFunction4 = a => {return a%2 === 0 ? 'even' : 'odd'} // also works without parentheses around the arrow function body and arguments
-const myFunction5 = (a, b) => a + b;
-// const myFunction6 = (a,b) => a + b
-const myFunction7 = (a, b) => {
-  a - b;
-}; // this will not return anything, because there is no return statement
-const myFunction8 = (a, b) => {
-  return a - b;
-};
+console.log("\n3) Overall average grade for students:");
+console.log("Students data:");
+console.log(JSON.stringify(students, null, 2));
+console.log("Calculated average:", overallAverageGrade(students));
 
-console.log(myFunction);
-console.log(myFunction1);
-console.log(myFunction1());
-console.log(myFunction2());
-console.log(myFunction3);
-console.log(myFunction3());
-console.log(myFunction4(2));
-console.log(myFunction5(2, 2));
-console.log(myFunction7(2, 2));
-console.log(myFunction8(2, -2));
+console.log("\n-------------------------------------------------------------\n");
 
-const counter = (function () {
-  let initValue = 0; // Closure variable
-  return function () {
-    initValue += 1; // Increment the initValue
-    return initValue; // Return the updated initValue
-  };
-})();
-console.log(counter()); // 1
-console.log(counter()); // 2
-console.log(counter()); // 3
- */
+// =============================== TASK 3 ===============================
+console.log("########################## TASK 3 ##########################\n");
 
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = {};
+console.log("1) Testing independent counters:");
+console.log("counter1 call 1:", counter1());
+console.log("counter1 call 2:", counter1());
+console.log("counter2 call 1:", counter2());
+console.log("counter2 call 2:", counter2());
+console.log("counter1 call 3:", counter1());
+
+console.log("\n2) repeatFunction: printing 'Hello!' 10 times:");
+repeatHello();
+
+console.log("\n-------------------------------------------------------------\n");
+
+// =============================== TASK 4 ===============================
+console.log("########################## TASK 4 ##########################\n");
+
+console.log(`1) Factorial of ${factorized}:`);
+console.log(trampoline(() => calculateFactorial(factorized)));
+
+console.log(`\n2) Power calculation: ${base} ^ ${exponent}:`);
+console.log(trampoline(() => power(base, exponent)));
+
+console.log("\n-------------------------------------------------------------\n");
+
+// =============================== TASK 5 ===============================
+console.log("########################## TASK 5 ##########################\n");
+
+console.log("1) LazyMap over [1,2,3,4,5] with x * 2:");
+const lazyMapped = lazyMap(numbers, (x) => x * 2);
+for (let i = 0; i < numbers.length + 1; i++) {
+  console.log(`Call ${i + 1}:`, lazyMapped.next());
 }
+
+console.log("\n2) Fibonacci Generator first 10 values:");
+for (let i = 0; i < 10; i++) {
+  console.log(`Fib #${i + 1}:`, fib.next().value);
+}
+
+console.log("\n------------------------- END OF HOMEWORK -------------------------");
