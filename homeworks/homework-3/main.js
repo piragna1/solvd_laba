@@ -1,6 +1,6 @@
 // main.js
 
-import { products, inputString, students, numbers, factorized, base, exponent } from "./shared/data.js";
+import { products, inputString, students, numbers, factorized, base, exponent } from "./data.js";
 import { ProductUtils } from "./task1/solution.js";
 import { TextUtils } from "./task2/solution.js";
 import { GradeUtils } from "./task3/solution.js";
