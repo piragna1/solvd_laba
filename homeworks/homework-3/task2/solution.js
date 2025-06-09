@@ -1,4 +1,4 @@
-import { compose } from "../shared/compose.js";
+import { compose } from "../shared/utils.js";
 
 export class Task2 {
   static getFullName(person) {

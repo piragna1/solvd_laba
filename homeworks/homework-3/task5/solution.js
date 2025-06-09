@@ -1,31 +1,29 @@
 // task5/solution.js
 
 export class Task5 {
-  /**
-   * Finds the maximum number in the array.
-   */
-  static findMax(arr) {
-    return Math.max(...arr);
+  static lazyMap(array, mapFn) {
+    let index = 0;
+    return {
+      next: function () {
+        if (index < array.length) {
+          const value = mapFn(array[index]);
+          index++;
+          return { value, done: false };
+        } else {
+          return { done: true };
+        }
+      },
+    };
   }
-
-  /**
-   * Finds the minimum number in the array.
-   */
-  static findMin(arr) {
-    return Math.min(...arr);
-  }
-
-  /**
-   * Calculates the sum of all elements in the array.
-   */
-  static sum(arr) {
-    return arr.reduce((a, b) => a + b, 0);
-  }
-
-  /**
-   * Filters elements greater than a given threshold.
-   */
-  static filterGreaterThan(arr, threshold) {
-    return arr.filter((n) => n > threshold);
+  static fibonacciGenerator() {
+    let a = 0,
+      b = 1;
+    return {
+      next: function () {
+        const value = a;
+        [a, b] = [b, a + b];
+        return { value };
+      },
+    };
   }
 }

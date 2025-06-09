@@ -3,14 +3,14 @@
 import { products, persons,inputString, students, numbers, factorized, base, exponent } from "./shared/data.js";
 import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
-import { Task3 } from "./task3/solution.js";
 import { Task4 } from "./task4/solution.js";
 import { Task5 } from "./task5/solution.js";
 import { runTask3 } from "./task3/runner.js";
+import { trampoline } from "./shared/utils.js";
 
 
 async function main() {
-console.log("\n==================== TASK 1: PRODUCTS ====================\n");
+console.log("\n==================== TASK 1 ====================\n");
 
 console.log("📦 ORIGINAL PRODUCTS:");
 products.forEach((p, i) => {
@@ -61,21 +61,28 @@ students.forEach((student, i) => {
 });
 console.log("\n🎓 STUDENT REPORTS:");
 console.log(Task2.getStudentReports(students));
-await runTask3();
-console.log("\n--- Task 4: ---");
-console.log("Squared:", Task4.squareNumbers(numbers));
-console.log("Odds:", Task4.filterOddNumbers(numbers));
-console.log(`Factorial(${factorized}):`, Task4.factorial(factorized));
-console.log(`${base}^${exponent} =`, Task4.power(base, exponent));
-
-console.log("\n--- Task 5: ---");
-console.log("Max:", Task5.findMax(numbers));
-console.log("Min:", Task5.findMin(numbers));
-console.log("Sum:", Task5.sum(numbers));
-console.log(">3:", Task5.filterGreaterThan(numbers, 3));
-
+console.log("\n==========================================================\n");
   
+console.log("\n==================== TASK 3 ====================\n");
+await runTask3();
+console.log("\n==========================================================\n");
+
+console.log("\n==================== TASK 4 ====================\n");
+
+const fact = 150;
+const powBase = 2;
+const powExp = 20;
+
+console.log(`🧮 Factorial(${fact}) =`);
+console.log(trampoline(() => Task4.calculateFactorial(fact)));
+
+console.log(`\n💥 Power(${powBase} ^ ${powExp}) =`);
+console.log(trampoline(() => Task4.power(powBase, powExp)));
+console.log("\n==========================================================\n");
 }
+console.log("\n==================== TASK 5 ====================\n");
+
+console.log("\n==========================================================\n");
 
 
 main();
