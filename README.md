@@ -25,14 +25,14 @@ solvd_laba/
         │   └── ...
         │   └── taskn
         │   └── other directories...
-        │   └── main.js    
+        │   └── main.js    (You should run this file)
         └── homework-n/     
             └── task1   
             └── task2
             └── ...
             └── taskn
             └── other directories...
-            └── main.js        
+            └── main.js     (You should run this file)
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
