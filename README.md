@@ -11,20 +11,23 @@ Solvd. Inc. Node Js course LABA
 solvd_laba/
 
 ├── README.md
-
 └── homeworks
-
     ├── homework-1
-    │   └── solution.js     # File that contains either the task description ant its solution.
+    │   └── task1
+    │   └── task2
+    │   └── ...
+    │   └── taskn
+    │   └── other directories...
+    │   └── main.js     # File that contains either the task description and the output of the solution/s.
     ├── homework-2/    
-    │   └── solution.js    
+    │   └── main.js    
     └── homework-n/    
-        └── sol.js        
+        └── main.js        
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
 - You should install Node.js -> https://nodejs.org/en/download
 
 # Usage
-- navigate through your terminal to the location of the file desired to  run
-- then you should run 'node solution.js' command to execute the file
+- navigate through your terminal to the location of the desired 'main.js' file to run
+- then you should run 'node main.js' command to execute the file
