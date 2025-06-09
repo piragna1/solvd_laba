@@ -1,16 +1,10 @@
-// task2/solution.js
+import { compose } from "../shared/compose.js";
 
 export class Task2 {
-  /**
-   * Returns the full name of a person.
-   */
   static getFullName(person) {
     return `${person.firstName} ${person.lastName}`;
   }
 
-  /**
-   * Returns an array of unique words from the given text (case-insensitive).
-   */
   static getUniqueWords(text) {
     let words = text.toLowerCase().match(/\b\w+\b/g) || [];
     return words.filter(
@@ -18,30 +12,16 @@ export class Task2 {
     );
   }
 
-  /**
-   * Sorts an array of words in ascending alphabetical order.
-   */
   static sortWords(words) {
     return words.sort((a, b) => a.localeCompare(b));
   }
 
-  /**
-   * Filters unique words and returns them sorted.
-   */
-  static filterUniqueWords(text) {
-    return this.sortWords(this.getUniqueWords(text));
-  }
+  static filterUniqueWords = compose(this.sortWords, this.getUniqueWords);
 
-  /**
-   * Calculates average for an array of scores.
-   */
   static average(scores) {
     return scores.reduce((sum, s) => sum + s, 0) / scores.length;
   }
 
-  /**
-   * Calculates average for each subject for a student.
-   */
   static calculateSubjectAverages(subjects) {
     return subjects.map(({ subject, grades }) => ({
       subject,
@@ -49,28 +29,22 @@ export class Task2 {
     }));
   }
 
-  /**
-   * Calculates overall average for all subjects of a student.
-   */
-  static getAverageGrade(subjects) {
-    let subjectAverages = this.calculateSubjectAverages(subjects);
-    return this.average(subjectAverages.map((s) => s.average));
-  }
+  static extractAllGrades = (students) =>
+  students.flatMap(student =>
+    student.subjects.flatMap(subject => subject.grades)
+  );
 
-  /**
-   * Prepares a report for a list of students.
-   */
+  // getAverageGrade usando composición y estilo point-free
+  static getAverageGrade = compose(
+    this.average,this.extractAllGrades
+  );
+
   static getStudentReports(students) {
-    return students.map((student) => {
-      const subjectAverages = this.calculateSubjectAverages(student.subjects);
-      const overallAverage = this.getAverageGrade(student.subjects);
-      return {
-        name: student.name,
-        subjectAverages,
-        overallAverage,
-      };
-    });
+    return students.map((student, index) => {
+      const overallAverage = this.average(
+        student.subjects.flatMap(subject => subject.grades)
+      );
+      return `  📘 Student ${index + 1}: ${student.name}\n    🧮 Overall Average: ${overallAverage.toFixed(2)}\n`;
+    }).join('\n');
   }
-
-  
 }

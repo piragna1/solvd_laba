@@ -1,6 +1,6 @@
 // main.js
 
-import { products, persons,inputString, students, numbers, factorized, base, exponent } from "./data.js";
+import { products, persons,inputString, students, numbers, factorized, base, exponent } from "./shared/data.js";
 import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
@@ -56,15 +56,9 @@ students.forEach((student, i) => {
     console.log(`    - ${subject.subject}: ${subject.grades.join(", ")}`);
   });
 });
-const reports = Task2.getStudentReports(students);
 console.log("\n🎓 STUDENT REPORTS:");
-reports.forEach((report, i) => {
-  console.log(`\n  📘 Student ${i + 1}: ${report.name}`);
-  report.subjectAverages.forEach((subject) => {
-    console.log(`    - ${subject.subject}: ${subject.average.toFixed(2)}`);
-  });
-  console.log(`    🧮 Overall Average: ${report.overallAverage.toFixed(2)}`);
-});
+console.log(Task2.getStudentReports(students));
+
 
 console.log("\n===================================================");
 console.log("\n--- Task 4: ---");
