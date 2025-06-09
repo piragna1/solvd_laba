@@ -1,6 +1,40 @@
 "use strict";
 
+/**
+ * The Task class provides utility methods for type-safe addition, type coercion, and value manipulation.
+ * 
+ * Features:
+ * - Adds values of various types (number, string, boolean, array, object) with type-specific logic.
+ * - Converts values between types (string, number, boolean, object, array).
+ * - Provides utility methods for stringification, boolean inversion, and more.
+ * 
+ * Methods:
+ * - addValues(a, b): Adds `b` to `a` according to the type of `a`.
+ * - addToNumber(a, value): Adds a value to a number, supporting numeric strings and Number objects.
+ * - addToString(a, value): Concatenates a value to a string, supporting numbers and String objects.
+ * - addToBoolean(a, value): Combines booleans using logical AND.
+ * - addToArray(a, value): Adds a value or array of values to an array.
+ * - addToObject(a, value): Merges properties from another object into an object.
+ * - stringifyValue(value): Converts a value to its string representation.
+ * - invertBoolean(value): Inverts a boolean value.
+ * - convertToNumber(value): Converts a value to a number.
+ * - coerceToType(value, type): Coerces a value to a specified type.
+ * - convertToBoolean(value): Converts a value to a boolean.
+ * - convertToObject(value): Wraps a value in an object.
+ * - convertToArray(value): Converts a value to an array.
+ */
 class Task {
+  /**
+   * Adds the value `b` to the value `a` based on the type of `a`.
+   * Delegates to specific methods depending on whether `a` is a number, string, boolean, array, or object.
+   * If `a` is undefined or null, returns `b`.
+   * Throws an error for unsupported types.
+   *
+   * @param {*} a - The base value to which `b` will be added. Can be a number, string, boolean, array, object, undefined, or null.
+   * @param {*} b - The value to add to `a`.
+   * @returns {*} The result of adding `b` to `a` according to the type of `a`.
+   * @throws {Error} If the type of `a` is unsupported.
+   */
   addValues(a, b) {
     if (typeof a === "number") {
       return this.addToNumber(a, b);
@@ -19,6 +53,14 @@ class Task {
     }
   }
 
+  /**
+   * Adds a value to a number, handling different types for the value parameter.
+   *
+   * @param {number} a - The base number to add to.
+   * @param {number|string|Number|null|undefined} value - The value to add. Can be a number, a numeric string, a Number object, null, or undefined.
+   * @returns {number} The result of adding the value to the base number.
+   * @throws {Error} If value is a non-numeric string or an incompatible type.
+   */
   addToNumber(a, value) {
     if (typeof value === "number") {
       return a + value;
@@ -34,6 +76,14 @@ class Task {
     }
   }
 
+  /**
+   * Adds a value to a string, handling numbers, strings, and String objects.
+   *
+   * @param {string} a - The base string to which the value will be added.
+   * @param {number|string|String|null|undefined} value - The value to add. Can be a number, string, String object, null, or undefined.
+   * @returns {string} The concatenated string if value is a number, string, or String object; otherwise returns the original string.
+   * @throws {Error} If the value is of an incompatible type for addition.
+   */
   addToString(a, value) {
     if (typeof value === "number" || typeof value === "string") {
       return a + value;
@@ -46,6 +96,15 @@ class Task {
     }
   }
 
+  /**
+   * Combines a boolean value `a` with another value `value` using logical AND, 
+   * handling various types safely.
+   *
+   * @param {boolean} a - The base boolean value.
+   * @param {*} value - The value to combine with `a`. Can be a boolean, Boolean object, undefined, or null.
+   * @returns {boolean} The result of logical AND between `a` and `value`, or `a` if `value` is undefined or null.
+   * @throws {Error} If `value` is not a boolean, Boolean object, undefined, or null.
+   */
   addToBoolean(a, value) {
     if (typeof value === "boolean") {
       return a && value;
@@ -58,6 +117,13 @@ class Task {
     }
   }
 
+  /**
+   * Adds a value or an array of values to the end of the given array.
+   *
+   * @param {Array} a - The original array to which the value(s) will be added.
+   * @param {*} value - The value or array of values to add. If an array, its elements are concatenated. If undefined or null, the original array is returned.
+   * @returns {Array} A new array with the value(s) added, or the original array if value is undefined or null.
+   */
   addToArray(a, value) {
     if (Array.isArray(value)) {
       return a.concat(value);
@@ -68,6 +134,16 @@ class Task {
     }
   }
 
+  /**
+   * Adds properties from the `value` object to the object `a` and returns a new object.
+   * If `value` is not a non-null object or is an array, throws an error.
+   * If `value` is `undefined` or `null`, returns the original object `a`.
+   *
+   * @param {Object} a - The target object to which properties will be added.
+   * @param {*} value - The value to add to the object. Must be a non-null object (not an array) or `undefined`/`null`.
+   * @returns {Object} A new object with properties from both `a` and `value`, or the original object if `value` is `undefined` or `null`.
+   * @throws {Error} If `value` is not a non-null object or is an array.
+   */
   addToObject(a, value) {
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {
       return Object.assign({}, a, value);
@@ -78,6 +154,18 @@ class Task {
     }
   }
 
+  /**
+   * Converts a given value to its string representation.
+   *
+   * - If the value is a string, returns it as is.
+   * - If the value is a number, boolean, null, or undefined, returns its string representation.
+   * - If the value is an array or object, returns its JSON string representation.
+   * - Throws an error for unsupported types.
+   *
+   * @param {*} value - The value to stringify.
+   * @returns {string} The stringified representation of the value.
+   * @throws {Error} If the value type is unsupported for stringification.
+   */
   stringifyValue(value) {
     if (typeof value === "string") {
       return value;
@@ -95,6 +183,13 @@ class Task {
     }
   }
 
+  /**
+   * Inverts a boolean value.
+   *
+   * @param {boolean} value - The boolean value to invert.
+   * @returns {boolean} The inverted boolean value.
+   * @throws {Error} Throws an error if the argument is not a boolean.
+   */
   invertBoolean(value) {
     if (typeof value === "boolean") {
       return !value;
@@ -103,6 +198,13 @@ class Task {
     }
   }
 
+  /**
+   * Converts the given value to a number.
+   *
+   * @param {number|string|boolean} value - The value to convert to a number.
+   * @returns {number} The numeric representation of the input value.
+   * @throws {Error} If the value is a string that cannot be converted to a number, or if the type is unsupported.
+   */
   convertToNumber(value) {
     if (typeof value === "number") {
       return value;
@@ -117,6 +219,14 @@ class Task {
     }
   }
 
+  /**
+   * Coerces the given value to the specified type.
+   *
+   * @param {*} value - The value to be coerced.
+   * @param {"string"|"number"|"boolean"|"object"|"array"} type - The target type to coerce the value to.
+   * @returns {*} The value coerced to the specified type.
+   * @throws {Error} If the specified type is unsupported.
+   */
   coerceToType(value, type) {
     if (type === "string") {
       return this.stringifyValue(value);
@@ -133,6 +243,21 @@ class Task {
     }
   }
 
+  /**
+   * Converts a given value to a boolean based on its type and content.
+   *
+   * - If the value is already a boolean, returns it as is.
+   * - If the value is `undefined` or `null`, returns `false`.
+   * - If the value is a string, returns `true` for "true" or "1" (case-insensitive), `false` for "false" or "0", otherwise throws an error.
+   * - If the value is a number, returns `true` for 1, `false` for 0, otherwise throws an error.
+   * - If the value is an object, returns `false` if `null`, otherwise `true`.
+   * - If the value is a function, calls the function and returns its boolean result if it is strictly `true` or `false`, otherwise throws an error.
+   * - Throws an error for unsupported types or values that cannot be coerced to boolean.
+   *
+   * @param {*} value - The value to convert to boolean.
+   * @returns {boolean} The boolean representation of the input value.
+   * @throws {Error} If the value cannot be coerced to a boolean.
+   */
   convertToBoolean(value) {
     if (value === true || value === false) {
       return value;
@@ -173,10 +298,25 @@ class Task {
     }
   }
 
+  /**
+   * Converts the given value into an object with a single property 'value'.
+   *
+   * @param {*} value - The value to be wrapped in an object.
+   * @returns {{ value: * }} An object containing the provided value.
+   */
   convertToObject(value) {
     return { value: value };
   }
 
+  /**
+   * Converts the given value to an array.
+   * - If the value is already an array, it is returned as-is.
+   * - If the value is `undefined` or `null`, an empty array is returned.
+   * - Otherwise, the value is wrapped in a new array.
+   *
+   * @param {*} value - The value to convert to an array.
+   * @returns {Array} The resulting array.
+   */
   convertToArray(value) {
     if (Array.isArray(value)) {
       return value;

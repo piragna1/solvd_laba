@@ -12,9 +12,9 @@ Perform arithmetic operations on strings without relying on bigint or arithmetic
 
 "use strict";
 
-const Task1 = require("./task1/solution.js");
+const Task = require("./task/solution.js");
 
-new Task1(); // Instancia la clase para agregar los métodos al prototipo de String
+new Task(); // Instancia la clase para agregar los métodos al prototipo de String
 
 console.log("==== Use examples ====");
 
