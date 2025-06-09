@@ -8,31 +8,30 @@ Solvd. Inc. Node Js course LABA
 
 
 ## Project Structure
-solvd_laba/
-
-    ├──README.md
-    └── homeworks
-        ├── homework-1
-        │   └── task1
-        │   └── task2
-        │   └── ...
-        │   └── taskn
-        │   └── other directories...
-        │   └── main.js  # File that contains either the task description and the output of the solution/s. (You should run this file)
-        ├── homework-2/    
-        │   └── task1    
-        │   └── task2
-        │   └── ...
-        │   └── taskn
-        │   └── other directories...
-        │   └── main.js    (You should run this file)
-        └── homework-n/     
-            └── task1   
-            └── task2
-            └── ...
-            └── taskn
-            └── other directories...
-            └── main.js     (You should run this file)
+    solvd_laba/
+        ├──README.md
+        └── homeworks
+            ├── homework-1
+            │   └── task1
+            │   └── task2
+            │   └── ...
+            │   └── taskn
+            │   └── other directories...
+            │   └── main.js  # File that contains either the task description and the output of the solution/s. (You should run this file)
+            ├── homework-2/    
+            │   └── task1    
+            │   └── task2
+            │   └── ...
+            │   └── taskn
+            │   └── other directories...
+            │   └── main.js    (You should run this file)
+            └── homework-n/     
+                └── task1   
+                └── task2
+                └── ...
+                └── taskn
+                └── other directories...
+                └── main.js     (You should run this file)
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
