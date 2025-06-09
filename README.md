@@ -19,7 +19,7 @@ solvd_laba/
     │   └── ...
     │   └── taskn
     │   └── other directories...
-    │   └── main.js  #=============>   # File that contains either the task description and the output of the solution/s. (You should run this file)
+    │   └── main.js  # File that contains either the task description and the output of the solution/s. (You should run this file)
     ├── homework-2/    
     │   └── main.js    
     └── homework-n/    
