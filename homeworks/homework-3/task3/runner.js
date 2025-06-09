@@ -1,5 +1,17 @@
 import { Task3 } from "./solution.js";
 
+/**
+ * Executes demonstrations for Task 3, including:
+ * - Creating and using independent counters.
+ * - Repeating a function a specified number of times.
+ * - Repeating a function indefinitely with the ability to stop after a timeout.
+ *
+ * The function logs output to the console to illustrate the behavior of counters and repeat functions.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} Resolves when all demonstrations are complete.
+ */
 export async function runTask3() {
 
   console.log("🔢 COUNTERS\n");
