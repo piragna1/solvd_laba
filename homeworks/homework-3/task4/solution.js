@@ -1,6 +1,6 @@
 // task4/solution.js
 
-export class MathUtils {
+export class Task4 {
   /**
    * Squares each number in the array.
    */

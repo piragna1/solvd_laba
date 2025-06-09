@@ -1,6 +1,6 @@
 // task1/solution.js
 
-export class ProductUtils {
+export class Task1 {
   /**
    * Calculates the discounted price for each product in the given array.
    */

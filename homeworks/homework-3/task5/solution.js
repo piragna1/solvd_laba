@@ -1,6 +1,6 @@
 // task5/solution.js
 
-export class ArrayUtils {
+export class Task5 {
   /**
    * Finds the maximum number in the array.
    */

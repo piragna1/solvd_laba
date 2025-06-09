@@ -7,29 +7,37 @@ export const products = [
   { name: "strawberry", price: 500 },
 ];
 
+export const persons = [
+  { firstName: "John", lastName: "Doe" },
+  { firstName: "Jane", lastName: "Smith" },
+  { firstName: "Alice", lastName: "Johnson" },
+  { firstName: "Bob", lastName: "Brown" },
+];
+
+
 export const inputString =
   "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.";
 
 export const students = [
   {
     name: "Alice",
-    grades: [
-      { subject: "Math", scores: [85, 90, 78] },
-      { subject: "English", scores: [88, 92, 85] },
+    subjects: [
+      { subject: "Math", grades: [85, 90, 78] },
+      { subject: "English", grades: [88, 92, 85] },
     ],
   },
   {
     name: "Bob",
-    grades: [
-      { subject: "Math", scores: [80, 85, 82] },
-      { subject: "English", scores: [78, 80, 75] },
+    subjects: [
+      { subject: "Math", grades: [80, 85, 82] },
+      { subject: "English", grades: [78, 80, 75] },
     ],
   },
   {
     name: "Charlie",
-    grades: [
-      { subject: "Math", scores: [90, 95, 92] },
-      { subject: "English", scores: [88, 90, 85] },
+    subjects: [
+      { subject: "Math", grades: [90, 95, 92] },
+      { subject: "English", grades: [88, 90, 85] },
     ],
   },
 ];

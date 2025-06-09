@@ -1,33 +1,80 @@
 // main.js
 
-import { products, inputString, students, numbers, factorized, base, exponent } from "./data.js";
-import { ProductUtils } from "./task1/solution.js";
-import { TextUtils } from "./task2/solution.js";
-import { GradeUtils } from "./task3/solution.js";
-import { MathUtils } from "./task4/solution.js";
-import { ArrayUtils } from "./task5/solution.js";
+import { products, persons,inputString, students, numbers, factorized, base, exponent } from "./data.js";
+import { Task1 } from "./task1/solution.js";
+import { Task2 } from "./task2/solution.js";
+import { Task3 } from "./task3/solution.js";
+import { Task4 } from "./task4/solution.js";
+import { Task5 } from "./task5/solution.js";
 
-console.log("\n--- Task 1: Products ---");
-const discounted = ProductUtils.calculateDiscountedPrice(products, 10);
-console.log("Discounted Products:", discounted);
-console.log("Total Price:", ProductUtils.calculateTotalPrice(discounted));
+console.log("\n==================== TASK 1: PRODUCTS ====================\n");
 
-console.log("\n--- Task 2: Text ---");
-const uniqueSortedWords = TextUtils.filterUniqueWords(inputString);
-console.log("Unique & Sorted Words:", uniqueSortedWords);
+console.log("📦 ORIGINAL PRODUCTS:");
+products.forEach((p, i) => {
+  console.log(`  ${i + 1}. ${p.name} - $${p.price}`);
+});
 
-console.log("\n--- Task 3: Student Grades ---");
-const reports = GradeUtils.getStudentReports(students);
-console.log("Student Reports:", reports);
+console.log("\n💸 DISCOUNTED PRODUCTS (10% off):");
+const discounted = Task1.calculateDiscountedPrice(products, 10);
+discounted.forEach((p, i) => {
+  console.log(`  ${i + 1}. ${p.name} - $${p.price}`);
+});
 
-console.log("\n--- Task 4: Math ---");
-console.log("Squared:", MathUtils.squareNumbers(numbers));
-console.log("Odds:", MathUtils.filterOddNumbers(numbers));
-console.log(`Factorial(${factorized}):`, MathUtils.factorial(factorized));
-console.log(`${base}^${exponent} =`, MathUtils.power(base, exponent));
+console.log("\n🧾 TOTAL PRICE (Original): $" + Task1.calculateTotalPrice(products));
 
-console.log("\n--- Task 5: Arrays ---");
-console.log("Max:", ArrayUtils.findMax(numbers));
-console.log("Min:", ArrayUtils.findMin(numbers));
-console.log("Sum:", ArrayUtils.sum(numbers));
-console.log(">3:", ArrayUtils.filterGreaterThan(numbers, 3));
+console.log("\n==========================================================\n");
+
+
+console.log("\n==================== TASK 2 ====================");
+
+// Mostrar arreglo persons sin formato (raw)
+console.log("\n🗃️ RAW PERSONS ARRAY:");
+console.log(persons);
+
+// Mostrar todos los nombres completos
+console.log("\n🧑 FULL NAMES OF ALL PERSONS:");
+persons.forEach((person, idx) => {
+  console.log(`  ${idx + 1}. ${Task2.getFullName(person)}`);
+});
+
+// Mostrar el inputString original
+console.log("\n📝 INPUT STRING:");
+console.log(`  "${inputString}"`);
+
+// Palabras únicas y ordenadas
+const uniqueSortedWords = Task2.filterUniqueWords(inputString);
+console.log("\n🔤 UNIQUE & SORTED WORDS:");
+uniqueSortedWords.forEach((word, index) => {
+  console.log(`  ${index + 1}. ${word}`);
+});
+
+// Reportes de estudiantes
+console.log("\n🗃️ RAW STUDENTS DATA:");
+students.forEach((student, i) => {
+  console.log(`\n  Student ${i + 1}: ${student.name}`);
+  student.subjects.forEach((subject) => {
+    console.log(`    - ${subject.subject}: ${subject.grades.join(", ")}`);
+  });
+});
+const reports = Task2.getStudentReports(students);
+console.log("\n🎓 STUDENT REPORTS:");
+reports.forEach((report, i) => {
+  console.log(`\n  📘 Student ${i + 1}: ${report.name}`);
+  report.subjectAverages.forEach((subject) => {
+    console.log(`    - ${subject.subject}: ${subject.average.toFixed(2)}`);
+  });
+  console.log(`    🧮 Overall Average: ${report.overallAverage.toFixed(2)}`);
+});
+
+console.log("\n===================================================");
+console.log("\n--- Task 4: ---");
+console.log("Squared:", Task4.squareNumbers(numbers));
+console.log("Odds:", Task4.filterOddNumbers(numbers));
+console.log(`Factorial(${factorized}):`, Task4.factorial(factorized));
+console.log(`${base}^${exponent} =`, Task4.power(base, exponent));
+
+console.log("\n--- Task 5: ---");
+console.log("Max:", Task5.findMax(numbers));
+console.log("Min:", Task5.findMin(numbers));
+console.log("Sum:", Task5.sum(numbers));
+console.log(">3:", Task5.filterGreaterThan(numbers, 3));
