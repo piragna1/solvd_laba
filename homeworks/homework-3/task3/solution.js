@@ -9,18 +9,18 @@ export class Task3 {
     };
   }
   static repeatFunction(fn, times) {
-    return function executor() {
-      if (times >= 0) {
-        // Collect results if fn returns something useful, or ignore
-        for (let i = 0; i < times; i++) {
-          fn();
-        }
-        // no stop function here
-      } else {
-        const id = setInterval(fn, 1000);
-        // return a function that clears the interval
-        return () => clearInterval(id);
+  return function executor() {
+    if (times >= 0) {
+      for (let i = 0; i < times; i++) {
+        fn();
       }
-    };
-  }
+      return; // nada más que hacer
+    } else {
+      const id = setInterval(fn, 1000);
+      // Retornamos una función para parar la repetición
+      return () => clearInterval(id);
+    }
+  };
+}
+
 }

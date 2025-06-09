@@ -6,7 +6,10 @@ import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
 import { Task4 } from "./task4/solution.js";
 import { Task5 } from "./task5/solution.js";
+import { runTask3 } from "./task3/runner.js";
 
+
+async function main() {
 console.log("\n==================== TASK 1: PRODUCTS ====================\n");
 
 console.log("📦 ORIGINAL PRODUCTS:");
@@ -58,9 +61,7 @@ students.forEach((student, i) => {
 });
 console.log("\n🎓 STUDENT REPORTS:");
 console.log(Task2.getStudentReports(students));
-
-
-console.log("\n===================================================");
+await runTask3();
 console.log("\n--- Task 4: ---");
 console.log("Squared:", Task4.squareNumbers(numbers));
 console.log("Odds:", Task4.filterOddNumbers(numbers));
@@ -72,3 +73,9 @@ console.log("Max:", Task5.findMax(numbers));
 console.log("Min:", Task5.findMin(numbers));
 console.log("Sum:", Task5.sum(numbers));
 console.log(">3:", Task5.filterGreaterThan(numbers, 3));
+
+  
+}
+
+
+main();

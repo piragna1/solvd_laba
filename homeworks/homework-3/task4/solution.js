@@ -1,32 +1,25 @@
 // task4/solution.js
 
+import { trampoline } from "../shared/trampoline";
+
 export class Task4 {
-  /**
-   * Squares each number in the array.
-   */
-  static squareNumbers(numbers) {
-    return numbers.map((n) => n ** 2);
+  
+  static calculateFactorial(n, acc = 1) {
+    if (n <= 1) {
+      return acc;
+    }
+    return () => calculateFactorial(n - 1, acc * n);
   }
 
-  /**
-   * Filters out even numbers from the array.
-   */
-  static filterOddNumbers(numbers) {
-    return numbers.filter((n) => n % 2 !== 0);
-  }
+  static power(base, exponent, acc = 1) {
+    if (exponent === 0) {
+      return acc;
+    }
 
-  /**
-   * Calculates the factorial of a given number.
-   */
-  static factorial(n) {
-    if (n < 0) return undefined;
-    return n === 0 ? 1 : n * this.factorial(n - 1);
-  }
-
-  /**
-   * Calculates base^exponent.
-   */
-  static power(base, exponent) {
-    return base ** exponent;
+    if (exponent % 2 === 0) {
+      return () => power(base * base, exponent / 2, acc);
+    } else {
+      return () => power(base, exponent - 1, acc * base);
+    }
   }
 }
