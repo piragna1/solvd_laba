@@ -68,21 +68,36 @@ await runTask3();
 console.log("\n==========================================================\n");
 
 console.log("\n==================== TASK 4 ====================\n");
+console.log(`🧮 Factorial(${factorized}) =`);
+console.log(trampoline(() => Task4.calculateFactorial(factorized)));
 
-const fact = 150;
-const powBase = 2;
-const powExp = 20;
+console.log(`\n💥 Power(${base} ^ ${exponent}) =`);
+console.log(trampoline(() => Task4.power(base, exponent)));
 
-console.log(`🧮 Factorial(${fact}) =`);
-console.log(trampoline(() => Task4.calculateFactorial(fact)));
+console.log("\n==========================================================\n");
 
-console.log(`\n💥 Power(${powBase} ^ ${powExp}) =`);
-console.log(trampoline(() => Task4.power(powBase, powExp)));
+
+console.log("\n==================== TASK 5 ====================\n");
+console.log("📥 INPUT NUMBERS ARRAY:");
+console.log(numbers);
+
+console.log("\n🌀 Lazy Map (x2 each number):");
+const lazyIterator = Task5.lazyMap(numbers, x => x * 2);
+let result = lazyIterator.next();
+let count = 1;
+while (!result.done) {
+  console.log(`  ${count++}. ${result.value}`);
+  result = lazyIterator.next();
+}
+
+console.log("\n🧬 Fibonacci Sequence (First 10 numbers):");
+const fibGen = Task5.fibonacciGenerator();
+for (let i = 1; i <= 10; i++) {
+  console.log(`  ${i}. ${fibGen.next().value}`);
+}
+
 console.log("\n==========================================================\n");
 }
-console.log("\n==================== TASK 5 ====================\n");
-
-console.log("\n==========================================================\n");
 
 
 main();

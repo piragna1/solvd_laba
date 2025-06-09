@@ -42,8 +42,8 @@ export const students = [
   },
 ];
 
-export const numbers = [1, 2, 3, 4, 5];
 
-export const factorized = 150;
+export const factorized = 15;
 export const base = 2;
 export const exponent = 20;
+export const numbers = [1, 2, 3, 4, 5];
