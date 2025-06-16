@@ -8,3 +8,5 @@ Functions
 				}
 			}
 			// It will print: Hi I am undefined!
+	function caching
+	
