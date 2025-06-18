@@ -13,6 +13,8 @@ Solvd. Inc. Node Js course LABA
         └── homeworks
             ├── homework-1
             │   └── task1
+            │       └── solution.js
+            │       └── other files...
             │   └── task2
             │   └── ...
             │   └── taskn
