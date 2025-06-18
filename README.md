@@ -15,24 +15,13 @@ Solvd. Inc. Node Js course LABA
             │   └── task1
             │       └── solution.js
             │       └── other files...
-            │   └── task2
             │   └── ...
             │   └── taskn
             │   └── other directories...
             │   └── main.js  # File that contains either the task description and the output of the solution/s. (You should run this file)
-            ├── homework-2/    
-            │   └── task1    
-            │   └── task2
-            │   └── ...
-            │   └── taskn
-            │   └── other directories...
-            │   └── main.js    (You should run this file)
+            ...
             └── homework-n/
-            │   └── shared
-            │   └── task1
-            │       └── solution.js
-            │       └── other files
-            │   └── main.js (You should run this file)
+            │   └── ...
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
