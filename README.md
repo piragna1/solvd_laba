@@ -27,13 +27,12 @@ Solvd. Inc. Node Js course LABA
             │   └── taskn
             │   └── other directories...
             │   └── main.js    (You should run this file)
-            └── homework-n/     
-                └── task1   
-                └── task2
-                └── ...
-                └── taskn
-                └── other directories...
-                └── main.js     (You should run this file)
+            └── homework-n/
+            │   └── shared
+            │   └── task1
+            │       └── solution.js
+            │       └── other files
+            │   └── main.js (You should run this file)
 
 # Requirements
 it will be necessary to install Node.js and typescript in order to run the files' content.
