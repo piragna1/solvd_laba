@@ -25,10 +25,10 @@ const person = {
     email: "john.doe@example.com",
 }
 Object.defineProperties(person, {
-    firstName: {writable:false,},
-    lastName: {writable:false,},
-    age: {writable:false,},
-    email: {writable:false,},
+    firstName: {writable:false,enumerable:true},
+    lastName: {writable:false,enumerable:true},
+    age: {writable:false,enumerable:true},
+    email: {writable:false,enumerable:true},
 });
 /**Implement a method called `updateInfo` on the person object that takes a new info object as an argument.
     The info object should contain updated values for any of the properties (e.g., { firstName: "Jane",
@@ -40,17 +40,10 @@ Object.defineProperty(person, 'updateInfo', {
             let updatedPerson = {};
             let originalDescriptors = Object.getOwnPropertyDescriptors(person);
             let newDescriptors = {...originalDescriptors};
-            if (info.firstName!==undefined){
-                newDescriptors.firstName.value=info.firstName;
-            }
-            if (info.lastName!==undefined){
-                newDescriptors.lastName.value=info.lastName;
-            }
-            if (info.age!==undefined){
-                newDescriptors.age.value=info.age;
-            }
-            if (info.email!==undefined){
-                newDescriptors.email.value=info.email;
+            for (const key of Object.keys(originalDescriptors)){
+                if (info[key] !== undefined){
+                    newDescriptors[key].value = info[key];
+                }
             }
             updatedPerson = Object.defineProperties(updatedPerson, newDescriptors);
             return updatedPerson;
@@ -60,4 +53,4 @@ Object.defineProperty(person, 'updateInfo', {
         configurable:true
     }
 );
-console.log(person.updateInfo({firstName:'Alicia'}));
+let res = person.updateInfo({firstName:'Alicia'});
