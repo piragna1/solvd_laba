@@ -1,19 +1,12 @@
 /**### **Task 1: Object Property Manipulation**
-
 Create an object called person with the following properties and values:
-
 ```jsx
 firstName: "John"
 lastName: "Doe"
 age: 30
 email: "john.doe@example.com"
 ```
-
-
-Create a new property called `address` on the person object with an initial value of an empty object. 
-    Make this property non-enumerable and non-configurable. */
-
-
+*/
 /**Use property descriptors to make all properties of the person object read-only and non-writable,
     so their values cannot be changed directly.
  * 
@@ -54,3 +47,6 @@ Object.defineProperty(person, 'updateInfo', {
     }
 );
 let res = person.updateInfo({firstName:'Alicia'});
+/** Create a new property called `address` on the person object with an initial value of an empty object. 
+    Make this property non-enumerable and non-configurable. */
+
