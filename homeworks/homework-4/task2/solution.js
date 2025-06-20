@@ -17,14 +17,14 @@ Object.defineProperties(product, {
   price: {
     writable: false,
     enumerable: false,
-    configurable: false,
+    configurable: true,
   },
   quantity: {
     writable: false,
     enumerable: false,
   },
 });
-console.log(Object.getOwnPropertyDescriptors(product));
+// console.log(Object.getOwnPropertyDescriptors(product));
 /**Implement a function called `getTotalPrice` that takes the product object as an argument and returns 
     the total price (calculated as price * quantity). Ensure that the function accesses the 
     non-enumerable properties directly using the Object.getOwnPropertyDescriptor method.
@@ -49,10 +49,10 @@ const deleteNonConfigurable = function (object, propertyKey) {
   return delete object[propertyKey];
 };
 
-// try {
-//   console.log(deleteNonConfigurable(product, "price"));
-// } catch (e) {
-//   console.error(e.message);
-// } finally {
-//   console.log(Object.hasOwn(product, "price"));
-// }
+try {
+  console.log(deleteNonConfigurable(product, "price"));
+} catch (e) {
+  console.error(e.message);
+} finally {
+  console.log(Object.hasOwn(product, "price"));
+}
