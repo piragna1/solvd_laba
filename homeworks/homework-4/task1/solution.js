@@ -49,4 +49,9 @@ Object.defineProperty(person, 'updateInfo', {
 let res = person.updateInfo({firstName:'Alicia'});
 /** Create a new property called `address` on the person object with an initial value of an empty object. 
     Make this property non-enumerable and non-configurable. */
-
+Object.defineProperty(person, 'address',{
+    value:{},
+    writable:true,
+    enumerable:false,
+    configurable:false
+});
