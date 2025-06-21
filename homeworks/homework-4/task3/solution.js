@@ -46,9 +46,9 @@ Object.defineProperty(bankAccount, "transfer", {
   enumerable: true,
   configurable: true,
 });
-const bankAccount1={balance:200}
-Object.defineProperty(bankAccount1, 'formattedBalance', Object.getOwnPropertyDescriptor(bankAccount,'formattedBalance'));
-Object.defineProperty(bankAccount1, 'setBalance', Object.getOwnPropertyDescriptor(bankAccount,'setBalance'));
-bankAccount.transfer(bankAccount, bankAccount1,bankAccount.balance)
-console.log('Sender remaining balance:'+bankAccount.formattedBalance)
-console.log('Receiver remaining balance:'+bankAccount1.formattedBalance)
+// const bankAccount1={balance:200}
+// Object.defineProperty(bankAccount1, 'formattedBalance', Object.getOwnPropertyDescriptor(bankAccount,'formattedBalance'));
+// Object.defineProperty(bankAccount1, 'setBalance', Object.getOwnPropertyDescriptor(bankAccount,'setBalance'));
+// bankAccount.transfer(bankAccount, bankAccount1,bankAccount.balance)
+// console.log('Sender remaining balance:'+bankAccount.formattedBalance)
+// console.log('Receiver remaining balance:'+bankAccount1.formattedBalance)
