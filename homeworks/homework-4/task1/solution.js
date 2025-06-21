@@ -7,22 +7,27 @@ age: 30
 email: "john.doe@example.com"
 ```
 */
-/**Use property descriptors to make all properties of the person object read-only and non-writable,
-    so their values cannot be changed directly.
- * 
- */
 const person = {
     firstName: "John",
     lastName: "Doe",
     age: 30,
     email: "john.doe@example.com",
 }
+
+/**Use property descriptors to make all properties of the person object read-only and non-writable,
+    so their values cannot be changed directly.
+ * 
+ */
 Object.defineProperties(person, {
-    firstName: {writable:false,enumerable:true},
-    lastName: {writable:false,enumerable:true},
-    age: {writable:false,enumerable:true},
-    email: {writable:false,enumerable:true},
+    firstName: {writable:false,enumerable:true,configurable:false},
+    lastName: {writable:false,enumerable:true,configurable:false},
+    age: {writable:false,enumerable:true,configurable:false},
+    email: {writable:false,enumerable:true,configurable:false},
 });
+for (const key of Object.keys(Object.getOwnPropertyDescriptors(person))){
+    console.log(Object.getOwnPropertyDescriptor(person,key))
+}
+
 /**Implement a method called `updateInfo` on the person object that takes a new info object as an argument.
     The info object should contain updated values for any of the properties (e.g., { firstName: "Jane",
     age: 32 }).
@@ -47,6 +52,7 @@ Object.defineProperty(person, 'updateInfo', {
     }
 );
 let res = person.updateInfo({firstName:'Alicia'});
+
 /** Create a new property called `address` on the person object with an initial value of an empty object. 
     Make this property non-enumerable and non-configurable. */
 Object.defineProperty(person, 'address',{
