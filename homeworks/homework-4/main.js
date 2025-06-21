@@ -1,5 +1,6 @@
 import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
+import { Task3 } from "./task3/solution.js";
 
 // TASK 1---------------------------------------------
             // // Usage example:
@@ -99,4 +100,42 @@ import { Task2 } from "./task2/solution.js";
             //   '\n⚪ 6. Attempting to check which properties remain in the object'
             // );
             // console.log(Object.getOwnPropertyDescriptors(task2.getProduct()));
+//------
+
+// TASK 3---------------------------------------------
+
+            // // Usage demonstration:
+            // const task3 = new Task3();
+
+            // // 1. Create the bankAccount object
+            // console.log('\n🟢 1. Create the bankAccount object with a default balance:');
+            // task3.createBankAccount();
+            // console.log(task3.getBankAccount());
+
+            // // 2. Add a getter for formattedBalance
+            // console.log('\n🔵 2. Add a getter for formattedBalance:');
+            // task3.addFormattedBalanceGetter();
+            // console.log('formattedBalance:', task3.getBankAccount().formattedBalance);
+
+            // // 3. Add a setter for balance
+            // console.log('\n🟡 3. Add a setter for balance:');
+            // task3.addBalanceSetter();
+            // task3.getBankAccount().setBalance = 2000;
+            // console.log('Updated balance:', task3.getBankAccount().balance);
+            // console.log('Updated formattedBalance:', task3.getBankAccount().formattedBalance);
+
+            // // 4. Implement the transfer method
+            // console.log('\n🟣 4. Implement the transfer method and demonstrate a transfer:');
+            // task3.addTransferMethod();
+            // const sender = task3.getBankAccount();
+            // const receiver = Task3.cloneBankAccount(sender);
+            // receiver.setBalance = 500;
+            // console.log('Sender before transfer:', sender.formattedBalance);
+            // console.log('Receiver before transfer:', receiver.formattedBalance);
+            // console.log('-------')
+            // sender.transfer(sender, receiver, 300);
+            // console.log('Transferring: $300...')
+            // console.log('-------')
+            // console.log('Sender after transfer:', sender.formattedBalance);
+            // console.log('Receiver after transfer:', receiver.formattedBalance);
 //------
