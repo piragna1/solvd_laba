@@ -1,6 +1,8 @@
 import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
+import { Task4 } from "./task4/solution.js";
+import { printDescriptors } from "./task4/helper.js";
 
 // TASK 1---------------------------------------------
             // // Usage example:
@@ -139,3 +141,25 @@ import { Task3 } from "./task3/solution.js";
             // console.log('Sender after transfer:', sender.formattedBalance);
             // console.log('Receiver after transfer:', receiver.formattedBalance);
 //------
+
+// TASK 3---------------------------------------------
+            // // Usage demonstration:
+            // const task4 = new Task4();
+
+            // // 1. Show the original person object
+            // console.log("\n🟢 1. Original person object:");
+            // console.log(task4.getPerson());
+
+            // // 2. Create an immutable version of the person object
+            // console.log("\n🔵 2. Immutable version of the person object:");
+            // const immutablePerson = task4.getImmutablePerson(task4.getPerson());
+            // console.log(immutablePerson);
+
+            // // 3. Show property descriptors for both objects
+            // console.log("\n🟡 3. Comparing both person objects descriptors:");
+            // console.log("\n Property descriptors for person:");
+            // printDescriptors(task4.getPerson());
+            // console.log("\n Property descriptors for immutablePerson:");
+            // printDescriptors(immutablePerson);
+//------
+
