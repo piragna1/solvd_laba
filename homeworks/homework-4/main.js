@@ -3,6 +3,7 @@ import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
 import { Task4 } from "./task4/solution.js";
 import { printDescriptors } from "./task4/helper.js";
+import { Task5 } from "./task5/solution.js";
 
 // TASK 1---------------------------------------------
             // // Usage example:
@@ -142,7 +143,7 @@ import { printDescriptors } from "./task4/helper.js";
             // console.log('Receiver after transfer:', receiver.formattedBalance);
 //------
 
-// TASK 3---------------------------------------------
+// TASK 4---------------------------------------------
             // // Usage demonstration:
             // const task4 = new Task4();
 
@@ -163,3 +164,54 @@ import { printDescriptors } from "./task4/helper.js";
             // printDescriptors(immutablePerson);
 //------
 
+// TASK 5---------------------------------------------
+            // //Usage demonstration:
+            // const t5 = new Task5();
+            // // 1. Implementation of the private `observeObject` function within class Task5
+
+            // // 2. Usage of the custom proxy object
+            // console.log("\n🟢 1. Creating proxy object for the person object...");
+            // console.log('person object structure: ', t5.person)
+            // const friendlyProxy = t5.createProxyObject(t5.person)
+            // console.log("\n🔵 2. Analyzing responses of executing different actions on the target person object.");
+            // console.log("\n👉 Accessing data:");
+            // console.log('console.log(friendlyProxy.firstName):',friendlyProxy.firstName);
+            // console.log('console.log(friendlyProxy.lastName)',friendlyProxy.lastName);
+            // console.log('console.log(friendlyProxy.age)',friendlyProxy.age);
+            // console.log('console.log(friendlyProxy.email)',friendlyProxy.email);
+            // console.log('\n👉 Trying to update fields with invalid inputs:')
+            // try {
+            //   friendlyProxy.firstName = "ca";
+            // } catch (e) {
+            //   console.error(e.message);
+            // }
+
+            // try {
+            //   friendlyProxy.lastName = "ca";
+            // } catch (e) {
+            //   console.error(e.message);
+            // }
+            // try {
+            //   friendlyProxy.age = 180;
+            // } catch (e) {
+            //   console.error(e.message);
+            // }
+            // try {
+            //   friendlyProxy.email = "ca";
+            // } catch (e) {
+            //   console.error(e.message);
+            // }
+
+            // console.log('\n👉 Trying to update fields with valid inputs:')
+            // friendlyProxy.firstName = "Carlax";
+            // friendlyProxy.lastName = "Galarga";
+            // friendlyProxy.age = 80;
+            // friendlyProxy.email = "elber.galarga@gmail.com";
+
+            // console.log('\n👉 Accessing modified data:')
+            // console.log(friendlyProxy.firstName);
+            // console.log(friendlyProxy.lastName);
+            // console.log(friendlyProxy.age);
+            // console.log(friendlyProxy.email);
+
+//------
