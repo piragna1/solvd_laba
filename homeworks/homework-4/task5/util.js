@@ -36,3 +36,25 @@ export function validateAge(age){
             }
             return;
 }
+
+export function logFn(target, prop, value) {
+  if (typeof value === "object") {
+    return `Accessing current value of '${prop}': ${target[prop]}`;
+  } else {
+    //validations
+    if (prop === "firstName") {
+      validateName(value);
+    } else if (prop === "lastName") {
+      validateLastName(value);
+    } else if (prop === "age") {
+      validateAge(value);
+    } else if (prop === "email") {
+      validateEmail(value);
+    } else {
+      throw new Error(`${prop} is not an existing property of the object.`);
+    }
+    console.log(`Changing ${prop} from ${target[prop]} to ${value}...`);
+    target[prop] = value;
+    return true;
+  }
+};
