@@ -60,22 +60,3 @@ export class Task4 {
   }
 }
 
-// Usage demonstration:
-const task4 = new Task4();
-
-// 1. Show the original person object
-console.log("\n🟢 1. Original person object:");
-console.log(task4.getPerson());
-
-// 2. Create an immutable version of the person object
-console.log("\n🔵 2. Immutable version of the person object:");
-const immutablePerson = task4.getImmutablePerson(task4.getPerson());
-console.log(immutablePerson);
-
-// 3. Show property descriptors for both objects
-console.log("\n🟡 3. Comparing both person objects descriptors:");
-console.log("\n Property descriptors for person:");
-printDescriptors(task4.getPerson());
-console.log("\n Property descriptors for immutablePerson:");
-printDescriptors(immutablePerson);
-
