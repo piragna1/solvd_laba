@@ -1,3 +1,9 @@
+import {
+  validateAge,
+  validateEmail,
+  validateName,
+  validateLastName,
+} from "./util.js";
 /*### Task 5: Object Observation*/
 const person = {
   firstName: "John",
@@ -11,59 +17,92 @@ const person = {
     modified.
  */
 export const observeObject = function (object, callbackFn) {
-   return new Proxy(object, {
-      get(target,prop,receiver){
-         callbackFn(target,prop,receiver);
-      },
-      set(target,prop,val){
-         callbackFn(target,prop,val);
-      }
-   })
+  return new Proxy(object, {
+    get(target, prop, receiver) {
+      return callbackFn(target, prop, receiver);
+    },
+    set(target, prop, val) {
+      return callbackFn(target, prop, val);
+    },
+  });
 };
 /**
  * Use the observeObject function to create a proxy for the person object from Task 1. The callback function should log the 
     property name and the action (get or set) performed on the object. 
  */
-export const logAction = function(action, prop, val1,val2){
-   if (action === 'get'){
-      console.log('Accessing current value of '+prop+': '+val1);
-   }
-   else{
-      console.log('Updating current value of '+prop+' from  '+val1+' to: '+val2);
-   }
+export const logFn = function (target, prop, value) {
+  if (typeof value === 'object') {
+    return `Accessing current value of '${prop}': ${target[prop]}`;
+  } else {
+    //validations
+    if (prop === "firstName") {
+      validateName(value);
+    } else if (prop === "lastName") {
+      validateLastName(value);
+    } else if (prop === "age") {
+      validateAge(value);
+    } else if (prop === "email") {
+      validateEmail(value);
+    } else {
+      throw new Error(`${prop} is not an existing property of the object.`);
+    }
+    console.log(`Changing ${prop} from ${target[prop]} to ${value}...`);
+    target[prop] = value;
+    return true;
+  }
+};
+const friendlyProxy = observeObject(person, logFn);
+
+
+
+/**nombre invalido
+ * apellido invalido
+ * edad invalida
+ * email invalido
+ * 
+ * datos validos
+ * 
+ * 8 casos
+ */
+
+console.log(friendlyProxy.firstName)
+console.log(friendlyProxy.lastName)
+console.log(friendlyProxy.age)
+console.log(friendlyProxy.email)
+
+try{
+friendlyProxy.firstName = 'ca'
+}
+catch(e){
+   console.error(e.message)
 }
 
-// console.log(person)
-const hi = function(target,prop,receiver,newVal){
-   if (newVal){
-
-   // console.log('hola');
-   }
-   else{
-
-   console.log('OBJECT',prop,':',target[prop]);
-   }
-   // console.log('receiver:\n',receiver)
+try{
+friendlyProxy.lastName = 'ca'
 }
-const genFriendlyProxy = function(object, fn){
-   //the handler contains the traps which define the behavior of the proxy
-   const handler = {
-      //traps (handler functions). Defines the behavior for the corresponding `object internal method`
-      get(target,prop,receiver){ // intercepts attempts to access properties in the target
-         fn(target,prop,receiver);
-      },
-      set(target,prop,value){
-         //validations
-         if (prop === 'firstName'){}
-         else if (prop === 'lastName'){}
-         else if (prop === 'age'){}
-         else if (prop === 'email'){}
-         else{throw new Error(`${prop} is not an existing property of the object.`)}
-      }
-   }
-   return new Proxy(object, handler);
+catch(e){
+   console.error(e.message)
 }
-const friendlyProxy = genFriendlyProxy(person, hi);
-friendlyProxy.firstName;
-friendlyProxy.caracola='hola';
-friendlyProxy.lastName;
+try{
+friendlyProxy.age = 180
+}
+catch(e){
+   console.error(e.message)
+}
+try{
+friendlyProxy.email = 'ca'
+}
+catch(e){
+   console.error(e.message)
+}
+
+friendlyProxy.firstName = 'Carlax'
+friendlyProxy.lastName = 'Galarga'
+friendlyProxy.age = 80
+friendlyProxy.email = 'elber.galarga@gmail.com'
+
+
+console.log(friendlyProxy.firstName)
+console.log(friendlyProxy.lastName)
+console.log(friendlyProxy.age)
+console.log(friendlyProxy.email)
