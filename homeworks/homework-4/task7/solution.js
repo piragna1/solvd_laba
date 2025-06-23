@@ -25,7 +25,7 @@ export class Task7 {
         enterprise: "DevSolutions",
         role: "Senior Dev",
         from: "2022-05-01",
-        to: null, // actually working
+        to: '2',
       },
     ],
   };
@@ -34,7 +34,7 @@ export class Task7 {
     lastName: { type: "string", required: true },
     age: { type: "number", required: true },
     email: {
-      type: "number",
+      type: "string",
       required: true,
       pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
@@ -72,159 +72,105 @@ export class Task7 {
      * The schema should define the required properties, their types, and any additional validation rules. 
         The function should return true if the object matches the schema, and false otherwise. 
         You can choose any schema you want.*/
-  validateObject(object, personaValidationSchema) {
-    let ret = true;
-    //req
-    if (personaValidationSchema.type === "string") {
-      //string
-      if (!object || typeof object !== "string") {
-        ret = false;
-      }
-    } else if (personaValidationSchema.type === "number") {
-      //number
-      if (!object || typeof object !== "number") {
-        ret = false;
-      }
-    } else if (personaValidationSchema.type === "boolean") {
-      //boolean
-      if (!object || typeof object !== "boolean") {
-        ret = false;
-      }
-    } else if (
-      //arr
-      personaValidationSchema.type === "array"
-    ) {
-      if (object && object instanceof Array) {
-        //manage items
-        if (
-          !personaValidationSchema.itemType === "object" &&
-          !personaValidationSchema.itemType === "array"
-        ) {
-          //not object items
-          for (let key of Object.keys(object)) {
-            ret = this.validateObject(
-              object[key],
-              personaValidationSchema["itemType"]
-            );
-          }
-        } else {
-          // object items
-          for (let key of Object.keys(object)) {
-            ret = this.validateObject(
-              object[key],
-              personaValidationSchema["itemSchema"]
-            );
-          }
-        }
-      }
-    } else if (personaValidationSchema.type === "object") {
-      //obj literal
-      for (let key of Object.keys(object)) {
-        ret = this.validateObject(
-          object[key],
-          personaValidationSchema["itemSchema"][key]
-        );
-      }
-    }
-    return ret;
-  }
-  validateObject1(object, schema) {
-    let ret = true;
-    //required property falsy/truthy?
-    if (schema.required === undefined) {
-      // falsy
-      for (let key of Object.keys(object)) {
-        //iterate over object
-        ret = this.validateObject(object[key], schema[key]);
-      }
-    } else {
-      // truthy
-      // required property true/false?
-      if (schema.required === true) {
-        // true
-        //1st argument is object?
-        if (typeof object === "object") {
-          //object
-          //1st argument schema 'type' property is array?
-          if (schema.type === "array") {
-            //it is array
-            //are items type 'object'?
-            if (schema.itemType === "object") {
-              //items are object
-              //iterate objects array
-              for (let key of Object.keys(object)) {
-                ret = this.validateObject(object[key], schema["itemSchema"]);
-              }
-            } else {
-              //items are primitive type data
-              for (let key of Object.keys(object)) {
-                //iterate primitive type data array
-                ret = this.validateObject(object[key], schema["itemType"]);
-              }
-            }
-          } else {
-            //shema.type === 'object'
-            for (let key of Object.keys(object)) {
-              //iterate over object properties
-              ret = this.validateObject(object[key], schema["itemSchema"][key]);
-            }
-          }
-        }
-        //1st argument : primitive data type
-        else {
-          //validate 1st arg against the schema
-          ret = object && typeof object === schema.type;
-        }
-      }
-    }
-    return ret;
-  }
   /**
-   * Probar
-   *  inicializar la variable en true
-   *  modificar variable a false cuando corresponda
-   *  retorno
+   * Recursively validates an object against a schema.
    *
-   * seria basicamente abordar la problematica al reves, validar dessde un principio un objeto como true
-   * y buscar el false. Una vez encontrado un falso ya se puede terminar la validacion. Si no se encuentra ninguna
-   * propiedad que no este correctamente completada, es decir, que el objeto ingresado es valido, entonces
-   * se puede retornar true.
+   * Supports:
+   * - Types: string, number, boolean, object, array
+   * - Required properties
+   * - Nested objects
+   * - Arrays of primitives or objects
+   * - Rules: min (number), pattern (RegExp)
+   *
+   * @param {Object} obj - Object to validate
+   * @param {Object} schema - Schema to validate against
+   * @returns {boolean} - True if valid, false otherwise
    */
-}
-let t7 = new Task7();
-const person = {
-  name: "pp",
-  age: 22,
-  hobbies: ["soccer", "listen to music"],
-  address: {
-    street: "Av. Siempre Viva",
-    number: 742,
-    city: "Springfield",
-    postalCode: "1234",
-  },
-  isActive: true,
-};
-const schema = {
-  name: { type: "string", required: true },
-  age: { type: "number", required: true },
-  hobbies: {
-    type: "array",
-    required: false,
-    itemType: "string",
-  },
-  address: {
-    type: "object",
-    required: true,
-    itemSchema: {
-      street: { type: "string", required: true },
-      number: { type: "number", required: true },
-      city: { type: "string", required: true },
-      postalCode: { type: "string", required: true },
-    },
-  },
-  isActive: { type: "boolean", required: true },
-};
+  validateObject(obj, schema) {
+    // Ensure input is an object (non-null and not an array)
+    if (typeof obj !== "object" || obj === null || Array.isArray(obj)) {
+      return false;
+    }
 
-console.log(person.hobbies);
-console.log(schema.hobbies);
-// console.log(t7.validateObject(person, schema));
+    for (let key in schema) {
+      const rules = schema[key];
+      const value = obj[key];
+
+      // Check required fields
+      if (rules.required && value === undefined) {
+        return false;
+      }
+
+      // Optional field missing — skip
+      if (value === undefined) continue;
+
+      // Handle nested object
+      if (rules.type === "object") {
+        if (
+          typeof value !== "object" ||
+          value === null ||
+          Array.isArray(value)
+        ) {
+          return false;
+        }
+        // Recursive call for nested object
+        if (!this.validateObject(value, rules.itemSchema)) {
+          return false;
+        }
+
+        // Handle array
+      } else if (rules.type === "array") {
+        // Check if the value is actually an array
+        if (!Array.isArray(value)) {
+          return false; // Fail validation if not an array
+        }
+
+        // Iterate over each element in the array
+        for (let item of value) {
+          // Case 1: Array of complex objects
+          // If 'itemType' is "object" and there's a schema for the items
+          if (
+            rules.itemType === "object" &&
+            typeof rules.itemSchema === "object"
+          ) {
+            // Recursively validate each object using the 'itemSchema'
+            if (!this.validateObject(item, rules.itemSchema)) {
+              return false; // Fail if any object does not validate
+            }
+          }
+          // Case 2: Array of primitive types (string, number, boolean, etc.)
+          else if (typeof rules.itemType === "string") {
+            // Validate that the item's type matches the expected 'itemType'
+            if (typeof item !== rules.itemType) {
+              return false; // Fail if types don't match
+            }
+          }
+          // Case 3: Invalid or unsupported schema configuration
+          else {
+            return false; // Fail validation for safety if schema is misconfigured
+          }
+        }
+        // Primitive types
+      } else {
+        
+        if (typeof value !== rules.type) {
+          return false;
+        }
+
+        if (rules.pattern && !rules.pattern.test(value)) {
+          return false;
+        }
+
+        if (rules.min !== undefined && value < rules.min) {
+          return false;
+        }
+      }
+    }
+
+    // All checks passed
+    return true;
+  }
+}
+
+let t7 = new Task7();
+console.log(t7.validateObject(t7.persona, t7.schema));
