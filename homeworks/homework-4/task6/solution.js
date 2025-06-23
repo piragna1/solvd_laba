@@ -27,74 +27,34 @@ ${this.name} ${this.lastName}
   constructor() {}
   /**Implement a function called deepCloneObject that takes an object as an argument and returns a deep copy of the object. 
     The function should handle circular references and complex nested structures. Do not use JSON methods.  */
-    deepCloneObject(obj){
-        if (!obj) return null;
-        if (typeof obj ==='function') {
-            return obj;
-        }
-        if (typeof obj === 'object'){
-            if (obj instanceof Array){//array
-
-            }
-            else{//litral obj
-
-            }
-            
+  deepCloneObject(obj) {
+    let ret = undefined;
+    if (!obj){ret=null;}
+    else if (typeof obj === 'function'){ret=obj;}
+    else if (typeof obj ==='object'){
+        ret={};
+        for (let key of Object.keys(obj)){
+            ret[key] = this.deepCloneObject(obj[key]);
         }
     }
-//   deepCloneObject(obj) {
-//     //This method cann not handle functions cloning
-//     return structuredClone(obj);
-//   }
+    else {
+        ret = structuredClone(obj);
+    }
+    return ret;
+  }
 }
 
 let t6 = new Task6();
-// let p1 = t6.deepCloneObject(t6.person)
-let x = null
-let arr = [
-    {
-        name:'caca'
-    },
-    {
-        name:'caca1'
-    },
-    {
-        name:'caca2'
-    }
-]
-let obj = {
-    arr:[
-        {
-
-        },
-        {}
-    ],
-    name:'obj'
-}
-console.log(!x)
-console.log(arr instanceof Array)
+let copy=t6.deepCloneObject(t6.person);
+t6.person.name='Alca'
+t6.person.lastName='Huete'
+console.log(copy.name)
+console.log(copy.lastName)
 console.log('----------------')
-for (let key in Object.keys(arr)){
-    console.log(key)
-}
+t6.person.printInfo()
+copy.printInfo()
 console.log('----------------')
-for (let key of Object.keys(obj)){
-    console.log(key)
-}
-/**
- * quiero hacer un deepcloning de un objeto pero no se puede usar el metodo `structuredClone` con objetos que tengan funciones
- * porque salta un error...
- * 
- * Entonces quiero crear una funcion recursiva que recorra todas las propiedades de un objeto, sean simbolos, cadenas de caracteres u 
- * otros objetos como arreglos u objetos literales... o funciones...
- * 
- * se puede usar structured clon con cada tipo de dato excepto con las funciones
- * 
- * asi que recorro y si no es una funcion devuelvo el retorno de aplicar structuredClone...
- * 
- * notas:
- *  - A la hjora de generar una nueva propiedad con la funcionalidad puntual en un objeto (usando la sintaxis del punto '.'), 
- *      si se trata de una funcion, se puede tomar una existente, de otro objeto por ejemplo. Luego si en el objeto original 
- *      se modifica la misma, entonces en el primero, es decir en el objeto donde se ha agregado una nueva propiedad tomando la funcion
- *      de otro lado, las instrucciones del mismo no se veran afectadas y visceversa...
- */
+t6.person.printInfo = function(){console.log('Hi!')}
+copy.printInfo = function(){console.log('Bye!')}
+t6.person.printInfo()
+copy.printInfo()
