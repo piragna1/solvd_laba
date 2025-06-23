@@ -44,17 +44,3 @@ ${this.name} ${this.lastName}
   }
 }
 
-let t6 = new Task6();
-let copy=t6.deepCloneObject(t6.person);
-t6.person.name='Alca'
-t6.person.lastName='Huete'
-console.log(copy.name)
-console.log(copy.lastName)
-console.log('----------------')
-t6.person.printInfo()
-copy.printInfo()
-console.log('----------------')
-t6.person.printInfo = function(){console.log('Hi!')}
-copy.printInfo = function(){console.log('Bye!')}
-t6.person.printInfo()
-copy.printInfo()
