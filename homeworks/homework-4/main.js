@@ -4,6 +4,7 @@ import { Task3 } from "./task3/solution.js";
 import { Task4 } from "./task4/solution.js";
 import { printDescriptors } from "./task4/helper.js";
 import { Task5 } from "./task5/solution.js";
+import { Task6 } from "./task6/solution.js";
 
 // TASK 1---------------------------------------------
             // // Usage example:
@@ -214,4 +215,25 @@ import { Task5 } from "./task5/solution.js";
             // console.log(friendlyProxy.age);
             // console.log(friendlyProxy.email);
 
+//------
+// TASK 6---------------------------------------------
+            // //Usage demonstration:
+            // let t6 = new Task6();
+            // // 1. Implementation of the `deepCloneObject` function within class Task6
+            // console.log("\n🟢 1. Creating deep clone of person object...");
+            // let copy=t6.deepCloneObject(t6.person);
+            // console.log("\n🔴 2. Modifying original object...");
+            // t6.person.name='Alca'
+            // t6.person.lastName='Huete'
+            // console.log('\n🟣 3. Comparing `name` and `lastName` properties of both objects executing same object method `printInfo()`:')
+            // t6.person.printInfo()
+            // copy.printInfo()
+            // console.log('\n🟡 4. Modifying objects `printInfo()` method')
+            // t6.person.printInfo = function(){console.log('Hi!')}
+            // copy.printInfo = function(){console.log('Bye!')}
+            // console.log('\n🔵 5. Comparing both output executions...')
+            // console.log('t6.person.printInfo():')
+            // t6.person.printInfo()
+            // console.log('copy.printInfo()')
+            // copy.printInfo()
 //------
