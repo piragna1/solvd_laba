@@ -5,6 +5,7 @@ import { Task4 } from "./task4/solution.js";
 import { printDescriptors } from "./task4/helper.js";
 import { Task5 } from "./task5/solution.js";
 import { Task6 } from "./task6/solution.js";
+import { Task7 } from "./task7/solution.js";
 
 // TASK 1---------------------------------------------
             // // Usage example:
@@ -237,3 +238,12 @@ import { Task6 } from "./task6/solution.js";
             // console.log('copy.printInfo()')
             // copy.printInfo()
 //------
+// TASK 7---------------------------------------------
+            // // Usage demonstration:
+            // let t7 = new Task7();
+            // console.log("\n🟢 1. Validating object with object and object schema provided in the class...");
+            // console.log("\n🙍 person object:\n",t7.persona);
+            // console.log("\n⏹️ schema object:\n",t7.schema);
+            // console.log('validation result:',t7.validateObject(t7.persona, t7.schema));
+//------
+
