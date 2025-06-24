@@ -171,6 +171,3 @@ export class Task7 {
     return true;
   }
 }
-
-let t7 = new Task7();
-console.log(t7.validateObject(t7.persona, t7.schema));
