@@ -216,7 +216,7 @@ import { Task7 } from "./task7/solution.js";
             // console.log(friendlyProxy.age);
             // console.log(friendlyProxy.email);
 
-//------
+//------    
 // TASK 6---------------------------------------------
             // //Usage demonstration:
             // let t6 = new Task6();
