@@ -3,7 +3,7 @@ import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
 //resources (arrays,objects,etc.)
-import { array, person } from "./shared/utils.js";
+import { array, person } from "./shared/data.js";
 // // TASK 1---------------------------------------------
             // //Usage demonstration:
             // let prop = 'id';
