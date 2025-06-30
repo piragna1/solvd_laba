@@ -1,5 +1,6 @@
 import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
+import { Task3 } from "./task3/solution.js";
 // // TASK 1---------------------------------------------
             // //Usage demonstration:
             // let person = [
@@ -48,6 +49,29 @@ import { Task2 } from "./task2/solution.js";
             // console.log(`Method 2: Time: ${end - beginning} ms, Memory: ${memoryAfter - memoryBefore} bytes`);
 //------
 // TASK 3---------------------------------------------
+            // //Usage demonstration:
+            // let t3 = new Task3();
+            // let a =[0,1,2,3,4,5,6,7,8,9];
+            // console.log('// H5Task3---------------------------------------------\n');
+            // console.log('Array created:',a);
+            // console.log('1. 🟡 Method for shuffling created')
+            // const positionCount ={};
+            // const numShuffles = 100000; // Times shuffled
+            // console.log(`2. 🔵 Executing method for shuffling an array ${numShuffles} times:\n`)
+            // for (let index = 0; index < numShuffles; index++) {
+            //     const shuffledArray = t3.methodImplementation(a);
+            //     const firstElement = shuffledArray[0];
+            //     console.log(t3.methodImplementation(a));
+            //     if (positionCount[firstElement]) {
+            //         positionCount[firstElement]++;
+            //     } else {
+            //         positionCount[firstElement] = 1;
+            //     }
+            // }
+            // console.log("How many times each number appeared in the first position:");
+            // for (const [number, count] of Object.entries(positionCount)) {
+            //     console.log(`Number ${number}: ${count} times`);
+            // }
 //------
 // TASK 4---------------------------------------------
 //------
