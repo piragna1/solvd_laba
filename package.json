@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "name": "solvd_laba",
+  "version": "1.0.0",
+  "description": "_This Github repository is to store every task sent to us (the students) during the journey of th_is course_",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piragna1/solvd_laba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piragna1/solvd_laba/issues"
+  },
+  "homepage": "https://github.com/piragna1/solvd_laba#readme"
+}
