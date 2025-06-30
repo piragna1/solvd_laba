@@ -1,7 +1,6 @@
-import { array } from "../shared/data";
+import {isDeepStrictEqual} from 'node:util';
+import hashObj from "object-hash";
 
-const isEqual = require("lodash.isEqual");
-const hashObj = require("object-hash");
 /**### **Task 4: Array Intersection and Union***/
 export class Task4 {
   constructor() {}
@@ -78,7 +77,7 @@ export class Task4 {
         if (set.has(hash)) {
           // Verify if hash exists in map
           // Verify colision
-          if (isEqual(item, set.get(hash))) {
+          if (isDeepStrictEqual(item, set.get(hash))) {
             // Common objects found
             ret.add(item); // Add result
           }
