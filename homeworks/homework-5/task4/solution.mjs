@@ -1,4 +1,4 @@
-import {isDeepStrictEqual} from 'node:util';
+import { isDeepStrictEqual } from "node:util";
 import hashObj from "object-hash";
 
 /**### **Task 4: Array Intersection and Union***/
@@ -6,7 +6,6 @@ export class Task4 {
   constructor() {}
   /**1. Create a function called `getArrayIntersection` that takes two arrays as arguments and returns a new
    *  array containing the common elements between the two arrays. */
-
 
   /**
    * Returns the intersection of two arrays, supporting both primitive values and complex types (objects, arrays).
@@ -35,18 +34,13 @@ export class Task4 {
    */
 
   getArrayIntersection(array1, array2) {
-    /**Edge Cases:
-        Arrays containing only primitive values (check this)
-        Arrays containing nested objects or arrays (using object-hash and lodash libraries to lookup after this)
-        Arrays with duplicate values  (using set for store non repeated intersections)
-    */
-
     //arguments type check
     if (!Array.isArray(array1) || !Array.isArray(array2)) {
       throw new Error("Both arguments must be arrays.");
     }
 
-    if (array1.length === 0 || array2.length === 0) { //checking emptiness of arguments
+    if (array1.length === 0 || array2.length === 0) {
+      //checking emptiness of arguments
       return [];
     }
 
@@ -94,7 +88,64 @@ export class Task4 {
   }
   /**2. Create a function called `getArrayUnion` that takes two arrays as arguments and returns a new array
    * containing all unique elements from both arrays, without any duplicates. */
-  getArrayUnion(array1, array2) {}
+
+  getArrayUnion(array1, array2) {
+    // Check if both inputs are arrays
+    if (!Array.isArray(array1) || !Array.isArray(array2)) {
+      throw new Error("Both arguments must be arrays.");
+    }
+
+    // Map to store hashes of complex objects
+    const seenHashes = new Map(); // Stores [hash, object]
+    // Set to track unique primitive values
+    const seenPrimitives = new Set();
+    // Array to hold the final result
+    const result = [];
+
+    // Function to add an item to the result
+    const addItem = (item) => {
+      // Ignore special values: null, undefined, and NaN
+      if (item === null || item === undefined || Number.isNaN(item)) {
+        return; // Skip these values
+      }
+
+      // Check if the item is a complex type (object or array)
+      if (this.isComplexType(item)) {
+        const hash = hashObj(item); // Generate a hash for the object
+
+        // Check if the hash already exists in the map
+        if (seenHashes.has(hash)) {
+          const existingItem = seenHashes.get(hash); // Get the existing item
+          // Compare the existing item with the new item
+          if (!isDeepStrictEqual(existingItem, item)) {
+            // COLLISION: Same hash but different objects
+            // Create a unique collision hash
+            const collisionHash = `collision-${hash}-${result.length}`;
+            seenHashes.set(collisionHash, item); // Store the new item with the collision hash
+            result.push(item); // Add the new item to the result
+          }
+          // If they are equal, do nothing (the item already exists)
+        } else {
+          // If the hash is new, store it and add the item to the result
+          seenHashes.set(hash, item);
+          result.push(item);
+        }
+      } else {
+        // For primitive values, check if it has already been added
+        if (!seenPrimitives.has(item)) {
+          seenPrimitives.add(item); // Mark the primitive as seen
+          result.push(item); // Add the primitive to the result
+        }
+      }
+    };
+
+    // Process each item in both input arrays
+    array1.forEach(addItem);
+    array2.forEach(addItem);
+
+    // Return the final array containing unique values
+    return result;
+  }
 
   isComplexType(value) {
     return (
@@ -106,31 +157,3 @@ export class Task4 {
     return hashObj(value);
   }
 }
-
-
-
-const task4 = new Task4();
-
-// Test case 1: Basic intersection
-const array1 = [{ id: 1 }, [1, 2], { id: 2 }];
-const array2 = [{ id: 1 }, [1, 2], { id: 3 }, 1, 2];
-console.log(task4.getArrayIntersection(array1, array2)); // Expected: [{ id: 1 }, [1, 2], 1, 2]
-
-// Test case 2: One empty array
-const emptyArray = [];
-console.log(task4.getArrayIntersection(array1, emptyArray)); // Expected: []
-
-// Test case 3: Only primitive values
-const array3 = [1, 2, 3];
-const array4 = [2, 3, 4];
-console.log(task4.getArrayIntersection(array3, array4)); // Expected: [2, 3]
-
-// Test case 4: Nested objects
-const array5 = [{ a: { b: 1 } }, { a: 2 }];
-const array6 = [{ a: { b: 1 } }, { a: 3 }];
-console.log(task4.getArrayIntersection(array5, array6)); // Expected: [{ a: { b: 1 } }]
-
-// Test case 5: Duplicates
-const array7 = [1, 2, 2, 3];
-const array8 = [2, 2, 3, 4];
-console.log(task4.getArrayIntersection(array7, array8)); // Expected: [2, 3]
