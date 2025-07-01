@@ -257,7 +257,7 @@ export class Task4 {
     }
 
     // Check if hash already exists in seenHashes with a deeply equal object
-    function hashHas(hash, obj) {
+    function hasHash(hash, obj) {
       for (let i = 0; i < seenHashes.length; i++) {
         if (seenHashes[i] === hash) {
           // Compare the stored object with the new one to avoid collision issues
@@ -302,7 +302,7 @@ export class Task4 {
       if (isComplexType(item)) {
         // For objects or arrays, use hash and deep equality to check uniqueness
         let hash = hashObj(item);
-        if (hashHas(hash, item)) {
+        if (hasHash(hash, item)) {
           // Already present, skip
           return;
         } else {
