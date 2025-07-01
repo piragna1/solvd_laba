@@ -3,6 +3,7 @@ import { Task1 } from "./task1/solution.js";
 import { Task2 } from "./task2/solution.js";
 import { Task3 } from "./task3/solution.js";
 import { Task4 } from "./task4/solution.mjs";
+import { Task5 } from "./task5/solution.mjs";
 //resources (arrays,objects,etc.)
 import { array, person,intersectionTestCases, unionTestCases } from "./shared/data.js";
 // // TASK 1---------------------------------------------
@@ -71,33 +72,33 @@ import { array, person,intersectionTestCases, unionTestCases } from "./shared/da
             // }
 //------
 // TASK 4---------------------------------------------
-// Usage demonstration:
+                  // // Usage demonstration:
+                  // const task4 = new Task4();
+                  // console.log("// ==================== Testing getArrayIntersection() ====================");
+                  // intersectionTestCases.forEach(({ label, arrays }) => {
+                  //   const [array1, array2] = arrays;
+                  //   const result = task4.getArrayIntersection(array1, array2);
+                  //   console.log(label);
+                  //   console.log("Input Array 1:", JSON.stringify(array1, null, 2));
+                  //   console.log("Input Array 2:", JSON.stringify(array2, null, 2));
+                  //   console.log("👉 Output:", JSON.stringify(result, null, 2), "\n");
+                  // });
 
-const task4 = new Task4();
-
-console.log("// ==================== Testing getArrayIntersection() ====================");
-
-// intersectionTestCases.forEach(({ label, arrays }) => {
-//   const [array1, array2] = arrays;
-//   const result = task4.getArrayIntersection(array1, array2);
-//   console.log(label);
-//   console.log("Input Array 1:", JSON.stringify(array1, null, 2));
-//   console.log("Input Array 2:", JSON.stringify(array2, null, 2));
-//   console.log("👉 Output:", JSON.stringify(result, null, 2), "\n");
-// });
-
-console.log("// ==================== Testing getArrayUnion() ====================");
-
-unionTestCases.forEach(({ label, arrays }) => {
-  const [array1, array2] = arrays;
-  const result = task4.getArrayUnion(array1, array2);
-  console.log(label);
-  console.log("Input Array 1:", JSON.stringify(array1, null, 2));
-  console.log("Input Array 2:", JSON.stringify(array2, null, 2));
-  console.log("👉 Output:", JSON.stringify(result, null, 2), "\n");
-});
-
+                  // console.log("// ==================== Testing getArrayUnion() ====================");
+                  // unionTestCases.forEach(({ label, arrays }) => {
+                  //   const [array1, array2] = arrays;
+                  //   const result = task4.getArrayUnion(array1, array2);
+                  //   console.log(label);
+                  //   console.log("Input Array 1:", JSON.stringify(array1, null, 2));
+                  //   console.log("Input Array 2:", JSON.stringify(array2, null, 2));
+                  //   console.log("👉 Output:", JSON.stringify(result, null, 2), "\n");
+                  // });
 //------
 // TASK 5---------------------------------------------
-
+                  //Usage demonstration:
+                  // let t5 = new Task5();
+                  // t5.comparingFilteringUniqueMethods();
+                  // t5.comparingArrayChunkingMethods();
+                  // t5.comparingIntersectionMethods();
+                  // t5.comparingArrayUnionMethods();
 //------
