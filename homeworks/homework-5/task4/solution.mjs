@@ -20,8 +20,8 @@ export class Task4 {
       return value !== null && typeof value === "object";
     }
 
-    // Generate a consistent string hash for objects and arrays
-    // This function recursively processes nested objects to ensure stable hashing
+    // Generate a string hash for objects and arrays
+    // This function recursively processes nested objects 
     function hashObj(obj) {
       // Get object keys and sort them alphabetically for consistent order
       const keys = Object.keys(obj).sort();
@@ -115,6 +115,10 @@ export class Task4 {
     if (!isArray(array1) || !isArray(array2)) {
       throw new Error("Both arguments must be arrays.");
     }
+
+    if (array1.length === 0) {return array2};
+    if (array1.length === 0) {return array2};
+
 
     // Helper function to check if a value is a complex type (object or array)
     function isComplexType(value) {
