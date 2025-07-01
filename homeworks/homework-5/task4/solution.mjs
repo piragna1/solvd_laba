@@ -228,9 +228,10 @@ export class Task4 {
       return false;
     }
 
-    // We can't use Map or Set, so simulate them with parallel arrays for hashes/objects and primitives
+    // Simulate map with parallel arrays for hashes/objects and primitives
     let seenHashes = []; // store hashes of complex objects
     let seenObjects = []; // store actual complex objects corresponding to hashes
+    
     let seenPrimitives = []; // store primitive values we've already added
 
     // Result array and manual index to simulate push
