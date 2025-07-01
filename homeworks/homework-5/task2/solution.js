@@ -18,7 +18,6 @@ export class Task2 {
    * 2. Optimize the `chunkArray` function to minimize memory usage while chunking the array.
    */
   chunkArrayv2(array,size) {
-    size = Math.trunc(size)
     if (size <= 0 || size === undefined)
       throw new Error("Please indicate a chunk size larger than 0");
     const ret = []; // output
