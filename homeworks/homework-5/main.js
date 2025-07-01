@@ -54,7 +54,7 @@ import { array, person,intersectionTestCases, unionTestCases } from "./shared/da
             // console.log('Array created:',a);
             // console.log('1. 🟡 Method for shuffling created')
             // const positionCount ={};
-            // const numShuffles = 100000; // Times shuffled
+            // const numShuffles = 10000; // Times shuffled
             // console.log(`2. 🔵 Executing method for shuffling an array ${numShuffles} times:\n`)
             // for (let index = 0; index < numShuffles; index++) {
             //     const shuffledArray = t3.methodImplementation(a);
@@ -95,7 +95,7 @@ import { array, person,intersectionTestCases, unionTestCases } from "./shared/da
                   // });
 //------
 // TASK 5---------------------------------------------
-                  //Usage demonstration:
+                  // Usage demonstration:
                   // let t5 = new Task5();
                   // t5.comparingFilteringUniqueMethods();
                   // t5.comparingArrayChunkingMethods();
