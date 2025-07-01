@@ -5,18 +5,15 @@ export class Task1 {
    * uniqueness. The resulting array should contain only unique elements based on the callback's logic.*/
   customFilterUnique(array, callback) {
     const seen = new Set(); // Used to keep track of seen values based on the callback
-
-    return array.reduce((uniqueElements, currentElement) => {
-      const key = callback(currentElement); // Extract the key to check uniqueness
-
-      if (key !== undefined && !seen.has(key)) {
-        // If the key is defined and hasn't been seen yet
-        seen.add(key); // Mark the key as seen
-        uniqueElements.push(currentElement); // Add the element to the result array
+    const ret = [];
+    for (let i = 0; i < array.length ; i++){
+      const key = callback(array[i]);
+      if (key !== undefined && !seen.has(key)){
+        seen.add(key);
+        ret.push(array[i]);
       }
-
-      return uniqueElements; // Accumulate the result
-    }, []);
+    }
+    return ret;
   }
 
   /**2. Use the `customFilterUnique` function to filter an array of objects based on a specific property and return
