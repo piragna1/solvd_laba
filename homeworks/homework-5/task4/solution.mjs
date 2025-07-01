@@ -1,91 +1,107 @@
-import { isDeepStrictEqual } from "node:util";
-import hashObj from "object-hash";
-
 /**### **Task 4: Array Intersection and Union***/
 export class Task4 {
   constructor() {}
   /**1. Create a function called `getArrayIntersection` that takes two arrays as arguments and returns a new
    *  array containing the common elements between the two arrays. */
 
-  /**
-   * Returns the intersection of two arrays, supporting both primitive values and complex types (objects, arrays).
-   * Handles duplicate values by returning unique intersection elements only.
-   * For complex types, uses hashing and deep equality to determine intersection.
-   *
-   * Edge Cases:
-   * - If either array is empty, returns an empty array.
-   * - Handles arrays containing only primitive values, nested objects, and arrays.
-   *
-   * @param {Array} array1 - The first array to intersect.
-   * @param {Array} array2 - The second array to intersect.
-   * @returns {Array} An array containing the unique intersection elements from both arrays.
-   * @throws {Error} If either argument is not an array.
-   *
-   * @example
-   * const array1 = [{ id: 1 }, [1, 2], { id: 2 }];
-   * const array2 = [{ id: 1 }, [1, 2], { id: 3 }, 1, 2];
-   * const result = getArrayIntersection(array1, array2);
-   * console.log(result); // Output: [{ id: 1 }, [1, 2], 1, 2]
-   *
-   * @example
-   * const emptyArray = [];
-   * const resultWithEmpty = getArrayIntersection(array1, emptyArray);
-   * console.log(resultWithEmpty); // Output: []
-   */
-
   getArrayIntersection(array1, array2) {
-    //arguments type check
+    // Validate inputs: both arguments must be arrays
     if (!Array.isArray(array1) || !Array.isArray(array2)) {
       throw new Error("Both arguments must be arrays.");
     }
 
+    // If either array is empty, return empty intersection immediately
     if (array1.length === 0 || array2.length === 0) {
-      //checking emptiness of arguments
       return [];
     }
 
-    let ret = new Set(); //intersection collection (output).
-    let set = new Map(); //fast accessing collection for checking common objects.
+    // Helper function to detect complex types (objects or arrays)
+    function isComplexType(value) {
+      return value !== null && typeof value === "object";
+    }
 
+    // Generate a consistent string hash for objects and arrays
+    // This function recursively processes nested objects to ensure stable hashing
+    function hashObj(obj) {
+      // Get object keys and sort them alphabetically for consistent order
+      const keys = Object.keys(obj).sort();
+
+      // Build string representation of the object in the format: {key1:val1,key2:val2,...}
+      return `{${keys
+        .map((key) => {
+          const val = obj[key];
+          const valueStr = isComplexType(val)
+            ? hashObj(val) // Recursively hash nested objects
+            : typeof val === "string"
+            ? `"${val}"` // Add quotes for strings to distinguish from numbers
+            : String(val); // Convert other primitive types to string
+          return `${key}:${valueStr}`;
+        })
+        .join(",")}}`;
+    }
+
+    // Perform deep strict equality check between two values
+    // Handles primitives and recursively compares objects/arrays
+    function isDeepStrictEqual(a, b) {
+      if (a === b) return true; // Strict equality check for primitives
+
+      // If both are complex types, compare keys and values recursively
+      if (isComplexType(a) && isComplexType(b)) {
+        const aKeys = Object.keys(a).sort();
+        const bKeys = Object.keys(b).sort();
+
+        if (aKeys.length !== bKeys.length) return false; // Different number of keys
+        if (!aKeys.every((k, i) => k === bKeys[i])) return false; // Different keys
+
+        // Recursively check equality for all keys
+        return aKeys.every((key) => isDeepStrictEqual(a[key], b[key]));
+      }
+
+      // Not equal if types mismatch or one is not an object
+      return false;
+    }
+
+    // Optimize by always iterating over the smaller array first
     if (array1.length > array2.length) {
-      //assuring array.length < array2.length
       [array1, array2] = [array2, array1];
     }
 
-    //iterate over array2, generate hashes of objects and store them in the collection (map)
-    for (let i = 0; i < array2.length; i++) {
-      if (this.isComplexType(array2[i])) {
-        // is object (object literal or array)
-        let hash = hashObj(array2[i]); //generate hash
-        set.set(hash, array2[i]); //add object to the intersection set
-      } else {
-        set.set(array2[i], array2[i]); //add primitive data
+    // Create a map to store hashed representations of array2 elements for quick lookup
+    const seen = new Map();
+
+    // Create a set to hold unique intersection results
+    const result = new Set();
+
+    // Populate 'seen' map with items from array2
+    // For objects, store their hash; for primitives, store value directly
+    for (const item of array2) {
+      const key = isComplexType(item) ? hashObj(item) : item;
+      seen.set(key, item);
+    }
+
+    // Iterate through array1, checking if each item exists in array2 (via 'seen' map)
+    for (const item of array1) {
+      const key = isComplexType(item) ? hashObj(item) : item;
+
+      if (!seen.has(key)) continue; // Skip if no match found by hash/value
+
+      const candidate = seen.get(key);
+
+      // For complex types, use deep equality check to confirm match and avoid hash collisions
+      // For primitives, direct equality is sufficient
+      const equal = isComplexType(item)
+        ? isDeepStrictEqual(item, candidate)
+        : item === candidate;
+
+      if (equal) {
+        result.add(item); // Add matched item to the result set
       }
     }
 
-    //iterate over array1
-    for (let i = 0; i < array1.length; i++) {
-      if (this.isComplexType(array1[i])) {
-        //check if object element
-        const hash = hashObj(array1[i]);
-        if (set.has(hash)) {
-          // Verify if hash exists in map
-          // Verify colision
-          if (isDeepStrictEqual(array1[i], set.get(hash))) {
-            // Common objects found
-            ret.add(array1[i]); // Add result
-          }
-        }
-      } else {
-        //checks for primitive values
-        if (set.has(array1[i])) {
-          ret.add(array1[i]); //add primitive value to the result
-        }
-      }
-    }
-
-    return Array.from(ret);
+    // Convert result set back to an array and return
+    return Array.from(result);
   }
+
   /**2. Create a function called `getArrayUnion` that takes two arrays as arguments and returns a new array
    * containing all unique elements from both arrays, without any duplicates. */
 
