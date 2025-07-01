@@ -4,26 +4,19 @@ export class Task1 {
    *  The `customFilterUnique` function should filter the array using the callback function to determine
    * uniqueness. The resulting array should contain only unique elements based on the callback's logic.*/
   customFilterUnique(array, callback) {
-    let storedValues = []; // helper array for checking duplications
-    const ret = []; //new array to be returned
+    const seen = new Set(); // Used to keep track of seen values based on the callback
 
-    //filtering array (1st argument)
-    array.filter((element) => {
-      /**Check:
-       * 1 - the element has the property
-       * 2 - there is not an existent object with the property value
-       */
-      if (callback(element) !== undefined) {
-        //has property?
-        if (!storedValues.includes(callback(element))) {
-          //there is not existent object with the prop and prop value
-          //update arrays
-          ret.push(element);
-          storedValues.push(callback(element));
-        }
+    return array.reduce((uniqueElements, currentElement) => {
+      const key = callback(currentElement); // Extract the key to check uniqueness
+
+      if (key !== undefined && !seen.has(key)) {
+        // If the key is defined and hasn't been seen yet
+        seen.add(key); // Mark the key as seen
+        uniqueElements.push(currentElement); // Add the element to the result array
       }
-    });
-    return ret; //return the new filtered array
+
+      return uniqueElements; // Accumulate the result
+    }, []);
   }
 
   /**2. Use the `customFilterUnique` function to filter an array of objects based on a specific property and return
