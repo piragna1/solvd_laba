@@ -10,3 +10,15 @@ Functions
 			// It will print: Hi I am undefined!
 	function caching
 	
+Objects
+	Property
+	Porperty descriptor
+		-Data descriptor
+		-
+		- handles
+			+value
+			+writable
+			+enumerable
+			+configurable
+			+getter
+			+setter
