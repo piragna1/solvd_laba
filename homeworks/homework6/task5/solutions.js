@@ -16,6 +16,27 @@ Your task is to implement a throttle function that takes a function and a time i
 1. Test your `throttle` function by using it to throttle a scroll event listener. Ensure that the provided function is executed at most
  once within the specified time interval during rapid scrolling. */
 
+function throttle(fun, limit){
+    let lastRun;
+    let lastFunc;
+
+    return function(...args){
+        if (!lastRun){
+            fun(...args);
+            lastRun=Date.now();    
+        }
+        else{
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(()=>{
+                if(Date.now()-lastRun >= limit){
+                    fun(...args);
+                    lastRun=Date.now();
+                }
+            }, limit - (Date.now()-lastRun));
+        }
+    }
+}
+
  function onScroll(event) {
 	// Handle scroll event
 	console.log("Scroll event:", event);
