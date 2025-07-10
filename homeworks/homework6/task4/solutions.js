@@ -32,5 +32,3 @@ const debouncedSearchHandler = debounce(debouncedSearch, 300);
 // inputElement.addEventListener("input", event => {
 // 	debouncedSearchHandler(event.target.value);
 // });
-
-document
