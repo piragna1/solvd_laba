@@ -13,16 +13,16 @@ promise.
     promises, in the same order.
 4. If any promise rejects, the returned promise should reject with the reason of the first rejected promise. */
 
-const promises = [
-  Promise.resolve(1),
-  Promise.resolve(2),
-  Promise.resolve(3)
-];
+const promises = [Promise.resolve(1), Promise.resolve(2), Promise.reject('Failed to connect to the endpoint'), Promise.resolve(3)];
 
-promiseAll(promises)
-  .then(results => {
+const promiseAll = function(promises){
+  Promise.all(promises)
+  .then((results) => {
     console.log("All promises resolved:", results); // Expected: [1, 2, 3]
   })
-  .catch(error => {
+  .catch((error) => {
     console.error("At least one promise rejected:", error);
   });
+}
+
+promiseAll(promises);
