@@ -17,10 +17,14 @@ const promises = [
   Promise.resolve(3)
 ];
 
-promiseAllSettled(promises)
+const promiseAllSettled = function(promises){
+  Promise.allSettled(promises)
   .then(results => {
     console.log("All promises settled:", results);
     // Expected: [{ status: 'fulfilled', value: 1 },
     //            { status: 'rejected', reason: 'Error occurred' },
     //            { status: 'fulfilled', value: 3 }]
   });
+}
+
+promiseAllSettled(promises)
