@@ -1,0 +1,4 @@
+SCRUM class
+-que son los blockers?
+- comentar cuando uno esta atascado
+- raise red flag as soon as possible
