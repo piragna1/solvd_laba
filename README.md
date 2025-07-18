@@ -30,3 +30,6 @@ it will be necessary to install Node.js and typescript in order to run the files
 # Usage
 - navigate through your terminal to the location of the desired 'main.js' file to run
 - then you should run 'node main.js' command to execute the file
+
+# Note
+If there is no main.js file available it is surely because I could not integrate the task files's content in it. So I recommend to check the files within the tasks's folders!
