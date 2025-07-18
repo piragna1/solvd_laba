@@ -525,5 +525,19 @@
 // console.log(user.cat?.name);//undefined
 // console.log(user.dog?.name);//Alex
 
-// console.log(user.cat.name);//TypeError: Cannot read properties of undefined (reading 'name')
+// // console.log(user.cat.name);//TypeError: Cannot read properties of undefined (reading 'name')
+
+// let catName = user.cat && user.cat.name;
+// console.log(catName);//undefined
+
+
+// user.cat = {
+//     name:'Pope Jhon'
+// }
+
+// catName = user.cat && user.cat.name;
+// console.log(catName);//Pope Jhon
+
+// // catName = user.cat && user.cat.name; -> if user.cat is truthy, then assign user.cat.name
+// // which is good because if you try to access a property of undefined it will throw an error and crash the program.
 //--------------------
