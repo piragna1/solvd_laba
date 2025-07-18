@@ -47,7 +47,7 @@ console.log("Fourth!");
 //console:
 
 /**
- * The first instruction which is the methodlog of console
+ * The first instruction which is the method log of console object go to the callstack, so soon there will be an output
  */
 
 //---------------------------
@@ -70,10 +70,14 @@ Promise.resolve().then(logThird);
 console.log("Fourth!");
 
 //callstack: 
-//task queue: logSecond();
+//task queue: logSecond(); <- 
 //microtask queue:
-//console: first
+//console: first <- output
 
+/**
+ * -We have the output
+ * -LogSecond was passed to the taskqueue due to that it was encapsulated in the setTimeout method
+ */
 
 //---------------------------
 
@@ -95,10 +99,14 @@ Promise.resolve().then(logThird); //here: logThird goes to the microtask queue
 console.log("Fourth!");
 
 //callstack: 
-//task queue: logSecond();
-//microtask queue: logThird(); <- here
+//task queue: logSecond(); <-
+//microtask queue: logThird(); <- 
 //console: first
 
+/**
+ * -logSecond still in taskqueue
+ * -logThird() passed to the microTaskqueue since it is called from a Promise.
+ */
 
 //---------------------------
 
@@ -120,13 +128,18 @@ Promise.resolve().then(logThird);
 
 console.log("Fourth!");// here: console.log("Fourth!") goes to the callstack!
 
-//callstack:  console.log("Fourth!");
+//callstack:  console.log("Fourth!"); <----
 //task queue: logSecond();
 //microtask queue: logThird();
 /* console
 first
 */
 
+/**
+ * -Again, a new console log appears so it goes directly to the callstack
+ * -logSecond still is in the task queue
+ * -logThird still is in the microtaskqueue
+ */
 
 //---------------------------
 
@@ -148,13 +161,19 @@ Promise.resolve().then(logThird);
 
 console.log("Fourth!");// here: console.log("Fourth!") goes to the callstack!
 
-//callstack:  logThird();
-//task queue: logSecond();
+//callstack:  logThird(); <-
+//task queue: logSecond(); <-
 //microtask queue: 
 /* console
 first
-Fourth!
+Fourth! <-
 */
+
+/**
+ * -We have a new  output which corresponds to the logFourth
+ * -logThird leaves the microtaskqueue and is sent to the callstack
+ * -logSecond still is in the task queue
+ */
 
 
 //---------------------------
@@ -185,6 +204,11 @@ first
 Fourth!
 Third!
 */
+
+/**
+ * -We have a new output in the console which corresponds to logThird()
+ * -finally logSecond is passed to the callstack for being executed soon
+ */
 //---------------------------
 
 
@@ -214,4 +238,7 @@ Fourth!
 Third!
 Second!
 */
+
+//All outputs were generated
+
 //---------------------------

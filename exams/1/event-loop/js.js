@@ -32,3 +32,4 @@ let obj = {
     method:function(){console.log('I am a method');}
 };
 // console.log(obj)
+console.clear() //cls jhaha
