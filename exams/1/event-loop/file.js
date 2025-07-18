@@ -1,18 +1,31 @@
 
+
+
 //-------------------------------------------------------------------EVENT LOOP in js
+
+
 
 //---------------------------
 //Javascript is single-threaded
 //It can only execute a single task at time.
 //---------------------------
 
+
+
 //--------------------------- Event loop
 //Event loop is responsible of managing the execution of synchronous and asynchronous tasks.
 //---------------------------
 
+
+
+
 //--------------------------- Event loop
 //It allows JavaScript to handle `non-blocking` operations.
 //---------------------------
+
+
+
+
 
 //--------------------------- Event loop COMPONENTS
 
@@ -22,7 +35,29 @@
     //Microtask queue
 //CALL STACK
 
+/**
+ * 
+ *  Call Stack: Keeps track of function calls. Functions are pushed onto the stack when invoked and popped off when they return.
+    Web APIs: Browser-provided APIs (e.g., setTimeout, DOM events, HTTP requests) handle asynchronous tasks.
+    Task Queue (Callback Queue): Stores callbacks from `asynchronous operations` (e.g., setTimeout, fetch) to be executed when the call stack is empty.
+    Microtask Queue: A higher-priority queue for promises and MutationObserver callbacks.
+ */
+
 //---------------------------
+
+
+
+//---------------------------
+
+/* 
+Process:
+-Synchronous code is executed first, filling and emptying the call stack.
+-When asynchronous tasks complete, their callbacks are added to the appropriate queue (microtask or task queue).
+-The event loop checks if the call stack is empty. If it is, it processes tasks from the microtask queue first, then the task queue.
+*/
+//---------------------------
+
+
 
 //--------------------------- EVENT LOOP in action visualization 1
 function logSecond() {
