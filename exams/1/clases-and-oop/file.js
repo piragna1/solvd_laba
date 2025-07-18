@@ -215,6 +215,8 @@
 // console.log(user.name);//defaultName!
 // console.log(User.prototype.name);//undefined
 
+//which makes sense because each instance must have their own name
+
 //--------------
 
 
@@ -417,7 +419,7 @@
 // Dog.bark();
 // Bulldog.bark();
 // // so we are accessing to a class method without initializing any object.
-// console.log(Object.getOwnPropertyNames(Dog))//[ 'length', 'name', 'prototype', 'bark' ] bark method is at the same level that prototype object 🤣 is curious!
+// console.log(Object.getOwnPropertyNames(Dog))//[ 'length', 'name', 'prototype', 'bark' ] bark method is at the same level that prototype object !
 // console.log(Object.getOwnPropertyNames(Dog.prototype))//['constructor'] no bark in here.
 
 //---------------------------------
