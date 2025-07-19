@@ -2,7 +2,7 @@ followUp:
 
 
 
-#### daysRemaining (next Tuesday): 5 days
+#### daysRemaining (next Wednesday): 4 days
 
 
 
@@ -42,4 +42,4 @@ themes per day: 13/5 = 3 (redondeado)
 
 * promises
 * *empty -> ver solid principles que quedo del dia 1... (ver dia 1)*
-* *empty*
+* *empty* 
