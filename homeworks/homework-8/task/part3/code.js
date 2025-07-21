@@ -14,8 +14,20 @@ Part 3: Demonstration
  when users add them to the cart.
 */
 
-class BookManagementSystem {
+class CartManagementSystem{
     addBookToCart(book,cart){
-        book
+        const exists = 
+        cart.addBook(book);
+    }
+
+}
+class BookManagementSystem {
+    disableBook(book){
+        if (book.availability){
+            book.disableBook();
+        }
+        else{
+            throw Error('The book is not available')
+        }
     }
 }

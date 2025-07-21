@@ -57,7 +57,7 @@ export class Cart {
         return this.#books;
     }
     addBook(book){ 
-        if (this.hasBook(book.title)){
+        if (this.hasBook(book)){
             this.#books.push(book);
         }
     }
