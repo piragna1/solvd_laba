@@ -104,3 +104,16 @@ export class IOrderFormatter {
         throw new Error("format() must be implemented");
     }
 }
+
+
+export class SimpleOrderFormatter extends IOrderFormatter {
+    format(order) {
+        let output = `📦 Order Summary for User ID: ${order.userId}\n`;
+        output += `📚 Books in Order:\n`;
+        order.books.forEach((book, i) => {
+            output += `  ${i + 1}. "${book.title}" by ${book.author} - $${book.price.toFixed(2)}\n`;
+        });
+        output += `💰 Total Price: $${order.totalPrice.toFixed(2)}\n`;
+        return output;
+    }
+}
