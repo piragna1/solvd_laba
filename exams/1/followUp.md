@@ -42,4 +42,4 @@ themes per day: 13/5 = 3 (redondeado)
 
 * promise
 * *empty -> ver solid principles que quedo del dia 1... (ver dia 1)*
-* *empty-> package managers versioning*
+* *empty-> package-managers-versioning*

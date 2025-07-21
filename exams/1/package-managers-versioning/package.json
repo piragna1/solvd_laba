@@ -1,0 +1,24 @@
+{
+  "name": "package-managers-versioning",
+  "version": "1.0.0",
+  "description": "creating a new package.json file",
+  "main": "package-managers-versioning.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "no"
+  },
+  "keywords": [
+    "no"
+  ],
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21"
+  }
+}
