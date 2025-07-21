@@ -17,7 +17,7 @@
     include information about the user, the books ordered, and the total price.
  */
 
-class Book {
+export class Book {
     title="";
     author="";
     ISBN="";
@@ -32,7 +32,7 @@ class Book {
     }
 }
 
-class User{
+export class User{
     name="";
     email="";
     id="";
@@ -43,34 +43,34 @@ class User{
     }
 }
 
-class Cart {
+export class Cart {
     #books =[];
     addBook(book){ 
-        if (this.#books.find(book)){
+        const exists = this.#books.find(b => b.ISBN === book.ISBN);
+        if (!exists){
             this.#books.push(book);
         }
     }
     removeBook(bookTitle){
-        let findIndex = this.#books.findIndex(bookTitle);
-        if (findIndex){
+        let findIndex = this.#books.findIndex((book) => {return book.title === bookTitle});
+        if (findIndex !== -1){
             this.#books.splice(findIndex,1);
         }
     }
     calculatePrice(){
-        let sum = 0;
-        this.#books.forEach(book => {
-            sum+= book.price;
-        })
-        return sum;
+        return this.#books.reduce((total,book) => {return total+book.price;},0)
+    }
+    get getBooks(){
+        return this.#books;
     }
 }
 
-class Order{
-    user=undefined;
+export class Order{
+    userId=undefined;
     books=[];
     totalPrice=0;
-    constructor(user,books,totalPrice){
-        this.user=user;
+    constructor(userId,books,totalPrice){
+        this.userId=userId;
         this.books=books;
         this.totalPrice=totalPrice;
     }
