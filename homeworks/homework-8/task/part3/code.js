@@ -19,13 +19,18 @@ import {
     NonFiction,
     User, 
     Cart, 
+    Order,
+    IOrderFormatter,
+    SimpleOrderFormatter,
     OrderService,
-    SimpleOrderFormatter
+    Book,
+    BasicPriceCalculator
+
  } from '../part1/code.js';
 
 // Setup
 const user = new User("Alice", "alice@example.com", "U001");
-const cart = new Cart();
+const cart = new Cart(new BasicPriceCalculator());
 const formatter = new SimpleOrderFormatter();
 const orderService = new OrderService(formatter);
 
