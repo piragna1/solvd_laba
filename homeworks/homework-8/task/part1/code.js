@@ -94,13 +94,13 @@ export class Cart {
 }
 
 export class Order{
-    userId=undefined;
-    books=[];
-    totalPrice=0;
+    #userId=undefined;
+    #books=[];
+    #totalPrice=0;
     constructor(userId,books,totalPrice){
-        this.userId=userId;
-        this.books=books;
-        this.totalPrice=totalPrice;
+        this.#userId=userId;
+        this.#books=books;
+        this.#totalPrice=totalPrice;
     }
 }
 //-------------------
