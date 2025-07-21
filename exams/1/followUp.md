@@ -16,7 +16,7 @@ themes per day: 13/5 = 3 (redondeado)
 
 **1**
 
-* arrays 
+* arrays
 * big-o-notation
 * classes-and-oop (object oriented programing?) -> pendiente de ver los SOLID PRINCIPLES
 
@@ -42,4 +42,4 @@ themes per day: 13/5 = 3 (redondeado)
 
 * promises
 * *empty -> ver solid principles que quedo del dia 1... (ver dia 1)*
-* *empty* 
+* *empty-> package managers versioning*
