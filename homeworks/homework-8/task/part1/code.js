@@ -127,8 +127,9 @@ export class SimpleOrderFormatter extends IOrderFormatter {
 
 // OrderService.js
 export class OrderService {
+    #orderFormatter;
     constructor(orderFormatter) {
-        this.orderFormatter = orderFormatter; // Injected dependency
+        this.#orderFormatter = orderFormatter; // Injected dependency
     }
 
     createOrder(user, cart) {
@@ -138,7 +139,7 @@ export class OrderService {
     }
 
     printOrder(order) {
-        console.log(this.orderFormatter.format(order));
+        console.log(this.#orderFormatter.format(order));
     }
 }
 
