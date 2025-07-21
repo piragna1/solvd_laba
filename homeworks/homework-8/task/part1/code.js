@@ -74,4 +74,12 @@ export class Order{
         this.books=books;
         this.totalPrice=totalPrice;
     }
+    printInfo() {
+        console.log(`📦 Order Summary for User ID: ${this.userId}`);
+        console.log("📚 Books in Order:");
+        this.books.forEach((book, index) => {
+            console.log(`  ${index + 1}. "${book.title}" by ${book.author} - $${book.price.toFixed(2)}`);
+        });
+        console.log(`💰 Total Price: $${this.totalPrice.toFixed(2)}\n`);
+    }
 }
