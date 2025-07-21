@@ -61,13 +61,15 @@ export class NonFiction extends Book {
 export class User {
     name = "";
     email = "";
-    id = "";
+    #id = "";
 
     constructor(name, email, id) {
         this.name = name;
         this.email = email;
-        this.id = id;
+        this.#id = id;
     }
+
+    get id() { return this.#id; }
 
     placeOrder(cart) {
         const books = cart.getBooks;
