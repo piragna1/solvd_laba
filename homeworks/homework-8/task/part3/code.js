@@ -14,12 +14,27 @@ Part 3: Demonstration
  when users add them to the cart.
 */
 
+class LibrarySystem{
+
+}
+
+class UserManagementSystem{
+    
+}
+
 class CartManagementSystem{
     addBookToCart(book,cart){
-        const exists = 
-        cart.addBook(book);
+        const exists = cart.hasBook(book);
+        if(!exists) cart.addBook(book);
+        console.log('The cart has already have the book.')
     }
-
+    removeBookFromCart(book,cart){
+        const exists = cart.hasBook(book);
+        if (exists){
+            cart.removeBook(book.title);
+        }
+        else{console.log('The book is not in the cart');};
+    }
 }
 class BookManagementSystem {
     disableBook(book){
@@ -27,7 +42,15 @@ class BookManagementSystem {
             book.disableBook();
         }
         else{
-            throw Error('The book is not available')
+            throw Error('The book is already unavailable')
+        }
+    }
+    enableBook(book){
+        if(!book.availability){
+            book.enableBook();
+        }
+        else{
+            throw Error('The book is already available')
         }
     }
 }
