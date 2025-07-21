@@ -32,6 +32,12 @@ export class Book {
         this.availability=availability;
         this.genre=genre;
     }
+    enableBook(){
+        this.availability=true;
+    }
+    disableBook(){
+        this.availability=false;
+    }
 }
 
 export class User{
