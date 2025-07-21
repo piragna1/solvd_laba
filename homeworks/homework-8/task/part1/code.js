@@ -96,3 +96,11 @@ export class Order{
         console.log(`💰 Total Price: $${this.totalPrice.toFixed(2)}\n`);
     }
 }
+//-------------------
+
+// IOrderFormatter.js (interface-style comment in JS)
+export class IOrderFormatter {
+    format(order) {
+        throw new Error("format() must be implemented");
+    }
+}
