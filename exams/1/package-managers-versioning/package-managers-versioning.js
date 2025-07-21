@@ -81,23 +81,111 @@ into the NPM `REGISTRY` where any developer can access (download)
 //npm uninstall `package-name` -g
 //--------------------
 
-//--------------------
-//--------------------
+//--------------------NPM CLI other commands
+//Installing specific version:
+//  -npm install [package_name]@[version-number]
+//Update a single package
+//  -npm update [package_name]
+//List all installed packages as a dependency truee
+//  -npm list
 
 //--------------------
-//--------------------
+
+//--------------------PROS 'N CONS NPM
+//pros:
+//  -Vast repository
+//  -Default with NodeJS installation
+//  -Mature Ecosystem
+//  -Semantinc Versioning
+//  -Custom Scripts
+//cons:
+//  -Performance Issues
+//  -Dependency Bloat
+//  -Security Concerns
+//  -Reliance on centralized registry
+//  -Limited offline support
 
 //--------------------
+
+//--------------------Yarn - Pros 'n cons
+//pros:
+//  -Improved perf.
+//  -Offline support
+//  -Improved error handling
+//cons:
+//  -Resource consumption
+//  -Community fragmentation
+//  -Potential for lock file drift
+//  -Limited configuration
+//  -Manteinance overhead
 //--------------------
 
-//--------------------
-//--------------------
+//--------------------PNPM - pros and cons
+//pros:
+//  -Shared dependencies
+//  -Efficient installation
+//  -Reduced network bandwith
+//  -Improved cache efficiency
+//cons:
+//  -Compatibility issues
+//  -Resource consumption
+//  -Lockfile handling
+//  -Community support
 
 //--------------------
+
+//------------------------VERSIONING
+//Process of assigning different names/numbers to a software product in a given time/state of it.
 //--------------------
 
-//--------------------
-//--------------------
+//--------------------Versioning
+//Some example:
+//given the version structure `major.minor.patch`, you can increment:
+//  -major: when you make incompatible API changes
+//  -minor:  when you add backward compatible functionality
+//  -patch: when fixing bugs
 
 //--------------------
+
+//--------------------Versioning
+//The different nomenclatures represent which is the current process of a software dev. project:
+//  -alpha: (0/a);
+//  -beta: (1/b);
+//  -release candidate: (2/rc);
+//  -public release:(3);
+//--------------------
+
+//--------------------Versioning examples
+
+/* ---
+1.2.3.5 = 1.2.5 = b.rc.3.5 = b.rc.5
+*/
+
+/* ---
+1.2.0.2 = 1.2.a.2 = b.rc.a.2
+*/
+
+/* ---
+1.2.1.2 = 1.2.b.2 = b.rc.b.2
+Beta with bugs fixed
+*/
+
+/* ---
+1.2.2.0 = 1.2.rc = b.rc.rc
+release candidate
+*/
+
+/* ---
+1.0.0-alpha < 1.0.0
+
+1.0.0[-alpha]
+    `-aplha` is a pre-release
+
+    so: [1.0.0-alpha] is before [1.0.0] 
+*/
+
+/* ---
+1.0.0<2.0.0<2.1.0<2.1.1
+*/
+
 //--------------------
