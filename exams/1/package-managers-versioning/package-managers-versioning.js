@@ -70,10 +70,15 @@ into the NPM `REGISTRY` where any developer can access (download)
 //  For this field, purposes are the same than the ones about dependencies, but just for development environment
 //--------------------
 
-//--------------------
+//--------------------package-lock.json file
+//Hold the transitive dependencies that are needed for the packages installed for the projects.
+
+//Eg. `express` package may need other set of functionalities contained in other packages which are known as transitive dependencies for our project.
 //--------------------
 
-//--------------------
+//--------------------deleting local/global packages
+//npm uninstall `package-name`
+//npm uninstall `package-name` -g
 //--------------------
 
 //--------------------
