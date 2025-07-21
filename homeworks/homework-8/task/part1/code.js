@@ -32,24 +32,38 @@ export class Book {
         this.availability=availability;
         this.genre=genre;
     }
-    enableBook(){
-        this.availability=true;
-    }
-    disableBook(){
-        this.availability=false;
+}
+
+export class Fiction extends Book {
+    constructor(title, author, ISBN, price, availability, genre = "Fiction") {
+        super(title, author, ISBN, price, availability, genre);
     }
 }
 
-export class User{
-    name="";
-    email="";
-    id="";
-    constructor(name,email,id){
-        this.name = name;
-        this.email=email;
-        this.id=id;
+export class NonFiction extends Book {
+    constructor(title, author, ISBN, price, availability, genre = "Non-Fiction") {
+        super(title, author, ISBN, price, availability, genre);
     }
 }
+
+export class User {
+    name = "";
+    email = "";
+    id = "";
+
+    constructor(name, email, id) {
+        this.name = name;
+        this.email = email;
+        this.id = id;
+    }
+
+    placeOrder(cart) {
+        const books = cart.getBooks;
+        const total = cart.calculatePrice();
+        return new Order(this.id, books, total);
+    }
+}
+
 
 export class Cart {
     #books =[];
@@ -57,22 +71,8 @@ export class Cart {
         return this.#books;
     }
     addBook(book){ 
-        if (this.hasBook(book)){
             this.#books.push(book);
-        }
     }
-    removeBook(bookTitle){
-        let findIndex = this.bookIndex(bookTitle);
-        if (findIndex !== -1){
-            this.#books.splice(findIndex,1);
-        }
-    }
-    hasBook(book){
-        return this.#books.find(b => b.ISBN === book.ISBN);
-    }
-    bookIndex(bookTitle){
-        this.#books.findIndex((book) => {return book.title === bookTitle});
-    }   
     calculatePrice(){
         return this.#books.reduce((total,book) => {return total+book.price;},0)
     }
