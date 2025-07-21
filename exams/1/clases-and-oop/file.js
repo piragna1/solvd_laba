@@ -566,21 +566,153 @@
 // //so: 1 class, 1 responsibility
 //--------------------------------
 
+
+
+
+
+
+
 //---------OCP: Open Closed Principle
 / * Classes are oppened for extension but are closed for MODITIFATION*/
+
+/*
+A team should be able to add new functionalities to a software system whitout modificating 
+existing code.
+
+If you want to add new functionality to your existing code and you have to modify it before 
+you add the new functionality, then you are not following the open-closed principle.
+*/
+
+/**Why using the OCP?
+ * -You do not have to reinvent the weel: you do not need to rebuild anything before you add new features.
+ * -You can focus on the new functionalities with 0 editing time.
+ * -You can avoid new bugs changing the current structure.
+ * 
+ * As a result, your code becomes more maintainable, testable, flexible.
+ */
+
 //WITHOUT OCP:
+/*
+Generally, in code with too much if statements or a switch flow structure, there are high chances of adding
+new cases. Which means, editing existing code. Which violates the OCP principle.
+*/
+// class Footballer {
+//   constructor(name, age, role) {
+//     this.name = name;
+//     this.age = age;
+//     this.role = role;
+//   }
+
+//   getFootballerRole() {
+//     switch (this.role) {
+//       case 'goalkeeper':
+//         console.log(`The footballer, ${this.name} is a goalkeeper`);
+//         break;
+//       case 'defender':
+//         console.log(`The footballer, ${this.name} is a defender`);
+//         break;
+//       case 'midfielder':
+//         console.log(`The footballer, ${this.name} is a midfielder`);
+//         break;
+//       case 'forward':
+//         console.log(`The footballer, ${this.name} plays in the forward line`);
+//         break;
+//       default:
+//         throw new Error(`Unsupported role type: ${this.type}`);
+//     }
+//   }
+// }
+
+// // const kante = new Footballer('Ngolo Kante', 31, 'gangrenas');
+// const hazard = new Footballer('Eden Hazard', 32, 'forward');
+
+// kante.getFootballerRole(); // The footballer, Ngolo Kante is a midfielder
+// hazard.getFootballerRole(); // The footballer, Eden Hazard plays in the forward line.
 
 
 //-------------
 
+
+
 //WITH OCP:
+/*
+create a separate role class to consume the method that gets the player role from the super class. 
+But it doesn’t end there. You then need to create a different class for each role that extends the class 
+which gets the player role.
+*/
+
+//APPLYING OCP VARIANT NUMBER 1:
+// class Footballer {
+//   constructor(name, age, role) {
+//     this.name = name;
+//     this.age = age;
+//     this.role = role;
+//   }
+
+//   getRole() {
+//     return this.role.getRole();
+//   }
+// }
+
+// // PlayerRole class uses the getRole method
+// class PlayerRole {
+//   getRole() {}
+// }
+
+// // Sub classes for different roles extend the PlayerRole class
+// class GoalkeeperRole extends PlayerRole {
+//   getRole() {
+//     return 'goalkeeper';
+//   }
+// }
+
+// class DefenderRole extends PlayerRole {
+//   getRole() {
+//     return 'defender';
+//   }
+// }
+
+// class MidfieldRole extends PlayerRole {
+//   getRole() {
+//     return 'midfielder';
+//   }
+// }
+
+// class ForwardRole extends PlayerRole {
+//   getRole() {
+//     return 'forward';
+//   }
+// }
+// // Putting all of them together
+// const hazard = new Footballer('Hazard', 32, new ForwardRole());
+// console.log(`${hazard.name} plays in the ${hazard.getRole()} line`); // Hazard plays in the forward line
+
+// const kante = new Footballer('Ngolo Kante', 31, new MidfieldRole());
+// console.log(`${kante.name} is the best ${kante.getRole()} in the world!`); //Ngolo Kante is the best midfielder in the world
+
+
+
+//APPLYING OCP VARIANT NUMBER 2:
+// class Footballer {
+//   constructor(name, age, role) {
+//     this.name = name;
+//     this.age = age;
+//     this.role = role;
+//   }
+
+//   getRole() {
+//     return this.role;
+//   }
+// }
+
+// const hazard = new Footballer('Hazard', 32, 'forward');
+// console.log(`${hazard.name} plays in the ${hazard.getRole()} line`); // Hazard plays in the forward line
+
+// const kante = new Footballer('Ngolo Kante', 31, 'midfielder');
+// console.log(`${kante.name} is the best ${kante.getRole()} in the world!`); //Ngolo Kante is the best midfielder in the world
+
+
 //--------------------------------
-
-
-
-
-
-
 
 
 
@@ -589,44 +721,282 @@
 
 //---------LSP: Lyskov substitution principle
 /* If a given program works with a given superclass, then any derived class of it must not lead to a 
-misfunction of the normal execution of the program*/
+misfunction of the normal execution of the program
+
+Indicators that may tell that the actual system is violating LSP:
+-Conditional logic (using the instanceof operator or object.getClass().getName() to identify the actual subclass)
+ in client code
+-Empty, do-nothing implementations of one or more methods in subclasses
+-Throwing an UnsupportedOperationException or some other unexpected exception from a subclass method
+*/
+
+//CASES WITHOUT LSP application:
+// class Bird {
+//   fly() {
+//     console.log("Flying");
+//   }
+// }
+
+// class Ostrich extends Bird {
+//   fly() {
+//     throw new Error("Ostriches can't fly!");
+//   }
+// }
+
+// function letBirdFly(bird) {
+//   bird.fly(); // Throws error if it's an Ostrich
+// }
+
+
+// const bird = new Bird();
+// letBirdFly(bird); // ✅ Flying
+
+// const ostrich = new Ostrich();
+// letBirdFly(ostrich); // ❌ Error: Ostriches can't fly!
+
+//CASES WITH LSP application:
+// class Bird {
+//   // base class with common bird behavior
+// }
+
+// class FlyingBird extends Bird {
+//   fly() {
+//     console.log("Flying");
+//   }
+// }
+
+// class Ostrich extends Bird {
+//   walk() {
+//     console.log("Walking");
+//   }
+// }
+
+// function letFlyingBirdFly(bird) {
+//   bird.fly(); // Only works with birds that can actually fly
+// }
+
+// const sparrow = new FlyingBird();
+// letFlyingBirdFly(sparrow); // ✅ Flying
+
+// const ostrich = new Ostrich();
+// // letFlyingBirdFly(ostrich); // ❌ Won’t compile / run — by design
+
 
 //--------------------------------
-
-
-
-
 
 
 
 
 
 //---------ISP: Interface segregation principle
-//
 
-//Example: instead of creating an Animal class with walk() and swim() methods, create 
+/*
+ “no code should be forced to depend on methods that it does not use.”
+*/
+
+//This principle ensures that your code is kept scalable, adaptable and modular.
+//Give to a class not less or more than it needs
+
+// 'Fat' interfaces
+
+/*Some possible consecuences led from violating this principle:
+-Overworking the developers: Developers must wade through a long list of irrelevant methods.
+-Fragile code: Classes forced to implement irrelevant methods often use stub implementations – empty placeholders that clutter the system and increase vulnerability to bugs
+-Counterintuitive systems
+*/
+
+/* 
+Recognizing code that violates the principle:
+-There is some object that does much at once.
+*/
+
+
+
+
+
+
+//Example: instead of creating an Animal class with walk(),swim(),climb(),jump(), etc; methods, create 
 //a Walker class extending from Animal for animals that can walk and
 //a Swimmer class extending from Animal for animals that can swim...
+//a Climber class extending from Animal for animals that can climb...
+
 
 //Without ISP:
+// const Animal = class {
+//     species="";
+//     animal="";
+//     walk(){
+//         console.log(`${this.animal} is walking`);
 
+//     }
+//     swim(){
+//         console.log(`${this.animal} is swimming`);
 
-//With ISP:
+//     }
+//     climb(){
+//         console.log(`${this.animal} is climbing`);
+
+//     }
+// }
+
+// const Fish = class extends Animal{
+//     constructor(species) {
+//         super();
+//         this.animal='fish';//ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+//         this.species=species;
+//     }
+//     swim(){
+//         console.log(`${this.animal} (${this.species}) is swimming`);
+//     }
+// }
+
+// const swordFish = new Fish('swordfish');
+// swordFish.climb()//fish is climbing
+// swordFish.walk()//fish is walking
+// swordFish.swim()//fish (swordfish) is swimming
+
+//I think that fishes cannot walk nor climb! hahaha So: 
+
+//With ISP: Segregate the approach into multiple classes
+// class Animal{
+//     species="";
+//     constructor(animal,species){
+//         this.animal=animal;
+//         this.species=species;
+//     }
+// }
+// class Swimmer extends Animal{
+//     swim(){
+//         let output =`${this.animal}`;
+//         if (this.species) output = output.concat(` (${this.species})`);
+//         output =output.concat(' is swimming!')
+//         console.log(output)
+//     }
+// }
+// class Climber extends Animal{
+//     climb(){
+//         let output =`${this.animal}`;
+//         if (this.species) output = output.concat(` (${this.species})`);
+//         output =output.concat(' is climbing!')
+//         console.log(output)
+//     }
+// }
+// class Walker extends Animal{
+//     walk(){
+//         let output =`${this.animal}`;
+//         if (this.species) output = output.concat(` (${this.species})`);
+//         output =output.concat(' is walking!')
+//         console.log(output)
+//     }
+// }
+// const swordFish = new Swimmer('fish', 'swordfish');
+// swordFish.swim();//fish (swordfish) is swimming!
+
+// const person = new Walker('human','woman');
+// person.walk();//human (woman) is walking!
+
+// const monkey = new Climber('monnkey',);
+// monkey.climb();//monnkey is climbing!
 //--------------------------------
 
 
 
 
-
-
-
-
 //-----------------------DIP:Depepndecy Inversion Principle
-//1- Low level methods must not depend on high level methods. It must be the other way.
-//2- Abstraction cannot depend on details but details must depend on abstraction.
+
+/*
+Dependency Inversion is the strategy of depending upon interfaces or abstract functions 
+and classes rather than upon concrete functions and classes.
+
+//- Abstraction should not depend on details but details must depend on abstraction.
 
 
+    DIP tells us that every dependency in the design should target an interface or an abstract class. 
+    Furthermore, a dependency should not target a concrete class. 
 
+    High-level modules should not depend on low-level modules. BOTh should depend on abstractions.
+
+*/
+
+//WITHOUT DIP
+
+// class EmailService {
+//   sendEmail(message) {
+//     console.log(`Sending email: ${message}`);
+//   }
+// }
+
+// class Notification {
+//   constructor() {
+//     this.emailService = new EmailService(); // Direct dependency
+//     //WhatsAppService
+//     //what if we create another type of notificacion service? we should not construct all of them!
+//   }
+
+//   notify(message) {
+//     this.emailService.sendEmail(message);
+//     //What  about the implementation of the messaging in WhatsApp platform?
+//   }
+// }
+
+// const notification = new Notification();
+// notification.notify("Hello, World!"); // It will execute all implementations added in notify() method. Which will not be always the desired case.
+
+//WITH DIP
+
+// // Abstraction
+
+// //We set a class behaving like an abstract class
+// //It has the send() method which may not be called from this class and should be implemented in others 'concrete' classes
+// class NotificationService {
+//     //If called from here, throw an error
+//   send(message) {
+//     throw new Error("Method 'send()' must be implemented.");
+//   }
+// }
+
+// // Low-level module
+// class EmailService extends NotificationService {
+//     //extends from the abstract component in order to implement the send() method
+//   send(message) { 
+//     //It works correctly just in case of email sendings
+//     console.log(`Sending email: ${message}`);
+//   }
+// }
+
+// class TelegramService extends NotificationService{
+//     send(message){
+//         console.log(`Sending Telegram message: ${message}`);
+//     }
+// }
+
+// // High-level module
+// class Notification {
+//     //Here we have a Notification class whose purpose will be adapted depending on the dependency injected
+//   constructor(service) {
+//     this.service = service; // Dependency injected
+//   }
+//   notify(message) { //notify will call the abstract send() method low level implementation 
+//     this.service.send(message);
+//   }
+// }
+
+// // Usage
+// const emailService = new EmailService();
+// const telegramService = new TelegramService();
+// const emailNotification = new Notification(emailService);
+// const telegramNotification = new Notification(telegramService);
+
+// emailNotification.notify("Hello, World!");//Sending email: Hello, World!
+// telegramNotification.notify('Hello, World!');/.Sending Telegram message: Hello, World! adf asd/
+//-----------------------
+
+//-----------------------SOLID
+//S: single responsibility principle
+//O: open-closed principle
+//L: Liskov substitution principle
+//I: interface segregation principle
+//D: 
 //-----------------------
 
 
