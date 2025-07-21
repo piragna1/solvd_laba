@@ -53,23 +53,28 @@ export class User{
 
 export class Cart {
     #books =[];
+    get getBooks(){
+        return this.#books;
+    }
     addBook(book){ 
-        const exists = this.#books.find(b => b.ISBN === book.ISBN);
-        if (!exists){
+        if (this.hasBook(book.title)){
             this.#books.push(book);
         }
     }
     removeBook(bookTitle){
-        let findIndex = this.#books.findIndex((book) => {return book.title === bookTitle});
+        let findIndex = this.bookIndex(bookTitle);
         if (findIndex !== -1){
             this.#books.splice(findIndex,1);
         }
     }
+    hasBook(book){
+        return this.#books.find(b => b.ISBN === book.ISBN);
+    }
+    bookIndex(bookTitle){
+        this.#books.findIndex((book) => {return book.title === bookTitle});
+    }
     calculatePrice(){
         return this.#books.reduce((total,book) => {return total+book.price;},0)
-    }
-    get getBooks(){
-        return this.#books;
     }
 }
 
