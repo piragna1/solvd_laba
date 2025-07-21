@@ -17,21 +17,33 @@
     include information about the user, the books ordered, and the total price.
  */
 
-export class Book {
-    title="";
-    author="";
-    ISBN="";
-    price=0;
-    availability=false;
-    genre;
-    constructor(title,author,ISBN,price,availability,genre){
-        this.title=title;
-        this.author = author;
-        this.ISBN = ISBN;
-        this.price=price;
-        this.availability=availability;
-        this.genre=genre;
+
+    export class Book {
+    #title;
+    #author;
+    #ISBN;
+    #price;
+    #availability;
+    #genre;
+
+    constructor(title, author, ISBN, price, availability, genre) {
+        this.#title = title;
+        this.#author = author;
+        this.#ISBN = ISBN;
+        this.#price = price;
+        this.#availability = availability;
+        this.#genre = genre;
     }
+
+    get title() { return this.#title; }
+    get author() { return this.#author; }
+    get ISBN() { return this.#ISBN; }
+    get price() { return this.#price; }
+    get genre() { return this.#genre; }
+    get availability() { return this.#availability; }
+
+    enableBook() { this.#availability = true; }
+    disableBook() { this.#availability = false; }
 }
 
 export class Fiction extends Book {
