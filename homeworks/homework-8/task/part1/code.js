@@ -72,7 +72,7 @@ export class Cart {
     }
     bookIndex(bookTitle){
         this.#books.findIndex((book) => {return book.title === bookTitle});
-    }
+    }   
     calculatePrice(){
         return this.#books.reduce((total,book) => {return total+book.price;},0)
     }

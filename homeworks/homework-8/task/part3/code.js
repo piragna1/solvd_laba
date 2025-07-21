@@ -14,12 +14,20 @@ Part 3: Demonstration
  when users add them to the cart.
 */
 
+import { User } from "../part1/code";
+
 class LibrarySystem{
 
 }
 
 class UserManagementSystem{
-    
+
+}
+
+class UserManagementSystemView{
+    generateUser(name,email,id){
+        return new User(name,email,id);
+    }
 }
 
 class CartManagementSystem{
