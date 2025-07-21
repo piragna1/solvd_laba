@@ -15,7 +15,8 @@ const book1 = new Book(
     "Stanisław Lem",
     "978-0-15-602760-1",
     16.99,
-    true
+    true,
+    'science fiction'
 );
 
 const book2 = new Book(
@@ -23,7 +24,8 @@ const book2 = new Book(
     "Henryk Sienkiewicz",
     "978-0-8021-3885-2",
     18.50,
-    false
+    false,
+    'historical fiction'
 );
 
 const book3 = new Book(
@@ -31,7 +33,8 @@ const book3 = new Book(
     "Witold Gombrowicz",
     "978-0-300-07942-3",
     14.75,
-    true
+    true,
+    'satire / modernist literature'
 );
 
 const book4 = new Book(
@@ -39,7 +42,8 @@ const book4 = new Book(
     "Czesław Miłosz",
     "978-0-374-53046-5",
     13.40,
-    true
+    true,
+    'literary fiction / coming-of-age'
 );
 
 const book5 = new Book(
@@ -47,12 +51,10 @@ const book5 = new Book(
     "Wiesław Myśliwski",
     "978-1-56478-636-8",
     19.99,
-    false
+    false,
+    'literary fiction / family saga'
 );
 const books = [book1, book2, book3, book4, book5];
-
-
-
 
 const user1 = new User(
     "Anna Kowalska",
@@ -150,4 +152,5 @@ order4.printInfo();
 
 const order5 =user5.placeOrder(user5.id,cart5.getBooks,cart5.calculatePrice());
 order5.printInfo();
+
 //---------------------------

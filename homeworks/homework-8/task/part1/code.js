@@ -23,12 +23,14 @@ export class Book {
     ISBN="";
     price=0;
     availability=false;
-    constructor(title,author,ISBN,price,availability){
+    genre;
+    constructor(title,author,ISBN,price,availability,genre){
         this.title=title;
         this.author = author;
         this.ISBN = ISBN;
         this.price=price;
         this.availability=availability;
+        this.genre=genre;
     }
 }
 
