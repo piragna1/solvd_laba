@@ -81,9 +81,10 @@ export class User {
 
 export class Cart {
     #books =[];
-    get getBooks(){
-        return this.#books;
-    }
+    get getBooks() {
+    return [...this.#books]; // return a copy
+}
+
     addBook(book){ 
             this.#books.push(book);
     }
