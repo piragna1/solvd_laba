@@ -134,7 +134,20 @@ export class Order{
 User.prototype.placeOrder = function placeOrder(id, books, totalPrice){
     return new Order(id,books,totalPrice);
 }
-console.log(User.prototype.placeOrder);//[Function: placeOrder]
+// console.log(User.prototype.placeOrder);//[Function: placeOrder]
 
-const order1 =user1.placeOrder(user1.id,cart1.getBooks());
+const order1 =user1.placeOrder(user1.id,cart1.getBooks,cart1.calculatePrice());
+order1.printInfo();
+
+const order2 =user2.placeOrder(user2.id,cart2.getBooks,cart2.calculatePrice());
+order2.printInfo();
+
+const order3 =user3.placeOrder(user3.id,cart3.getBooks,cart3.calculatePrice());
+order3.printInfo();
+
+const order4 =user4.placeOrder(user4.id,cart4.getBooks,cart4.calculatePrice());
+order4.printInfo();
+
+const order5 =user5.placeOrder(user5.id,cart5.getBooks,cart5.calculatePrice());
+order5.printInfo();
 //---------------------------
