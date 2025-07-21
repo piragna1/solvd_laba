@@ -329,7 +329,7 @@ export class OrderService {
  *
  * @class
  */
-class BasicPriceCalculator {
+export class BasicPriceCalculator {
   /**
    * Calculates the total price of given books.
    * @param {Book[]} books - Array of books to calculate total from.

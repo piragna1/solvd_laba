@@ -6,8 +6,8 @@
  using its methods.
 
  */
-import { Book, User, Cart, Order } from "../part1/code.js";
 
+import { Book, User, Cart, Order, BasicPriceCalculator } from "../part1/code.js";
 
 //-----------------------Objects creation phase
 const book1 = new Book(
@@ -54,47 +54,24 @@ const book5 = new Book(
     false,
     'literary fiction / family saga'
 );
+
 const books = [book1, book2, book3, book4, book5];
 
-const user1 = new User(
-    "Anna Kowalska",
-    "anna.kowalska@example.com",
-    "U001"
-);
+const user1 = new User("Anna Kowalska", "anna.kowalska@example.com", "U001");
+const user2 = new User("Jan Nowak", "jan.nowak@example.com", "U002");
+const user3 = new User("Katarzyna Zielińska", "k.zielinska@example.com", "U003");
+const user4 = new User("Piotr Wiśniewski", "piotr.wisniewski@example.com", "U004");
+const user5 = new User("Tomasz Lewandowski", "t.lewandowski@example.com", "U005");
 
-const user2 = new User(
-    "Jan Nowak",
-    "jan.nowak@example.com",
-    "U002"
-);
+// Create a shared price calculator instance
+const priceCalculator = new BasicPriceCalculator();
 
-const user3 = new User(
-    "Katarzyna Zielińska",
-    "k.zielinska@example.com",
-    "U003"
-);
-
-const user4 = new User(
-    "Piotr Wiśniewski",
-    "piotr.wisniewski@example.com",
-    "U004"
-);
-
-const user5 = new User(
-    "Tomasz Lewandowski",
-    "t.lewandowski@example.com",
-    "U005"
-);
-const cart1 = new Cart();
-const cart2 = new Cart();
-const cart3 = new Cart();
-const cart4 = new Cart();
-const cart5 = new Cart();
-
-
-//---------------------------
-
-
+// Create carts with priceCalculator passed
+const cart1 = new Cart(priceCalculator);
+const cart2 = new Cart(priceCalculator);
+const cart3 = new Cart(priceCalculator);
+const cart4 = new Cart(priceCalculator);
+const cart5 = new Cart(priceCalculator);
 
 //-----------------------Adding books to carts
 
@@ -109,48 +86,40 @@ cart3.addBook(book5);
 
 cart4.addBook(book2);
 cart4.addBook(book3);
-
 cart4.addBook(book4);
+
 cart5.addBook(book5);
-//---------------------------
-
-
 
 //-----------------------Ordering process
 
-/*- Place Orders: Implement the process of placing an order. Users should be able to create instances of the 
-Order class, specifying the books they want to purchase.
+// Add printInfo method to Order class prototype for convenience
+Order.prototype.printInfo = function () {
+    console.log(`Order for User ID: ${this.userId}`);
+    console.log("Books:");
+    this.books.forEach((book, idx) => {
+        console.log(`  ${idx + 1}. ${book.title} by ${book.author} — $${book.price.toFixed(2)}`);
+    });
+    console.log(`Total Price: $${this.totalPrice.toFixed(2)}`);
+    console.log('---------------------------');
+};
 
-export class Order{
-    userId=undefined;
-    books=[];
-    totalPrice=0;
-    constructor(userId,books,totalPrice){
-        this.userId=userId;
-        this.books=books;
-        this.totalPrice=totalPrice;
-    }
-}
-    
-*/
-User.prototype.placeOrder = function placeOrder(id, books, totalPrice){
-    return new Order(id,books,totalPrice);
-}
-// console.log(User.prototype.placeOrder);//[Function: placeOrder]
+// Simplify placeOrder: only pass the cart, get user id from 'this'
+User.prototype.placeOrder = function (cart) {
+    return new Order(this.id, cart.getBooks, cart.calculatePrice());
+};
 
-const order1 =user1.placeOrder(user1.id,cart1.getBooks,cart1.calculatePrice());
+// Create orders
+const order1 = user1.placeOrder(cart1);
 order1.printInfo();
 
-const order2 =user2.placeOrder(user2.id,cart2.getBooks,cart2.calculatePrice());
+const order2 = user2.placeOrder(cart2);
 order2.printInfo();
 
-const order3 =user3.placeOrder(user3.id,cart3.getBooks,cart3.calculatePrice());
+const order3 = user3.placeOrder(cart3);
 order3.printInfo();
 
-const order4 =user4.placeOrder(user4.id,cart4.getBooks,cart4.calculatePrice());
+const order4 = user4.placeOrder(cart4);
 order4.printInfo();
 
-const order5 =user5.placeOrder(user5.id,cart5.getBooks,cart5.calculatePrice());
+const order5 = user5.placeOrder(cart5);
 order5.printInfo();
-
-//---------------------------
