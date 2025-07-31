@@ -25,7 +25,16 @@ class Stack {
     return this.#stack[this.#stack.length - 1]; //returning current last element
   }
 }
-class Queue {}
+class Queue {
+    #queue;
+    #first;
+    #last;
+    constructor(collection){
+        this.#queue = new Array().concat(Array.from(collection));
+        this.#first = this.#queue[0];
+        this.#last=this.#queue[this.#queue.length-1];
+    }
+}
 class BinaryTree {}
 class Graph {}
 class LinkedList {}
@@ -75,7 +84,15 @@ class LinkedList {}
 // console.log(ownStack.pop())// after: undefined
 //------------------------------------------------------
 
-//---------------------------------------------
+//---------------------------------------------Using Queue class' implementation
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200],
+]);
+const ownQueue = new Queue();
+// console.log(ownQueue);//TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+//fixing constructor...
 //---------------------------------------------
 
 //---------------------------------------------
