@@ -3,7 +3,8 @@ class Stack {
 
   constructor(collection) {
     //constructor
-    this.#stack = [].concat(Array.from(collection));
+    this.#stack = []
+    if (collection && collection[Symbol.iterator])this.#stack=this.#stack.concat(Array.from(collection))
   }
 
   //method for adding new elements
@@ -28,19 +29,37 @@ class Stack {
 class Queue {
     #queue;
     #first;
-    #last;
     constructor(collection){
-        this.#queue = new Array().concat(Array.from(collection));
+        this.#queue = new Array();
+        if (collection && collection[Symbol.iterator]) this.#queue = this.#queue.concat(Array.from(collection));
         this.#first = this.#queue[0];
-        this.#last=this.#queue[this.#queue.length-1];
     }
+    get first(){
+        return this.#first;
+    }
+    //adding elements (at the rear)
+    enqueue(element){
+        this.#queue.push(element);//add new elemennt
+    }
+    //removing elements (at the front)
+    dequeue(){
+        let ret = this.#queue[0];
+        this.#queue = this.#queue.slice(1);//remove first element
+        this.#first=this.#queue[0];//uppdate pointer to the new first element
+        return ret;
+    }
+    //getting peek element (from the front)
+    peek(){
+        return this.#first;
+    }
+    
 }
 class BinaryTree {}
 class Graph {}
 class LinkedList {}
 
 //---------------------------------------------
-/* Some tests before testing the Stack class */
+/* Some tests before trying the Stack class */
 
 // // console.log(typeof []);//object
 // // console.log( [] instanceof Array);//true
@@ -68,34 +87,64 @@ class LinkedList {}
 //   ["bananas", 300],
 //   ["oranges", 200],
 // ]);
-
+//-------------
 // const ownStack = new Stack(fruits);
+//-------------
 // console.log(ownStack._stack)//not accessible
 // console.log(ownStack);//not accessible
-// console.log(ownStack.peek());//[ 'oranges', 200 ]
 // ownStack._stack = [];//does not work
+//-------------
 // console.log(ownStack.peek());//[ 'oranges', 200 ]
 // console.log(ownStack.pop())//[ 'oranges', 200 ]
 // console.log(ownStack.peek());//[ 'bananas', 300 ]
 // console.log(ownStack.pop())//[ 'bananas', 300 ]
 // console.log(ownStack.pop())//[ 'apples', 500 ]
-// // console.log(ownStack.pop())//before: RangeError: Invalid array length
-// //reimplementing pop method
+// console.log(ownStack.peek());//undefined
 // console.log(ownStack.pop())// after: undefined
+//-------------
+// console.log(ownStack.pop())//before: RangeError: Invalid array length
+//-------------
+//reimplementing pop method
+//-------------
+//checking if Stack class' constructor works without arguments...
+// const ownStack1 = new Stack();//TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+//-------------
+//fixing constructor
+//-------------
+// const ownStack1 = new Stack();
+// console.log(ownStack1.peek());//undefined
 //------------------------------------------------------
 
 //---------------------------------------------Using Queue class' implementation
-const fruits = new Map([
-  ["apples", 500],
-  ["bananas", 300],
-  ["oranges", 200],
-]);
-const ownQueue = new Queue();
+// const fruits = new Map([
+//   ["apples", 500],
+//   ["bananas", 300],
+//   ["oranges", 200],
+// ]);
+//-------------
+// const ownQueue = new Queue();
 // console.log(ownQueue);//TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
-//fixing constructor...
+//-------------
+//fixing constructor... and also reviewing if Stack class has also errors in constructor...
+//-------------
+// const ownQueue = new Queue(); //apparenlty working
+// console.log(ownQueue.first);//undefined
+// console.log(ownQueue.last);//undefined
+//-------------
+// const ownQueue = new Queue(fruits);
+// console.log(ownQueue);//Queue {}
+// ownQueue.enqueue(['strawberry', 550]); //adding element
+// console.log(ownQueue.peek());//[ 'apples', 500 ]
+// console.log(ownQueue.dequeue());//[ 'apples', 500 ]
+// console.log(ownQueue.dequeue());//[ 'bananas', 300 ]
+// console.log(ownQueue.dequeue());//[ 'oranges', 200 ]
+// console.log(ownQueue.dequeue());//[ 'strawberry', 550 ]
+// console.log(ownQueue.dequeue());//undefined
+// console.log(ownQueue.peek());//undefined
+//-------------
 //---------------------------------------------
 
-//---------------------------------------------
+//---------------------------------------------Using Binary Tree class' implementation
 //---------------------------------------------
 
 //---------------------------------------------
