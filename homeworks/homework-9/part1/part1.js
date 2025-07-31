@@ -54,9 +54,23 @@ class Queue {
     }
     
 }
-class BinaryTree {}
+class BinaryTree {
+    #root;
+    constructor(collection){
+        if (collection){
+            
+        }
+    }
+    add(element){};
+    search(element){};
+    preOrder(){};
+    inOrder(){};
+    postOrder(){};
+    
+}
 class Graph {}
 class LinkedList {}
+
 
 //---------------------------------------------
 /* Some tests before trying the Stack class */
