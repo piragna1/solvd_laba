@@ -172,9 +172,11 @@ class BinaryTree {
           this.add(element, root.right);
         }
       }
+
+
       //if root's value is greater
-      else if (root > element) {
-        console.log(" else if (root > element):", root > element);
+      else if (root.value > element) {
+        console.log(" else if (root.value > element):", root.value > element);
 
         console.log("if (!root.left)", !root.left);
         //if root.left does not exist, assign element to it.
