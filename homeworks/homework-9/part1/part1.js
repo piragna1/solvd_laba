@@ -101,7 +101,6 @@ class BinaryTree {
     return;
   }
 
-  
   add(element, root = this.#root) {
     console.log("entered in add()");
     console.log(element);
@@ -118,9 +117,10 @@ class BinaryTree {
     //------
 
     //---checking if the main route exists
-    console.log("if (!this.#root) {:", !this.#root);
-    if (!this.#root) {
+    console.log("if (!this.#root.value) {:", !this.#root.value);
+    if (!this.#root.value) {
       this.#root.value = element;
+      console.log("this.#root.value:", this.#root.value);
       return;
     }
     //------
@@ -128,7 +128,7 @@ class BinaryTree {
     //for subsequents roots:
 
     //ROOT has no value:
-      console.log("!root.value:", !root.value);
+    console.log("!root.value:", !root.value);
     if (!root.value) {
       console.log("!root.value:", !root.value);
 
@@ -154,6 +154,7 @@ class BinaryTree {
             left: undefined,
             right: undefined,
           };
+          console.log("root.right:", root.right);
           /* 
           Uncaught TypeError TypeError: Cannot create property 'right' on number '1'
     at add (c:\Users\Gonzalo\Documents\GitHub\solvd_laba\homeworks\homework-9\part1\part1.js:154:22)
@@ -172,7 +173,6 @@ class BinaryTree {
           this.add(element, root.right);
         }
       }
-
 
       //if root's value is greater
       else if (root.value > element) {
@@ -207,21 +207,26 @@ class BinaryTree {
     return ret;
   }
   preOrder(root = this.#root) {
+
     if (!root) return;
+
+    console.log(root.value);
+
     if (root.left) {
       this.preOrder(root.left);
     }
-    console.log(root);
+
     if (root.right) {
       this.preOrder(root.right);
     }
+    
   }
   inOrder(root = this.#root) {
     if (!root) return;
-    console.log(root);
     if (root.left) {
       this.preOrder(root.left);
     }
+    console.log(root.value);
     if (root.right) {
       this.preOrder(root.right);
     }
@@ -234,7 +239,7 @@ class BinaryTree {
     if (root.right) {
       this.preOrder(root.right);
     }
-    console.log(root);
+    console.log(root.value);
   }
 }
 class Graph {}
@@ -343,30 +348,28 @@ const fruits = new Map([
 ]);
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const numbers1 = [1, 0, 6, 8, 7, 3, 4, 5, 9, 2];
 
 //-------------
 
 // const ownTree = new BinaryTree(fruits);
 const ownTree1 = new BinaryTree(numbers);
+const ownTree2 = new BinaryTree(numbers);
 
+ownTree1.preOrder();
+console.log('alamaualaaaaaaaa')
 ownTree1.inOrder();
+console.log('alamaualaaaaaaaa')
+ownTree1.postOrder();
 
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
-//-------------
+
+console.log('dejenmenpaz')
+ownTree2.preOrder();
+// console.log('dejenmenpaz')
+// ownTree2.inOrder();
+// console.log('dejenmenpaz')
+// ownTree2.postOrder();
+
 //-------------
 //-------------
 
