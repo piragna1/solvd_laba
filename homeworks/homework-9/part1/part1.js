@@ -57,9 +57,24 @@ class Queue {
 class BinaryTree { //binary tree for number elements
     #root;
     constructor(collection){
-        if (collection){
-            
-        }
+
+      // let falsy = !collection; not necessary
+      let isNumber = typeof collection === 'number';
+      let isIterable = collection[Symbol.iterator] !== undefined;
+
+      if (isNumber){
+        this.#root.value = collection;
+        this.#root.left = undefined;
+        this.#root.right = undefined;
+      }
+      else if (isIterable){
+        if (!Array.isArray(collection)) collection = Array.from(collection);
+      }
+      else {
+        this.#root.value = undefined;
+        this.#root.left = undefined;
+        this.#root.right = undefined;
+      }
     }
     add(element){};
     search(element){};
@@ -179,4 +194,7 @@ class LinkedList {}
 //---------------------------------------------
 //---------------------------------------------
 
-console.log(Array.from(1))//
+console.log(Array.from([2]))//[2]
+console.log(Array.isArray(Array.from([2])))//true
+let arr = ['banana'];
+console.log(arr==true)//false
