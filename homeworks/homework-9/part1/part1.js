@@ -3,8 +3,9 @@ class Stack {
 
   constructor(collection) {
     //constructor
-    this.#stack = []
-    if (collection && collection[Symbol.iterator])this.#stack=this.#stack.concat(Array.from(collection))
+    this.#stack = [];
+    if (collection && collection[Symbol.iterator])
+      this.#stack = this.#stack.concat(Array.from(collection));
   }
 
   //method for adding new elements
@@ -27,65 +28,122 @@ class Stack {
   }
 }
 class Queue {
-    #queue;
-    #first;
-    constructor(collection){
-        this.#queue = new Array();
-        if (collection && collection[Symbol.iterator]) this.#queue = this.#queue.concat(Array.from(collection));
-        this.#first = this.#queue[0];
-    }
-    get first(){
-        return this.#first;
-    }
-    //adding elements (at the rear)
-    enqueue(element){
-        this.#queue.push(element);//add new elemennt
-    }
-    //removing elements (at the front)
-    dequeue(){
-        let ret = this.#queue[0];
-        this.#queue = this.#queue.slice(1);//remove first element
-        this.#first=this.#queue[0];//uppdate pointer to the new first element
-        return ret;
-    }
-    //getting peek element (from the front)
-    peek(){
-        return this.#first;
-    }
-    
+  #queue;
+  #first;
+  constructor(collection) {
+    this.#queue = new Array();
+    if (collection && collection[Symbol.iterator])
+      this.#queue = this.#queue.concat(Array.from(collection));
+    this.#first = this.#queue[0];
+  }
+  get first() {
+    return this.#first;
+  }
+  //adding elements (at the rear)
+  enqueue(element) {
+    this.#queue.push(element); //add new elemennt
+  }
+  //removing elements (at the front)
+  dequeue() {
+    let ret = this.#queue[0];
+    this.#queue = this.#queue.slice(1); //remove first element
+    this.#first = this.#queue[0]; //uppdate pointer to the new first element
+    return ret;
+  }
+  //getting peek element (from the front)
+  peek() {
+    return this.#first;
+  }
 }
-class BinaryTree { //binary tree for number elements
-    #root;
-    constructor(collection){
+//binary tree for number type elements
+class BinaryTree {
+  #root;
 
-      // let falsy = !collection; not necessary
-      let isNumber = typeof collection === 'number';
-      let isIterable = collection[Symbol.iterator] !== undefined;
+  constructor(collection) {
+    if (!collection) return;
 
-      if (isNumber){
-        this.#root.value = collection;
-        this.#root.left = undefined;
-        this.#root.right = undefined;
-      }
-      else if (isIterable){
-        if (!Array.isArray(collection)) collection = Array.from(collection);
-      }
-      else {
-        this.#root.value = undefined;
-        this.#root.left = undefined;
-        this.#root.right = undefined;
+    let isNumber = typeof collection === "number";
+
+    let isIterable = collection[Symbol.iterator] !== undefined;
+
+    if (isNumber) {
+      this.#root = collection;
+    } else if (isIterable) {
+      for (const element of collection) {
+        this.add(element);
       }
     }
-    add(element){};
-    search(element){};
-    preOrder(){};
-    inOrder(){};
-    postOrder(){};
-    
+
+    return;
+  }
+  add(element, root = this.#root) {
+    //ROOT has no value:
+    if (!root) {
+      root = element;
+    }
+    //ROOT has value:
+    else {
+      //if root's value is smaller
+      if (root < element) {
+        //if root.right does not exist, assign element to it.
+        if (!root.right) root.right = element;
+        //else, recall add() passing root.right as the new `root` arg.
+        else {
+          this.add(element, root.right);
+        }
+      }
+      //if root's value is greater
+      else if (root > element) {
+        //if root.left does not exist, assign element to it.
+        if (root.left) root.left = element;
+        else {
+          //else, recall add() passing root.left as the new `root` arg.
+          this.add(element, root.left);
+        }
+      }
+    }
+    return;
+  }
+  search(element, root = this.#root) {
+    let ret = false;
+    if (!root) { 
+      return ret;
+    } else if (root === element) {
+      ret = true;
+    } else if (root > element) ret = this.search(element, root.left);
+    else if (root < element) ret = this.search(element, root.right);
+    return ret;
+  }
+  preOrder(root = this.#root) {
+    if (root.left) {
+      this.preOrder(root.left);
+    }
+    console.log(root);
+    if (root.right) {
+      this.preOrder(root.right);
+    }
+  }
+  inOrder(root = this.#root) {
+    console.log(root);
+    if (root.left) {
+      this.preOrder(root.left);
+    }
+    if (root.right) {
+      this.preOrder(root.right);
+    }
+  }
+  postOrder(root = this.#root) {
+    if (root.left) {
+      this.preOrder(root.left);
+    }
+    if (root.right) {
+      this.preOrder(root.right);
+    }
+    console.log(root);
+  }
 }
 class Graph {}
 class LinkedList {}
-
 
 //---------------------------------------------
 /* Some tests before trying the Stack class */
@@ -194,7 +252,10 @@ class LinkedList {}
 //---------------------------------------------
 //---------------------------------------------
 
-console.log(Array.from([2]))//[2]
-console.log(Array.isArray(Array.from([2])))//true
-let arr = ['banana'];
-console.log(arr==true)//false
+console.log(Array.from([2])); //[2]
+console.log(Array.isArray(Array.from([2]))); //true
+let arr = ["banana"];
+console.log(arr == true); //false
+console.log("a" < 2); //false
+console.log({ number: 3 } > 2); //false
+console.log({ number: 3 } < 2); //false
