@@ -54,7 +54,7 @@ class Queue {
     }
     
 }
-class BinaryTree {
+class BinaryTree { //binary tree for number elements
     #root;
     constructor(collection){
         if (collection){
@@ -178,3 +178,5 @@ class LinkedList {}
 
 //---------------------------------------------
 //---------------------------------------------
+
+console.log(Array.from(1))//
