@@ -201,30 +201,29 @@ class BinaryTree {
 class Graph {
   #vertices;
   #edges;
-  constructor(){
-    this.#vertices=[];
-    this.#edges=[];
+  constructor() {
+    this.#vertices = [];
+    this.#edges = [];
   }
-  addVertice(vValue){
+  addVertice(vValue) {
     const index = this.#vertices.length;
-    if (vValue==null) vValue=index;
-    this.#vertices[index]={
-      vertice:index,
-      value:vValue
+    if (vValue == null) vValue = index;
+    this.#vertices[index] = {
+      vertice: index,
+      value: vValue,
     };
-    this.#edges[index]=[];
+    this.#edges[index] = [];
   }
-  addEdge(v1,v2){
-
+  addEdge(v1, v2) {
     //edges not found
-    if (!this.#edges[v1]) this.#edges[v1]=[];
-    if (!this.#edges[v2]) this.#edges[v2]=[];
+    if (!this.#edges[v1]) this.#edges[v1] = [];
+    if (!this.#edges[v2]) this.#edges[v2] = [];
 
-    if(!this.#edges[v1].includes(v2))this.#edges[v1].push(v2);
-    if(!this.#edges[v2].includes(v1))this.#edges[v2].push(v1);
+    if (!this.#edges[v1].includes(v2)) this.#edges[v1].push(v2);
+    if (!this.#edges[v2].includes(v1)) this.#edges[v2].push(v1);
   }
   // [[1,3],[0],[3],[0,2]]
-  dfs(value,visitedNodes=[],currentNodeNeighbours=0){
+  dfs(value, visitedNodes = [], currentNodeNeighbours = 0) {
     //return value
     let ret = false;
 
@@ -233,41 +232,52 @@ class Graph {
       return ret;
     }
 
-    //empty visited nodes' stack
-    if (!visitedNodes.length){
-
+    //if visited nodes' stack is empty:
+    if (!visitedNodes.length) {
       //put at the top of the stack the first node
-      visitedNodes.push(0);//node id (number)
+      visitedNodes.push(0); //node id (number)
 
-      ret = this.dfs(value,visitedNodes);//recall the function passing the updated stack
+      ret = this.dfs(value, visitedNodes); //recall dfs()
     }
-    //not empty visited nodes' stack
-    else{
-      let lastNode = visitedNodes[visitedNodes.length-1];
-      //value found
-      if (this.#vertices[lastNode]===value) return true;
-      //value not found
-      else{
-          
-        //look inside current node edges
-        let topNodeNeighbours = this.#edges[visitedNodes.length-1];
-        
-        //put neighbours of the current node at the top of the stack:
-        let i = 0 ;
-        //visiting every neighbour
-        while(i<topNodeNeighbours.length){
+    //if not empty stack:
+    else {
+      //last node (at the top) of the stack
+      let lastNode = visitedNodes[visitedNodes.length - 1];
 
+      //value found
+      if (this.#vertices[lastNode] === value) return true;
+      //value not found
+      else {
+        //look inside last node edges for neighbours
+        //accessing to the edges of the graph through the lastNode id
+        let lastNodeNeighbours = this.#edges[lastNode];
+
+        let i = 0;
+        //put neighbours of the last node at the top of the stack:
+        //visiting every neighbour of the last node
+        while (i < lastNodeNeighbours.length) {
+          //always checking that every node is not present in the `visited` stack
+
+          //if it is not
+          if (!visitedNodes.includes(lastNodeNeighbours[i])) {
+            //update stack
+            visitedNodes.push(lastNodeNeighbours[i]);
+
+            //recall function
+            ret = this.dfs(value, visitedNodes);
+          } else {
+            //if it is
+            //do nothing
+          }
+          //increment `i` for accessing the next neighbour of the current last node
           i++;
         }
       }
-
     }
 
-  return ret;
+    return ret;
   }
-  bfs(value){
-
-  }
+  bfs(value) {}
 }
 class LinkedList {
   #node = {};
@@ -477,13 +487,13 @@ class LinkedList {
 
 //---------------------------------------------Using Graph class' implementation
 const ownGraph = new Graph();
-console.log(ownGraph);//Graph {}
-ownGraph.addVertice('sanjuanjo');
-ownGraph.addVertice('sanjuanje');
-ownGraph.addEdge(0,1);
-console.log(![]);//false
-console.log(![].length);//true
-console.log();//
+console.log(ownGraph); //Graph {}
+ownGraph.addVertice("sanjuanjo");
+ownGraph.addVertice("sanjuanje");
+ownGraph.addEdge(0, 1);
+console.log(![]); //false
+console.log(![].length); //true
+console.log(); //
 //---------------------------------------------
 
 //---------------------------------------------
@@ -497,4 +507,3 @@ console.log();//
 
 //---------------------------------------------
 //---------------------------------------------
-
