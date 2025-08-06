@@ -200,10 +200,19 @@ class BinaryTree {
     let ret = false;
     if (!root) {
       return ret;
-    } else if (root === element) {
+    } 
+    else if (root.value === element) {
       ret = true;
-    } else if (root > element) ret = this.search(element, root.left);
-    else if (root < element) ret = this.search(element, root.right);
+    }
+    else if (!root.left && !root.right){
+      ret = false;
+    }
+     else if (root.value > element){
+       ret = this.search(element, root.left);
+      }
+    else if (root.value < element) {
+      ret = this.search(element, root.right);
+    }
     return ret;
   }
   preOrder(root = this.#root) {
@@ -348,7 +357,7 @@ const fruits = new Map([
 ]);
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-const numbers1 = [1, 0, 6, 8, 7, 3, 4, 5, 9, 2];
+// const numbers1 = [1, 0, 6, 8, 7, 3, 4, 5, 9, 2];
 
 //-------------
 
@@ -357,20 +366,28 @@ const ownTree1 = new BinaryTree(numbers);
 const ownTree2 = new BinaryTree(numbers);
 
 ownTree1.preOrder();
-console.log('alamaualaaaaaaaa')
+console.log('------------------------------')
 ownTree1.inOrder();
-console.log('alamaualaaaaaaaa')
+console.log('------------------------------')
 ownTree1.postOrder();
+console.log('------------------------------')
 
 
-console.log('dejenmenpaz')
 ownTree2.preOrder();
-// console.log('dejenmenpaz')
-// ownTree2.inOrder();
-// console.log('dejenmenpaz')
-// ownTree2.postOrder();
+console.log('------------------------------')
+ownTree2.inOrder();
+console.log('------------------------------')
+ownTree2.postOrder();
+console.log('------------------------------')
 
 //-------------
+console.log(ownTree1.search(10));//false
+console.log(ownTree1.search(9));//true
+console.log(ownTree1.search(-1));//false
+console.log(ownTree1.search(20));//false
+console.log(ownTree1.search(-0));//true
+console.log(ownTree1.search(+2));//true
+
 //-------------
 
 //---------------------------------------------
