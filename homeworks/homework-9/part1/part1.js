@@ -206,8 +206,8 @@ class Graph {
     this.#edges=[];
   }
   addVertice(vValue){
-    if (vValue==null) return;
     const index = this.#vertices.length;
+    if (vValue==null) vValue=index;
     this.#vertices[index]={
       vertice:index,
       value:vValue
@@ -222,6 +222,51 @@ class Graph {
 
     if(!this.#edges[v1].includes(v2))this.#edges[v1].push(v2);
     if(!this.#edges[v2].includes(v1))this.#edges[v2].push(v1);
+  }
+  // [[1,3],[0],[3],[0,2]]
+  dfs(value,visitedNodes=[],currentNodeNeighbours=0){
+    //return value
+    let ret = false;
+
+    //empty graph
+    if (!this.#vertices.length) {
+      return ret;
+    }
+
+    //empty visited nodes' stack
+    if (!visitedNodes.length){
+
+      //put at the top of the stack the first node
+      visitedNodes.push(0);//node id (number)
+
+      ret = this.dfs(value,visitedNodes);//recall the function passing the updated stack
+    }
+    //not empty visited nodes' stack
+    else{
+      let lastNode = visitedNodes[visitedNodes.length-1];
+      //value found
+      if (this.#vertices[lastNode]===value) return true;
+      //value not found
+      else{
+          
+        //look inside current node edges
+        let topNodeNeighbours = this.#edges[visitedNodes.length-1];
+        
+        //put neighbours of the current node at the top of the stack:
+        let i = 0 ;
+        //visiting every neighbour
+        while(i<topNodeNeighbours.length){
+
+          i++;
+        }
+      }
+
+    }
+
+  return ret;
+  }
+  bfs(value){
+
   }
 }
 class LinkedList {
@@ -433,9 +478,11 @@ class LinkedList {
 //---------------------------------------------Using Graph class' implementation
 const ownGraph = new Graph();
 console.log(ownGraph);//Graph {}
-ownGraph.addVertice();
-console.log();//
-console.log();//
+ownGraph.addVertice('sanjuanjo');
+ownGraph.addVertice('sanjuanje');
+ownGraph.addEdge(0,1);
+console.log(![]);//false
+console.log(![].length);//true
 console.log();//
 //---------------------------------------------
 
