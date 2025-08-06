@@ -243,7 +243,7 @@ class Graph {
       console.log("visited nodes stack is empty");
 
       //put at the top of the stack the first node
-      visitedNodes.push(this.#vertices[0]); //node id (number)
+      visitedNodes.push(this.#vertices[0]); 
 
       ret = this.dfs(value, visitedNodes); //recall dfs()
     }
@@ -355,8 +355,128 @@ class Graph {
   3:[0,2]
   ]
   */
-  bfs(value,visitedNodes=[]) {
+  bfs(value,visitedNodes=[],pendingNodes=[]) {
+    console.log("target value:", value);
+    console.log("stack:", visitedNodes);
 
+    //return value
+    let ret = false;
+
+    //empty graph
+    if (!this.#vertices.length) {
+      console.log("empty graph");
+      return ret;
+    }
+
+    //if visited nodes' stack is empty:
+    if (!visitedNodes.length) {
+      console.log("visited nodes stack is empty");
+
+      //put at the top of the stack the first node
+      visitedNodes.push(this.#vertices[0]); 
+      pendingNodes.push(this.#vertices[0])
+
+      ret = this.bfs(value, visitedNodes,pendingNodes); //recall bfs()
+    }
+    //if not empty stack:
+    else {
+      console.log("visited nodes stack is NOT empty");
+
+      //first node (at the top) of the stack
+      let firstNode = visitedNodes[visitedNodes.length - 1];
+      console.log("first node", firstNode);
+
+      //value found
+      if (this.#vertices[firstNode["vertice"]]["value"] === value) {
+        console.log("value found");
+        ret = true;
+        return ret;
+      }
+      //value not found
+      else {
+        console.log("value NOT found");
+        //look inside first node edges for neighbours
+        //accessing to the edges of the graph through the firstNode id
+        let firstNodeNeighbours = this.#edges[firstNode];
+        console.log("firstNodeNeighbours:", firstNodeNeighbours);
+
+        //put neighbours of the first node at the top of the stack:
+        //visiting every neighbour of the first node (if exist)
+        if (firstNodeNeighbours) {
+          let i = 0;
+          console.log("START VISITING NEIGHBOURS OF", firstNode);
+          while (i < firstNodeNeighbours.length) {
+            console.log("i->" + i);
+
+            //always checking that every node is not present in the `visited` stack
+
+            //if it is not
+            if (!visitedNodes.includes(firstNodeNeighbours[i])) {
+              console.log(
+                "neighbour",
+                firstNodeNeighbours[i] + " is not in the stack..."
+              );
+
+              //update stack
+              console.log("updating stack...");
+              visitedNodes.push(firstNodeNeighbours[i]);
+
+              //recall function
+              console.log("recalling dfs()");
+              ret = this.dfs(value, visitedNodes);
+            } else {
+              console.log(
+                "neighbour (" +
+                  firstNodeNeighbours[i] +
+                  ") is already in the stack"
+              );
+              //if it is
+              //do nothing
+            }
+            //increment `i` for accessing the next neighbour of the current first node
+            console.log(
+              "going to next neighbour of " + firstNode + "(it it exists)"
+            );
+            i++;
+          }
+        } else {
+          //node is isolated
+          //do nothing!
+        }
+      }
+    }
+
+    //ALSO search for isolated vertices that were not checked
+    let i = 0;
+
+    //conditions:
+    //all nodes were not visited 
+    //and
+    //value was not found
+    console.log("visitedNodes.length", visitedNodes.length);
+    console.log("this.#vertices.length", this.#vertices.length);
+    console.log(
+      "visitedNodes.length<this.#vertices.length",
+      visitedNodes.length < this.#vertices.length
+    ); //
+    console.log("!ret", !ret); //
+    while (visitedNodes.length < this.#vertices.length && !ret) {
+      console.log("current value", this.#vertices[i]);
+      if (!visitedNodes.includes(this.#vertices[i])) {
+        console.log("adding", this.#vertices[i], "to the stack");
+        visitedNodes.push(this.#vertices[i]); //updating stack
+        if (this.#vertices[i]["value"] === value) {
+          //value found
+          ret = true;
+          console.log(value, "found");
+        }
+      } else {
+      }
+      i++;
+    }
+
+    console.log("STACK (before return):", visitedNodes);
+    return ret;
   }
 }
 class LinkedList {
