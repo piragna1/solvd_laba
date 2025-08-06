@@ -198,31 +198,88 @@ class BinaryTree {
     console.log(root.value);
   }
 }
-class Graph {}
-class LinkedList {}
+class Graph {
+  
+}
+class LinkedList {
+  #node = {};
+  constructor(collection) {
+    console.log("collection;", collection);
 
-//---------------------------------------------
-/* Some tests before trying the Stack class */
+    if (!collection) return;
 
-// // console.log(typeof []);//object
-// // console.log( [] instanceof Array);//true
+    //iterable as input
+    if (collection[Symbol.iterator]) {
+      for (const element of collection) {
+        this.insertNode(element);
+      }
+    }
+    //non iterable as input
+    else {
+      console.log("non iterable input");
+      this.#node["value"] = collection;
+    }
+  }
 
-// const fruits = new Map([
-//   ["apples", 500],
-//   ["bananas", 300],
-//   ["oranges", 200],
-// ]);
+  insertNode(node) {
+    //empty linkedList
+    if (!this.#node["value"]) {
+      this.#node["value"] = node;
+    } else {
+      let current = this.#node;
 
-// // console.log(fruits[Symbol.iterator])//[Function: entries]
+      //traversing to the end of the list
+      while (current["next"]) {
+        current = current["next"];
+      }
 
-// // for (const x of fruits) {
-// //   // code block to be executed
-// //   console.log(x)
-// // }
+      //adding a node to the one at the end
+      current["next"] = {
+        value: node,
+      };
+    }
+  }
 
-// // console.log([][Symbol.iterator]); //[Function: values]
-// // console.log({}[Symbol.iterator]); //undefined
-//----------------------------------
+  deleteNode(node) {
+    if (this.#node["value"] === undefined) return;
+
+    if (node === this.#node["value"]) {
+      let current = this.#node;
+      this.#node = this.#node["next"];
+      current = null;
+      return;
+    }
+
+    let current = this.#node;
+    let next = current["next"];
+
+    while (next !== undefined && node !== next["value"]) {
+      [current, next] = [next, next["next"]];
+    }
+
+    if (next !== undefined) {
+      [current, next] = [next["next"], null];
+    }
+  }
+  searchNode(node) {
+    if (this.#node === undefined) return false;
+
+    if (node === this.#node["value"]) return true;
+
+    let current = this.#node;
+    let next = current["next"];
+
+    while (next !== undefined && node !== next["value"]) {
+      [current, next] = [next, next["next"]];
+    }
+
+    if (next !== undefined) {
+      return true;
+    }
+
+    return false;
+  }
+}
 
 //--------------------------------Using Stack class' implementation
 // const fruits = new Map([
@@ -336,12 +393,21 @@ class LinkedList {}
 
 //-------------
 
+//---------------------------------------------Using LinkedList class' implementation
+// const ownLinkedList = new LinkedList(1);
+// console.log(ownLinkedList); //
+// console.log(ownLinkedList.searchNode(1)); //true
+// console.log(ownLinkedList.searchNode(2)); //false
+// ownLinkedList.insertNode(2);
+// console.log(ownLinkedList.searchNode(2)); //true
+// ownLinkedList.deleteNode(1);
+// console.log(ownLinkedList.searchNode(1)); //false
+// console.log(ownLinkedList.searchNode(2)); //true
+// ownLinkedList.deleteNode(2);
+// console.log(ownLinkedList.searchNode(2)); //false
 //---------------------------------------------
 
-//---------------------------------------------
-//---------------------------------------------
-
-//---------------------------------------------
+//---------------------------------------------Using Graph class' implementation
 //---------------------------------------------
 
 //---------------------------------------------
