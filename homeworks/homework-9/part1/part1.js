@@ -357,7 +357,8 @@ class Graph {
   */
   bfs(value,visitedNodes=[],pendingNodes=[]) {
     console.log("target value:", value);
-    console.log("stack:", visitedNodes);
+    console.log("array:", visitedNodes);
+    console.log("queue:", pendingNodes);
 
     //return value
     let ret = false;
@@ -372,9 +373,11 @@ class Graph {
     if (!visitedNodes.length) {
       console.log("visited nodes stack is empty");
 
-      //put at the top of the stack the first node
+      //update visited array
       visitedNodes.push(this.#vertices[0]); 
-      pendingNodes.push(this.#vertices[0])
+
+      //update nodes queue
+      pendingNodes.push(this.#vertices[0]);
 
       ret = this.bfs(value, visitedNodes,pendingNodes); //recall bfs()
     }
@@ -382,100 +385,77 @@ class Graph {
     else {
       console.log("visited nodes stack is NOT empty");
 
-      //first node (at the top) of the stack
-      let firstNode = visitedNodes[visitedNodes.length - 1];
+      //first node (at the top) of the queue
+      let firstNode = pendingNodes[0];
       console.log("first node", firstNode);
-
+      console.log("first node VALUE ->", firstNode['value']);
+      
+      
       //value found
-      if (this.#vertices[firstNode["vertice"]]["value"] === value) {
+      if (this.#vertices[firstNode['vertice']]['value'] === value) {
         console.log("value found");
         ret = true;
         return ret;
+        throw console.error();
       }
       //value not found
       else {
         console.log("value NOT found");
-        //look inside first node edges for neighbours
-        //accessing to the edges of the graph through the firstNode id
-        let firstNodeNeighbours = this.#edges[firstNode];
+        throw console.error();
+
+        //add to the queue all the neighbours of the first node and remove it.
+
+        let firstNodeNeighbours = this.#edges[firstNode['vertice']];
+        //accessing to the edges of the graph related to the indicated node id
         console.log("firstNodeNeighbours:", firstNodeNeighbours);
 
-        //put neighbours of the first node at the top of the stack:
-        //visiting every neighbour of the first node (if exist)
-        if (firstNodeNeighbours) {
-          let i = 0;
-          console.log("START VISITING NEIGHBOURS OF", firstNode);
-          while (i < firstNodeNeighbours.length) {
-            console.log("i->" + i);
-
-            //always checking that every node is not present in the `visited` stack
-
-            //if it is not
-            if (!visitedNodes.includes(firstNodeNeighbours[i])) {
-              console.log(
-                "neighbour",
-                firstNodeNeighbours[i] + " is not in the stack..."
-              );
-
-              //update stack
-              console.log("updating stack...");
-              visitedNodes.push(firstNodeNeighbours[i]);
-
-              //recall function
-              console.log("recalling dfs()");
-              ret = this.dfs(value, visitedNodes);
-            } else {
-              console.log(
-                "neighbour (" +
-                  firstNodeNeighbours[i] +
-                  ") is already in the stack"
-              );
-              //if it is
-              //do nothing
-            }
-            //increment `i` for accessing the next neighbour of the current first node
-            console.log(
-              "going to next neighbour of " + firstNode + "(it it exists)"
-            );
-            i++;
+        for (const element of firstNodeNeighbours) {
+          if (!visitedNodes.includes(element)){
+            //add node to visited
+            visitedNodes.push(element);
           }
-        } else {
-          //node is isolated
-          //do nothing!
+          if (!pendingNodes.includes(element)){
+            //add node to pending
+            pendingNodes.push(element)
+          }
         }
+        //remove first node
+        pendingNodes.shift(firstNode);
+
+        //recall bfs with updated collections
+        ret = this.bfs(value,visitedNodes, pendingNodes);
       }
     }
 
     //ALSO search for isolated vertices that were not checked
     let i = 0;
-
+    
+    console.log("visitedNodes.length", visitedNodes.length);
+    console.log("this.#vertices.length", this.#vertices.length);
+    console.log("visitedNodes.length<this.#vertices.length",visitedNodes.length < this.#vertices.length);
+    console.log("!ret", !ret); 
+    
     //conditions:
     //all nodes were not visited 
     //and
     //value was not found
-    console.log("visitedNodes.length", visitedNodes.length);
-    console.log("this.#vertices.length", this.#vertices.length);
-    console.log(
-      "visitedNodes.length<this.#vertices.length",
-      visitedNodes.length < this.#vertices.length
-    ); //
-    console.log("!ret", !ret); //
     while (visitedNodes.length < this.#vertices.length && !ret) {
       console.log("current value", this.#vertices[i]);
       if (!visitedNodes.includes(this.#vertices[i])) {
-        console.log("adding", this.#vertices[i], "to the stack");
-        visitedNodes.push(this.#vertices[i]); //updating stack
+        console.log("adding", this.#vertices[i], "to the array");
+        visitedNodes.push(this.#vertices[i]); //updating array
         if (this.#vertices[i]["value"] === value) {
           //value found
           ret = true;
           console.log(value, "found");
+          break;
         }
       } else {
       }
       i++;
     }
 
-    console.log("STACK (before return):", visitedNodes);
+    console.log("array (before return):", visitedNodes);
     return ret;
   }
 }
@@ -701,7 +681,7 @@ ownGraph.addVertice(13);
 console.log('13',ownGraph.dfs(13)); //true
 console.log('-0',ownGraph.dfs(-0)); //true
 //-------------bfs
-
+console.log(ownGraph.bfs(0));//
 //-------------
 //---------------------------------------------
 
