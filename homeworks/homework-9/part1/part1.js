@@ -64,37 +64,16 @@ class BinaryTree {
   };
 
   constructor(collection) {
-    console.log("entered in constructor()");
-
-    console.log("!collection:", !collection);
     if (!collection) return;
 
-    console.log(
-      'typeof collection === "number":',
-      typeof collection === "number"
-    );
     let isNumber = typeof collection === "number";
-
-    console.log(
-      "collection[Symbol.iterator] !== undefined:",
-      collection[Symbol.iterator] !== undefined
-    );
     let isIterable = collection[Symbol.iterator] !== undefined;
-
-    console.log("if (isNumber):", isNumber);
-
-    console.log("else if (isIterable):", isIterable);
 
     if (isNumber) {
       this.#root = collection;
     } else if (isIterable) {
-      console.log("for (const element of collection):");
       for (const element of collection) {
-        console.log("element", element);
-
-        console.log("this.add(element);:");
         this.add(element);
-        console.log("\n");
       }
     }
 
@@ -102,50 +81,30 @@ class BinaryTree {
   }
 
   add(element, root = this.#root) {
-    console.log("entered in add()");
-    console.log(element);
-
     //verifying if element is number
-    console.log('typeof element === "number":', typeof element === "number");
     let isNumber = typeof element === "number";
-
-    console.log("if (!isNumber) {return;}:", !isNumber);
     if (!isNumber) {
       return;
     }
-
     //------
 
     //---checking if the main route exists
-    console.log("if (!this.#root.value) {:", !this.#root.value);
     if (!this.#root.value) {
       this.#root.value = element;
-      console.log("this.#root.value:", this.#root.value);
       return;
     }
     //------
 
-    //for subsequents roots:
-
+    //for subsequents nodes:
     //ROOT has no value:
-    console.log("!root.value:", !root.value);
     if (!root.value) {
-      console.log("!root.value:", !root.value);
-
-      console.log("root.value=element");
       root.value = element;
-
-      console.log("root.value:", root.value);
     }
     //ROOT has value:
     else {
-      console.log("if (root.value === element) return", root.value === element);
       if (root.value === element) return; //equal values
       //if root.value's value is smaller
       else if (root.value < element) {
-        console.log(" else if (root.value < element):", root.value < element);
-
-        console.log("if (!root.right)", !root.right);
         if (!root.right) {
           //root.right does not exist
           //assign value
@@ -154,7 +113,6 @@ class BinaryTree {
             left: undefined,
             right: undefined,
           };
-          console.log("root.right:", root.right);
           /* 
           Uncaught TypeError TypeError: Cannot create property 'right' on number '1'
     at add (c:\Users\Gonzalo\Documents\GitHub\solvd_laba\homeworks\homework-9\part1\part1.js:154:22)
@@ -169,16 +127,12 @@ class BinaryTree {
           */
         } else {
           //rooght right already exists
-          console.log("else {this.add(element, root.right)}");
           this.add(element, root.right);
         }
       }
 
       //if root's value is greater
       else if (root.value > element) {
-        console.log(" else if (root.value > element):", root.value > element);
-
-        console.log("if (!root.left)", !root.left);
         //if root.left does not exist, assign element to it.
         if (!root.left) {
           //assign value
@@ -188,7 +142,6 @@ class BinaryTree {
             right: undefined,
           };
         } else {
-          console.log("else {this.add(element, root.left)}");
           //else, recall add() passing root.left as the new `root` arg.
           this.add(element, root.left);
         }
@@ -200,23 +153,18 @@ class BinaryTree {
     let ret = false;
     if (!root) {
       return ret;
-    } 
-    else if (root.value === element) {
+    } else if (root.value === element) {
       ret = true;
-    }
-    else if (!root.left && !root.right){
+    } else if (!root.left && !root.right) {
       ret = false;
-    }
-     else if (root.value > element){
-       ret = this.search(element, root.left);
-      }
-    else if (root.value < element) {
+    } else if (root.value > element) {
+      ret = this.search(element, root.left);
+    } else if (root.value < element) {
       ret = this.search(element, root.right);
     }
     return ret;
   }
   preOrder(root = this.#root) {
-
     if (!root) return;
 
     console.log(root.value);
@@ -228,7 +176,6 @@ class BinaryTree {
     if (root.right) {
       this.preOrder(root.right);
     }
-    
   }
   inOrder(root = this.#root) {
     if (!root) return;
@@ -350,43 +297,42 @@ class LinkedList {}
 // console.log({ number: 3 } > 2); //false
 // console.log({ number: 3 } < 2); //false
 
-const fruits = new Map([
-  ["apples", 500],
-  ["bananas", 300],
-  ["oranges", 200],
-]);
+// const fruits = new Map([
+//   ["apples", 500],
+//   ["bananas", 300],
+//   ["oranges", 200],
+// ]);
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-// const numbers1 = [1, 0, 6, 8, 7, 3, 4, 5, 9, 2];
-
-//-------------
-
-// const ownTree = new BinaryTree(fruits);
-const ownTree1 = new BinaryTree(numbers);
-const ownTree2 = new BinaryTree(numbers);
-
-ownTree1.preOrder();
-console.log('------------------------------')
-ownTree1.inOrder();
-console.log('------------------------------')
-ownTree1.postOrder();
-console.log('------------------------------')
-
-
-ownTree2.preOrder();
-console.log('------------------------------')
-ownTree2.inOrder();
-console.log('------------------------------')
-ownTree2.postOrder();
-console.log('------------------------------')
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+// // const numbers1 = [1, 0, 6, 8, 7, 3, 4, 5, 9, 2];
 
 //-------------
-console.log(ownTree1.search(10));//false
-console.log(ownTree1.search(9));//true
-console.log(ownTree1.search(-1));//false
-console.log(ownTree1.search(20));//false
-console.log(ownTree1.search(-0));//true
-console.log(ownTree1.search(+2));//true
+
+// // const ownTree = new BinaryTree(fruits);
+// const ownTree1 = new BinaryTree(numbers);
+// const ownTree2 = new BinaryTree(numbers);
+
+// ownTree1.preOrder();
+// console.log('------------------------------')
+// ownTree1.inOrder();
+// console.log('------------------------------')
+// ownTree1.postOrder();
+// console.log('------------------------------')
+
+// ownTree2.preOrder();
+// console.log('------------------------------')
+// ownTree2.inOrder();
+// console.log('------------------------------')
+// ownTree2.postOrder();
+// console.log('------------------------------')
+
+//-------------
+// console.log(ownTree1.search(10));//false
+// console.log(ownTree1.search(9));//true
+// console.log(ownTree1.search(-1));//false
+// console.log(ownTree1.search(20));//false
+// console.log(ownTree1.search(-0));//true
+// console.log(ownTree1.search(+2));//true
 
 //-------------
 
