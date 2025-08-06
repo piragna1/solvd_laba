@@ -199,7 +199,30 @@ class BinaryTree {
   }
 }
 class Graph {
-  
+  #vertices;
+  #edges;
+  constructor(){
+    this.#vertices=[];
+    this.#edges=[];
+  }
+  addVertice(vValue){
+    if (vValue==null) return;
+    const index = this.#vertices.length;
+    this.#vertices[index]={
+      vertice:index,
+      value:vValue
+    };
+    this.#edges[index]=[];
+  }
+  addEdge(v1,v2){
+
+    //edges not found
+    if (!this.#edges[v1]) this.#edges[v1]=[];
+    if (!this.#edges[v2]) this.#edges[v2]=[];
+
+    if(!this.#edges[v1].includes(v2))this.#edges[v1].push(v2);
+    if(!this.#edges[v2].includes(v1))this.#edges[v2].push(v1);
+  }
 }
 class LinkedList {
   #node = {};
@@ -408,6 +431,12 @@ class LinkedList {
 //---------------------------------------------
 
 //---------------------------------------------Using Graph class' implementation
+const ownGraph = new Graph();
+console.log(ownGraph);//Graph {}
+ownGraph.addVertice();
+console.log();//
+console.log();//
+console.log();//
 //---------------------------------------------
 
 //---------------------------------------------
@@ -421,3 +450,4 @@ class LinkedList {
 
 //---------------------------------------------
 //---------------------------------------------
+
