@@ -79,7 +79,9 @@ class BinaryTree {
 
     return;
   }
-
+  get root(){
+    return this.#root;
+  }
   add(element, root = this.#root) {
     //verifying if element is number
     let isNumber = typeof element === "number";
@@ -277,8 +279,7 @@ class Graph {
 
             i++;
           }
-        } 
-        else {
+        } else {
           //node is isolated
           //do nothing!
         }
@@ -286,12 +287,12 @@ class Graph {
     }
 
     //ALSO search for isolated vertices that were not checked
-    
+
     //conditions:
     //all nodes were not visited
     //and
     //value was not found
-    
+
     let i = 0;
     while (visitedNodes.length < this.#vertices.length && !ret) {
       if (!visitedNodes.includes(this.#vertices[i])) {
@@ -300,8 +301,7 @@ class Graph {
           //value found
           ret = true;
         }
-      }
-      else {
+      } else {
       }
       i++;
     }
@@ -319,7 +319,6 @@ class Graph {
 
     //if visited nodes' stack is empty:
     if (!visitedNodes.length) {
-
       //update visited array
       visitedNodes.push(this.#vertices[0]);
 
@@ -363,10 +362,9 @@ class Graph {
           //recall bfs with updated collections
           ret = this.bfs(value, visitedNodes, pendingNodes);
         }
-      } 
-      else {
+      } else {
         //ALSO search for isolated vertices that were not checked
-        
+
         //conditions:
         //all nodes were not visited
         //and
@@ -380,8 +378,7 @@ class Graph {
               ret = true;
               break;
             }
-          } 
-          else {
+          } else {
           }
           i++;
         }
@@ -477,11 +474,98 @@ Implement a class for a stack that supports finding the minimum and maximum elem
 in constant time (O(1)). Include methods for push, pop, getMin, and getMax. 
 */
 
+Stack.prototype["getMin"] = function getMin() {
+  if (this.peek() == null) return undefined;
+
+  const aux = new Stack();
+
+  let min = this.pop();
+  aux.push(min);
+
+  while (this.peek() != null) {
+    const n = this.pop();
+    aux.push(n);
+    if (min > n) min = n;
+  }
+
+  while (aux.peek() != null) {
+    const n = aux.pop();
+    this.push(n);
+  }
+
+  return min;
+};
+Stack.prototype["getMax"] = function getMax() {
+  if (this.peek() == null) return undefined;
+
+  const aux = new Stack();
+
+  let max = this.pop();
+  aux.push(max);
+
+  while (this.peek() != null) {
+    const n = this.pop();
+    aux.push(n);
+    if (max < n) max = n;
+  }
+
+  while (aux.peek() != null) {
+    const n = aux.pop();
+    this.push(n);
+  }
+
+  return max;
+};
+// const s = new Stack();
+// for (let index = 0; index < 50; index++) {
+//   s.push(Math.random() * 100);
+//   s.push(Math.random() * -100);
+// }
+// console.log(s.peek());
+// console.log("min", s.getMin()); //
+// console.log("Max", s.getMax()); //
+// while (s.peek() != null) {
+//   console.log(s.pop());
+// }
+
 /*
 2. **Binary Search Tree**: Implement a function to determine if a binary tree is a 
 binary search tree (BST). Provide an efficient algorithm that checks whether the tree 
 satisfies the BST property.
 */
+function isBST(root){
+  //default return values
+  let right = false;
+  let left = false;
+
+  //empty Tree
+  if (!root) {}
+  //not empty tree
+  else{
+    if (!root.right && !root.left){
+      right=true;
+      left=true;
+    }
+    else{
+      if (root.right){
+        if (root.right.value < root.value) right=false;
+      }
+      else{
+        right = isBST(root.right);
+      }
+      if (root.left){
+        if (root.left.value > root.value) left=false;
+      }
+      else{
+        left = isBST(root.left);
+      }
+    }
+  }
+  return right && left;
+}
+
+
+
 /*
 3. **Graph Algorithms**: Implement algorithms to find the shortest path between two 
 vertices in a graph using both Dijkstra's algorithm and Breadth-First Search (BFS).
