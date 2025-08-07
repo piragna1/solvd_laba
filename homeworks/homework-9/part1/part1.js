@@ -215,16 +215,15 @@ class Graph {
     this.#edges[index] = [];
   }
   addEdge(v1, v2) {
-    //edges not found
+    //edges for the given nodes were not found
     if (!this.#edges[v1]) this.#edges[v1] = [];
     if (!this.#edges[v2]) this.#edges[v2] = [];
 
+    //check if the edge between nodes exist for avoiding duplicates connections
     if (!this.#edges[v1].includes(v2)) this.#edges[v1].push(v2);
     if (!this.#edges[v2].includes(v1)) this.#edges[v2].push(v1);
   }
-  // [[1,3],[0],[3],[0,2]]
-  dfs(value, visitedNodes = [], currentNodeNeighbours = 0) {
-
+  dfs(value, visitedNodes = []) {
     //return value
     let ret = false;
 
@@ -235,7 +234,6 @@ class Graph {
 
     //if visited nodes' stack is empty:
     if (!visitedNodes.length) {
-
       //put at the top of the stack the first node
       visitedNodes.push(this.#vertices[0]);
 
@@ -243,7 +241,6 @@ class Graph {
     }
     //if not empty stack:
     else {
-
       //last node (at the top) of the stack
       let lastNode = visitedNodes[visitedNodes.length - 1];
 
@@ -254,7 +251,7 @@ class Graph {
       }
       //value not found
       else {
-        //look inside last node edges for neighbours
+        //look at last node edges for neighbours
         //accessing to the edges of the graph through the lastNode id
         let lastNodeNeighbours = this.#edges[lastNode];
 
@@ -263,27 +260,25 @@ class Graph {
         if (lastNodeNeighbours) {
           let i = 0;
           while (i < lastNodeNeighbours.length) {
-
             //always checking that every node is not present in the `visited` stack
 
             //if it is not
             if (!visitedNodes.includes(lastNodeNeighbours[i])) {
-
               //update stack
               visitedNodes.push(lastNodeNeighbours[i]);
 
               //recall function
               ret = this.dfs(value, visitedNodes);
             } else {
-              
               //if it is
               //do nothing
             }
             //increment `i` for accessing the next neighbour of the current last node
-            
+
             i++;
           }
-        } else {
+        } 
+        else {
           //node is isolated
           //do nothing!
         }
@@ -291,13 +286,13 @@ class Graph {
     }
 
     //ALSO search for isolated vertices that were not checked
-    let i = 0;
-
+    
     //conditions:
     //all nodes were not visited
     //and
     //value was not found
     
+    let i = 0;
     while (visitedNodes.length < this.#vertices.length && !ret) {
       if (!visitedNodes.includes(this.#vertices[i])) {
         visitedNodes.push(this.#vertices[i]); //updating stack
@@ -305,23 +300,15 @@ class Graph {
           //value found
           ret = true;
         }
-      } else {
+      }
+      else {
       }
       i++;
     }
 
     return ret;
   }
-  /* 
-  [
-  0:[1,3],
-  1:[0],
-  2:[3],
-  3:[0,2]
-  ]
-  */
   bfs(value, visitedNodes = [], pendingNodes = []) {
-
     //return value
     let ret = false;
 
@@ -335,20 +322,17 @@ class Graph {
 
     //if visited nodes' stack is empty:
     if (!visitedNodes.length) {
-
       //update visited array
       visitedNodes.push(this.#vertices[0]);
 
       //update nodes queue
       pendingNodes.push(this.#vertices[0]);
 
-
       ret = this.bfs(value, visitedNodes, pendingNodes); //recall bfs()
     }
     //if not empty stack:
     else {
       if (!pendingNodes.length) {
-
         //first node (at the top) of the queue
         let firstNode = pendingNodes[0];
 
@@ -359,7 +343,6 @@ class Graph {
         }
         //value not found
         else {
-
           //add to the queue all the neighbours of the first node and remove it.
 
           //accessing to the edges of the graph related to the indicated node id
@@ -384,7 +367,6 @@ class Graph {
       } else {
         //ALSO search for isolated vertices that were not checked
         let i = 0;
-
 
         //conditions:
         //all nodes were not visited
