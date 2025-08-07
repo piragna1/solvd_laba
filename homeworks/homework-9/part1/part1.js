@@ -317,11 +317,9 @@ class Graph {
       return ret;
     }
 
-    // //all nodes already visited
-    // if (visitedNodes.length===this.#vertices.length) return false;
-
     //if visited nodes' stack is empty:
     if (!visitedNodes.length) {
+
       //update visited array
       visitedNodes.push(this.#vertices[0]);
 
@@ -332,6 +330,7 @@ class Graph {
     }
     //if not empty stack:
     else {
+      //if queue is not empty
       if (!pendingNodes.length) {
         //first node (at the top) of the queue
         let firstNode = pendingNodes[0];
@@ -343,10 +342,10 @@ class Graph {
         }
         //value not found
         else {
-          //add to the queue all the neighbours of the first node and remove it.
+          //add to the queue all the neighbours of the first node in the queue and remove it.
 
           //accessing to the edges of the graph related to the indicated node id
-          //edges stores just the vertice number of each node...
+
           let firstNodeNeighbours = this.#edges[firstNode["vertice"]];
 
           for (const id of firstNodeNeighbours) {
@@ -364,14 +363,15 @@ class Graph {
           //recall bfs with updated collections
           ret = this.bfs(value, visitedNodes, pendingNodes);
         }
-      } else {
+      } 
+      else {
         //ALSO search for isolated vertices that were not checked
-        let i = 0;
-
+        
         //conditions:
         //all nodes were not visited
         //and
         //value was not found
+        let i = 0;
         while (visitedNodes.length < this.#vertices.length && !ret) {
           if (!visitedNodes.includes(this.#vertices[i])) {
             visitedNodes.push(this.#vertices[i]); //updating array
@@ -380,7 +380,8 @@ class Graph {
               ret = true;
               break;
             }
-          } else {
+          } 
+          else {
           }
           i++;
         }
