@@ -617,45 +617,52 @@ function shortestPathWithBFS(
     throw Error("One of the nodes is isolated!");
   }
 
-  visited = [];
-  pending = [];
-  path="";
+  //visited nodes
+  const visited = [];
 
+  //pending to analyze nodes
+  const pending = [];
+
+  //possible paths
+  const paths = [];
+
+  //current path number
+  let path = 0;
+
+  //push first node into visited & pending arrays
   visited.push(v1);
   pending.push(v1);
-  
-  while (pending[0] !== v2) {
+
+  //while the first node of a given path is not v2
+  while (paths[path]!==v2) {
 
     console.log('visited.length:',visited.length);
     console.log('graph.edges.length:',graph.edges.length);
 
+    //first node of `pending` array
     let first = pending[0];
-    let neighbours = graph.edges[first];
-    console.log();
     console.log('first',first);
-    console.log('neighbours',neighbours);
 
-    path+=first,'->';
+    //
+    paths[path].push(first);
+    
+    //neighbours of the first node
+    let neighbours = graph.edges[first];
+    console.log('neighbours',neighbours);
 
     //visit first node's neighbours
     for (const element of neighbours) {
 
       console.log('visited',visited);
-      console.log('pending',pending);
-  
+      console.log('pending',pending); 
+      
       if (!visited.includes(element)){
+        paths[path++]=element;
         visited.push(element);
         pending.push(element);
       }
 
-      //v2 found
-      if (element === v2) {
-        path+=v2;
-        return path;
-      }
     }
-
-    //v2 not found
 
     //remove first node of the queue
     pending.shift();
@@ -791,7 +798,9 @@ graph.addEdge(4, 5);
 
 graph.addEdge(5,3);
 graph.addEdge(5,4);
-console.log(shortestPathWithBFS(graph,0,5));
+// console.log(shortestPathWithBFS(graph,0,5));
+console.log([][0] !== 4);//true
+console.log([][0]);//undefined
 //----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
