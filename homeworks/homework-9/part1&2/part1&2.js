@@ -77,6 +77,10 @@ class BinaryTree {
       }
     }
 
+    Object.defineProperty(this.#root, 'value',{
+      writable:false
+    });
+
     return;
   }
   get root(){
@@ -90,9 +94,12 @@ class BinaryTree {
     }
     //------
 
-    //---checking if the main route exists
+    //---checking if the main root exists
     if (!this.#root.value) {
       this.#root.value = element;
+      Object.defineProperty(this.#root, 'value',{
+      writable:false
+    });
       return;
     }
     //------
@@ -473,7 +480,6 @@ class LinkedList {
 Implement a class for a stack that supports finding the minimum and maximum elements 
 in constant time (O(1)). Include methods for push, pop, getMin, and getMax. 
 */
-
 Stack.prototype["getMin"] = function getMin() {
   if (this.peek() == null) return undefined;
 
@@ -542,29 +548,48 @@ function isBST(root){
   if (!root) {}
   //not empty tree
   else{
+    //no sub trees
     if (!root.right && !root.left){
       right=true;
       left=true;
     }
+    //
     else{
+      //if there is right subtree
       if (root.right){
+        //set right to false if right value is smaller than root's value
         if (root.right.value < root.value) right=false;
+        //else keep checking forward through right subtree
+        else{
+          right = isBST(root.right);
+        }
       }
-      else{
-        right = isBST(root.right);
-      }
+      //if there is right subtree
       if (root.left){
+        //set left to false if left value is bigger than root's value
         if (root.left.value > root.value) left=false;
-      }
-      else{
-        left = isBST(root.left);
+        //else keep checking forward through left subtree
+        else{
+          left = isBST(root.left);
+        }
       }
     }
   }
+  /*
+  return true only if all values to the right of root's value are bigger
+  and
+  if all values to the left of root's are smaller
+  */
   return right && left;
 }
 
-
+const tree = new BinaryTree();
+tree.add(2);
+tree.add(1);
+tree.add(12);
+tree.add(123);
+tree.add(4);
+tree.inOrder();
 
 /*
 3. **Graph Algorithms**: Implement algorithms to find the shortest path between two 
