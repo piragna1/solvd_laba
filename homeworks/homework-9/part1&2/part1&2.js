@@ -531,21 +531,17 @@ satisfies the BST property.
 */
 function isBST(root) {
   //default return values
-  let right = false;
-  let left = false;
+  let right = true;
+  let left = true;
 
   //empty Tree
-  if (!root) {
-    console.log('empty tree')
+  if (!root.value) {
+    return false;
   }
   //not empty tree
   else {
-    console.log('NOT empty tree')
     //no sub trees
     if (!root.right && !root.left) {
-    console.log('NO sub-trees')
-      right = true;
-      left = true;
     }
     //
     else {
@@ -574,6 +570,7 @@ function isBST(root) {
   and
   if all values to the left of root's are smaller
   */
+ console.log('right:',right,'left:',left);
   return right && left;
 }
 
@@ -583,7 +580,6 @@ tree.add(1);
 tree.add(123);
 tree.add(12);
 tree.add(4);
-tree.inOrder();
 console.log(isBST(tree.root));
 
 /*
