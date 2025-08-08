@@ -536,11 +536,14 @@ function isBST(root) {
 
   //empty Tree
   if (!root) {
+    console.log('empty tree')
   }
   //not empty tree
   else {
+    console.log('NOT empty tree')
     //no sub trees
     if (!root.right && !root.left) {
+    console.log('NO sub-trees')
       right = true;
       left = true;
     }
@@ -581,20 +584,7 @@ tree.add(123);
 tree.add(12);
 tree.add(4);
 tree.inOrder();
-// console.log(tree.root.value);//2
-// console.log(tree.root.left.value);//1
-// console.log(tree.root.right.value);//123
-// console.log(tree.root.right.left.value);//12
-// console.log(tree.root.right.left.left.value);//4
-// tree.root.right.left.left.value=600;
-// console.log(tree.root.right.left);
-/*
-{
-  value: 12,
-  left: { value: 600, left: undefined, right: undefined },
-  right: undefined
-} 
-*/
+console.log(isBST(tree.root));
 
 /*
 3. **Graph Algorithms**: Implement algorithms to find the shortest path between two 
