@@ -77,13 +77,13 @@ class BinaryTree {
       }
     }
 
-    Object.defineProperty(this.#root, 'value',{
-      writable:false
+    Object.defineProperty(this.#root, "value", {
+      writable: false,
     });
 
     return;
   }
-  get root(){
+  get root() {
     return this.#root;
   }
   add(element, root = this.#root) {
@@ -97,63 +97,53 @@ class BinaryTree {
     //---checking if the main root exists
     if (!this.#root.value) {
       this.#root.value = element;
-      Object.defineProperty(this.#root, 'value',{
-      writable:false
-    });
+      Object.defineProperty(this.#root, "value", {
+        writable: false,
+      });
       return;
     }
     //------
 
+
     //for subsequents nodes:
-    //ROOT has no value:
-    if (!root.value) {
-      root.value = element;
-    }
-    //ROOT has value:
-    else {
-      if (root.value === element) return; //equal values
-      //if root.value's value is smaller
-      else if (root.value < element) {
-        if (!root.right) {
-          //root.right does not exist
-          //assign value
-          root.right = {
-            value: element,
-            left: undefined,
-            right: undefined,
-          };
-          /* 
-          Uncaught TypeError TypeError: Cannot create property 'right' on number '1'
-    at add (c:\Users\Gonzalo\Documents\GitHub\solvd_laba\homeworks\homework-9\part1\part1.js:154:22)
-    at BinaryTree (c:\Users\Gonzalo\Documents\GitHub\solvd_laba\homeworks\homework-9\part1\part1.js:92:14)
-    at <anonymous> (c:\Users\Gonzalo\Documents\GitHub\solvd_laba\homeworks\homework-9\part1\part1.js:333:18)
-    at run (<node_internals>/internal/modules/esm/module_job:329:25)
-    --- await ---
-    at runEntryPointWithESMLoader (<node_internals>/internal/modules/run_main:139:19)
-    at executeUserEntryPoint (<node_internals>/internal/modules/run_main:176:5)
-    at <anonymous> (<node_internals>/internal/main/run_main_module:36:49)
 
-          */
-        } else {
-          //rooght right already exists
-          this.add(element, root.right);
-        }
+    if (root.value === element) return; //value already exists
+
+    //if root.value's value is smaller
+    else if (root.value < element) {
+      //if root.right does not exist
+      if (!root.right) {
+        //assign value to root right
+        root.right = {
+          value: element,
+          left: undefined,
+          right: undefined,
+        };
+        Object.defineProperty(root.right, 'value', {
+          writable:false
+        });
+      } else {
+        //rooght right already exists
+        //recall function with root.right as 'root' argument.
+        this.add(element, root.right);
       }
+    }
 
-      //if root's value is greater
-      else if (root.value > element) {
-        //if root.left does not exist, assign element to it.
-        if (!root.left) {
-          //assign value
-          root.left = {
-            value: element,
-            left: undefined,
-            right: undefined,
-          };
-        } else {
-          //else, recall add() passing root.left as the new `root` arg.
-          this.add(element, root.left);
-        }
+    //if root's value is greater
+    else if (root.value > element) {
+      //if root.left does not exist, assign element to it.
+      if (!root.left) {
+        root.left = {
+          value: element,
+          left: undefined,
+          right: undefined,
+        };
+        Object.defineProperty(root.left, 'value', {
+          writable:false
+        });
+      } else {
+        //else, recall add() passing root.left as the `root` arg.
+        this.add(element, root.left);
       }
     }
     return;
@@ -189,20 +179,20 @@ class BinaryTree {
   inOrder(root = this.#root) {
     if (!root) return;
     if (root.left) {
-      this.preOrder(root.left);
+      this.inOrder(root.left);
     }
     console.log(root.value);
     if (root.right) {
-      this.preOrder(root.right);
+      this.inOrder(root.right);
     }
   }
   postOrder(root = this.#root) {
     if (!root) return;
     if (root.left) {
-      this.preOrder(root.left);
+      this.postOrder(root.left);
     }
     if (root.right) {
-      this.preOrder(root.right);
+      this.postOrder(root.right);
     }
     console.log(root.value);
   }
@@ -539,37 +529,38 @@ Stack.prototype["getMax"] = function getMax() {
 binary search tree (BST). Provide an efficient algorithm that checks whether the tree 
 satisfies the BST property.
 */
-function isBST(root){
+function isBST(root) {
   //default return values
   let right = false;
   let left = false;
 
   //empty Tree
-  if (!root) {}
+  if (!root) {
+  }
   //not empty tree
-  else{
+  else {
     //no sub trees
-    if (!root.right && !root.left){
-      right=true;
-      left=true;
+    if (!root.right && !root.left) {
+      right = true;
+      left = true;
     }
     //
-    else{
+    else {
       //if there is right subtree
-      if (root.right){
+      if (root.right) {
         //set right to false if right value is smaller than root's value
-        if (root.right.value < root.value) right=false;
+        if (root.right.value < root.value) right = false;
         //else keep checking forward through right subtree
-        else{
+        else {
           right = isBST(root.right);
         }
       }
       //if there is right subtree
-      if (root.left){
+      if (root.left) {
         //set left to false if left value is bigger than root's value
-        if (root.left.value > root.value) left=false;
+        if (root.left.value > root.value) left = false;
         //else keep checking forward through left subtree
-        else{
+        else {
           left = isBST(root.left);
         }
       }
@@ -590,6 +581,20 @@ tree.add(123);
 tree.add(12);
 tree.add(4);
 tree.inOrder();
+// console.log(tree.root.value);//2
+// console.log(tree.root.left.value);//1
+// console.log(tree.root.right.value);//123
+// console.log(tree.root.right.left.value);//12
+// console.log(tree.root.right.left.left.value);//4
+// tree.root.right.left.left.value=600;
+// console.log(tree.root.right.left);
+/*
+{
+  value: 12,
+  left: { value: 600, left: undefined, right: undefined },
+  right: undefined
+} 
+*/
 
 /*
 3. **Graph Algorithms**: Implement algorithms to find the shortest path between two 
