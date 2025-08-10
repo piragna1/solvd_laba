@@ -767,42 +767,43 @@ const graph = new Graph();
 
 //----------
 // case 4: existent path/s
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
 
-graph.addEdge(0, 1);
-graph.addEdge(0, 2);
-graph.addEdge(0, 4);
+// graph.addEdge(0, 1);
+// graph.addEdge(0, 2);
+// graph.addEdge(0, 4);
 
-graph.addEdge(1, 0);
-graph.addEdge(1, 2);
-graph.addEdge(1, 3);
+// graph.addEdge(1, 0);
+// graph.addEdge(1, 2);
+// graph.addEdge(1, 3);
 
-graph.addEdge(2, 0);
-graph.addEdge(2, 1);
-graph.addEdge(2, 4);
-graph.addEdge(2, 5);
+// graph.addEdge(2, 0);
+// graph.addEdge(2, 1);
+// graph.addEdge(2, 4);
+// graph.addEdge(2, 5);
 
-graph.addEdge(3, 1);
-graph.addEdge(3, 4);
-graph.addEdge(3, 5);
+// graph.addEdge(3, 1);
+// graph.addEdge(3, 4);
+// graph.addEdge(3, 5);
 
-graph.addEdge(4, 0);
-graph.addEdge(4, 2);
-graph.addEdge(4, 3);
-graph.addEdge(4, 5);
+// graph.addEdge(4, 0);
+// graph.addEdge(4, 2);
+// graph.addEdge(4, 3);
+// graph.addEdge(4, 5);
 
-graph.addEdge(5,3);
-graph.addEdge(5,4);
-// console.log(shortestPathWithBFS(graph,0,5));
-console.log([][0] !== 4);//true
-console.log([][0]);//undefined
+// graph.addEdge(5,3);
+// graph.addEdge(5,4);
+// // console.log(shortestPathWithBFS(graph,0,5));
+// console.log([][0] !== 4);//true
+// console.log([][0]);//undefined
 //----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
 Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this problem efficiently.
 */
+
