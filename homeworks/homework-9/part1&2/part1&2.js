@@ -589,11 +589,7 @@ function isIsolated(graph, vertice) {
 function isEmpty(graph) {
   return !graph.vertices.length;
 }
-function shortestPathWithBFS(
-  graph,
-  v1,
-  v2,
-) {
+function shortestPathWithBFS(graph, v1, v2) {
   //Unexpected inputs
   if (typeof path !== "string")
     throw Error("Existent path as input is not supported");
@@ -634,49 +630,106 @@ function shortestPathWithBFS(
   pending.push(v1);
 
   //while the first node of a given path is not v2
-  while (paths[path]!==v2) {
-
-    console.log('visited.length:',visited.length);
-    console.log('graph.edges.length:',graph.edges.length);
+  while (paths[path] !== v2) {
+    console.log("visited.length:", visited.length);
+    console.log("graph.edges.length:", graph.edges.length);
 
     //first node of `pending` array
     let first = pending[0];
-    console.log('first',first);
+    console.log("first", first);
 
     //
     paths[path].push(first);
-    
+
     //neighbours of the first node
     let neighbours = graph.edges[first];
-    console.log('neighbours',neighbours);
+    console.log("neighbours", neighbours);
 
     //visit first node's neighbours
     for (const element of neighbours) {
+      console.log("visited", visited);
+      console.log("pending", pending);
 
-      console.log('visited',visited);
-      console.log('pending',pending); 
-      
-      if (!visited.includes(element)){
-        paths[path++]=element;
+      if (!visited.includes(element)) {
+        paths[path++] = element;
         visited.push(element);
         pending.push(element);
       }
-
     }
 
     //remove first node of the queue
     pending.shift();
-
   }
 
-  return 'There is no path between the indicated nodes!';
+  return "There is no path between the indicated nodes!";
 }
 function shortestPathDijkstra(graph, v1, v2) {
+
+  //ERROR
+  //empty graph
   if (isEmpty(graph)) {
     throw Error("The graph is empty!");
   }
+
+  //ERROR
+  //one of the vertices is aboslutely isolated so is no reachable
   if (isIsolated(graph, v1) || isIsolated(graph, v2)) {
     throw Error("One of the nodes is isolated!");
+  }
+
+  const visited = [];
+  const unvisited = [];
+
+  //fill `unvisited` with all nodes
+  graph.vertices.forEach((vertice) => {
+    unvisited.push(vertice["vertice"]);
+  });
+
+  //ERROR:v1 does not exist
+  if (!unvisited.includes(v1)) {
+    throw Error("v1 does not exist");
+  }
+  //ERROR:v2 does not exist
+  if (!unvisited.includes(v2)) {
+    throw Error("v2 does not exist");
+  }
+
+  //Table for paths tracking.
+  const pathsTable = new Map();
+
+  //default values
+  unvisited.forEach((vertice) => {
+    pathsTable.set(
+      vertice,
+      {
+        vertice: vertice,
+        steps: Infinity,
+        previousNode: undefined,
+      }
+    );
+  });
+
+  //start with `v1`
+  visited.push(unvisited.splice(unvisited.indexOf(v1), 1)[0]);
+  pathsTable.set(visited[0], {
+    vertice:visited[0],
+    steps:0,
+    previousNode:visited[0]
+  })
+
+  //main loop
+  while (visited[visited.length - 1] !== v2 && unvisited.length > 0) {
+    //current vertice
+    let curr = visited[visited.length - 1];
+    curr = graph.vertices[curr];
+    console.log("curr:", curr);
+
+    //check neighbours
+    let currNeighbours = graph.edges[curr["vertice"]];
+    console.log("currNeighbours:", currNeighbours);
+
+
+    break;
   }
 }
 
@@ -762,48 +815,48 @@ const graph = new Graph();
 // graph.addEdge(4, 5);
 
 // graph.addEdge(5,4);
-// console.log(shortestPathWithBFS(graph,0,5));
+// // console.log(shortestPathWithBFS(graph,0,5));
+// // console.log(shortestPathDijkstra(graph,0,5));
 //----------
 
 //----------
 // case 4: existent path/s
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
+graph.addVertice(1);
+graph.addVertice(1);
+graph.addVertice(1);
+graph.addVertice(1);
+graph.addVertice(1);
+graph.addVertice(1);
 
-// graph.addEdge(0, 1);
-// graph.addEdge(0, 2);
-// graph.addEdge(0, 4);
+graph.addEdge(0, 1);
+graph.addEdge(0, 2);
+graph.addEdge(0, 4);
 
-// graph.addEdge(1, 0);
-// graph.addEdge(1, 2);
-// graph.addEdge(1, 3);
+graph.addEdge(1, 0);
+graph.addEdge(1, 2);
+graph.addEdge(1, 3);
 
-// graph.addEdge(2, 0);
-// graph.addEdge(2, 1);
-// graph.addEdge(2, 4);
-// graph.addEdge(2, 5);
+graph.addEdge(2, 0);
+graph.addEdge(2, 1);
+graph.addEdge(2, 4);
+graph.addEdge(2, 5);
 
-// graph.addEdge(3, 1);
-// graph.addEdge(3, 4);
-// graph.addEdge(3, 5);
+graph.addEdge(3, 1);
+graph.addEdge(3, 4);
+graph.addEdge(3, 5);
 
-// graph.addEdge(4, 0);
-// graph.addEdge(4, 2);
-// graph.addEdge(4, 3);
-// graph.addEdge(4, 5);
+graph.addEdge(4, 0);
+graph.addEdge(4, 2);
+graph.addEdge(4, 3);
+graph.addEdge(4, 5);
 
-// graph.addEdge(5,3);
-// graph.addEdge(5,4);
-// // console.log(shortestPathWithBFS(graph,0,5));
-// console.log([][0] !== 4);//true
-// console.log([][0]);//undefined
+graph.addEdge(5, 3);
+graph.addEdge(5, 4);
+// console.log(shortestPathWithBFS(graph,0,5));
+shortestPathDijkstra(graph, 0, 5);
+// console.log(shortestPathDijkstra(graph,0,5));
 //----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
 Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this problem efficiently.
 */
-
