@@ -664,8 +664,6 @@ function shortestPathWithBFS(graph, v1, v2) {
   return "There is no path between the indicated nodes!";
 }
 function shortestPathDijkstra(graph, v1, v2) {
-  console.log("v1", v1);
-  console.log("v2", v2);
 
   //ERROR
   //empty graph
@@ -708,12 +706,11 @@ function shortestPathDijkstra(graph, v1, v2) {
     });
   });
 
-  //
+  //start with `v1`
   visited.push(unvisited.splice(unvisited.indexOf(v1), 1)[0]);
   pathsTable.set(visited[0], {
     vertice: visited[0],
     steps: 0,
-    previousNode: visited[0],
   });
 
   //main loop
@@ -721,32 +718,27 @@ function shortestPathDijkstra(graph, v1, v2) {
     //current vertice
     let curr = visited[visited.length - 1];
     curr = graph.vertices[curr];
-    console.log("curr:", curr);
 
     //neighbours
     let currentNeighbours = graph.edges[curr["vertice"]];
-    console.log("currentNeighbours:", currentNeighbours);
+    //remove visited neighbours
+
 
     //update table
     currentNeighbours.forEach((vertice) => {
       if (!visited.includes(vertice)) {
         //neighbour:
-        console.log("neighbour:", vertice);
 
         let currNodeSteps = pathsTable.get(curr["vertice"])["steps"];
-        console.log("curr NODE steps:", currNodeSteps);
         let currentNeighbourSteps = pathsTable.get(vertice)["steps"];
-        console.log("current neighbour steps:", currentNeighbourSteps);
 
         //update neighbour steps if appropriate
         if (currentNeighbourSteps > currNodeSteps + 1) {
           let copy = pathsTable.get(vertice);
-          console.log("current neighbour:", copy);
 
           copy["steps"] = currNodeSteps + 1;
           copy["previousNode"] = curr["vertice"];
 
-          console.log("neighbour updated:", copy);
 
           //update
           pathsTable.set(vertice, copy);
@@ -759,16 +751,30 @@ function shortestPathDijkstra(graph, v1, v2) {
 
     for (const neighbour of currentNeighbours) {
       let neighbourSteps = pathsTable.get(neighbour)["steps"];
-      if (lessStepsNeighbour > neighbourSteps) {
+      if (lessStepsNeighbour > neighbourSteps
+        && !visited.includes(neighbour)
+      ) {
         lessStepsNeighbour = neighbour;
       }
     }
 
-    console.log("lessStepsNeighbour:", lessStepsNeighbour);
     visited.push(unvisited.splice(unvisited.indexOf(lessStepsNeighbour), 1)[0]);
-    console.log("new visited:", visited);
-    console.log("new unvisited:", unvisited);
   }
+
+  let path =[];
+  let aux = pathsTable.get(v2);
+  while(aux.previousNode!== undefined){
+
+    path.push(aux['vertice']);
+    
+
+    if(aux.previousNode!==undefined){
+      aux = pathsTable.get(aux['previousNode'])
+    }
+
+  }
+  path.push(aux['vertice']);
+  return path;
 }
 
 //-
@@ -877,7 +883,6 @@ graph.addEdge(1, 3);
 graph.addEdge(2, 0);
 graph.addEdge(2, 1);
 graph.addEdge(2, 4);
-graph.addEdge(2, 5);
 
 graph.addEdge(3, 1);
 graph.addEdge(3, 4);
