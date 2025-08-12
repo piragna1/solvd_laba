@@ -896,8 +896,7 @@ graph.addEdge(4, 5);
 graph.addEdge(5, 3);
 graph.addEdge(5, 4);
 // console.log(shortestPathWithBFS(graph,0,5));
-shortestPathDijkstra(graph, 0, 5);
-// console.log(shortestPathDijkstra(graph,0,5));
+// console.log(shortestPathDijkstra(graph, 0, 5));
 //----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
