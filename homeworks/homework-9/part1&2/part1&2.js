@@ -664,6 +664,8 @@ function shortestPathWithBFS(graph, v1, v2) {
   return "There is no path between the indicated nodes!";
 }
 function shortestPathDijkstra(graph, v1, v2) {
+  console.log("v1", v1);
+  console.log("v2", v2);
 
   //ERROR
   //empty graph
@@ -699,37 +701,73 @@ function shortestPathDijkstra(graph, v1, v2) {
 
   //default values
   unvisited.forEach((vertice) => {
-    pathsTable.set(
-      vertice,
-      {
-        vertice: vertice,
-        steps: Infinity,
-        previousNode: undefined,
-      }
-    );
+    pathsTable.set(vertice, {
+      vertice: vertice,
+      steps: Infinity,
+      previousNode: undefined,
+    });
   });
 
-  //start with `v1`
+  //
   visited.push(unvisited.splice(unvisited.indexOf(v1), 1)[0]);
   pathsTable.set(visited[0], {
-    vertice:visited[0],
-    steps:0,
-    previousNode:visited[0]
-  })
+    vertice: visited[0],
+    steps: 0,
+    previousNode: visited[0],
+  });
 
   //main loop
-  while (visited[visited.length - 1] !== v2 && unvisited.length > 0) {
+  while (unvisited.length > 0) {
     //current vertice
     let curr = visited[visited.length - 1];
     curr = graph.vertices[curr];
     console.log("curr:", curr);
 
-    //check neighbours
-    let currNeighbours = graph.edges[curr["vertice"]];
-    console.log("currNeighbours:", currNeighbours);
+    //neighbours
+    let currentNeighbours = graph.edges[curr["vertice"]];
+    console.log("currentNeighbours:", currentNeighbours);
 
+    //update table
+    currentNeighbours.forEach((vertice) => {
+      if (!visited.includes(vertice)) {
+        //neighbour:
+        console.log("neighbour:", vertice);
 
-    break;
+        let currNodeSteps = pathsTable.get(curr["vertice"])["steps"];
+        console.log("curr NODE steps:", currNodeSteps);
+        let currentNeighbourSteps = pathsTable.get(vertice)["steps"];
+        console.log("current neighbour steps:", currentNeighbourSteps);
+
+        //update neighbour steps if appropriate
+        if (currentNeighbourSteps > currNodeSteps + 1) {
+          let copy = pathsTable.get(vertice);
+          console.log("current neighbour:", copy);
+
+          copy["steps"] = currNodeSteps + 1;
+          copy["previousNode"] = curr["vertice"];
+
+          console.log("neighbour updated:", copy);
+
+          //update
+          pathsTable.set(vertice, copy);
+        }
+      }
+    });
+
+    //now visit the neighbour with less steps:
+    let lessStepsNeighbour = Infinity;
+
+    for (const neighbour of currentNeighbours) {
+      let neighbourSteps = pathsTable.get(neighbour)["steps"];
+      if (lessStepsNeighbour > neighbourSteps) {
+        lessStepsNeighbour = neighbour;
+      }
+    }
+
+    console.log("lessStepsNeighbour:", lessStepsNeighbour);
+    visited.push(unvisited.splice(unvisited.indexOf(lessStepsNeighbour), 1)[0]);
+    console.log("new visited:", visited);
+    console.log("new unvisited:", unvisited);
   }
 }
 
