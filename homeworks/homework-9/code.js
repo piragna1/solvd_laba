@@ -1009,4 +1009,4 @@ node.next = cycleList.getNode(); // create cycle
 console.log("Has cycle (should be true):", hasCycle(cycleList));
 
 let noCycleList = new LinkedList([1, 2, 3]);
-console.log("Has cycle (should be false):",
+console.log("Has cycle (should be false):", hasCycle(noCycleList));

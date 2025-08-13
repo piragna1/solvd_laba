@@ -1,0 +1,5 @@
+- Check method for gettint the minimum value in Stack's class.
+- Check peek method for Queue's class.
+- Check search method for binary tree.
+- Check order of path in Dijkstra method.
+- Check LinkedList's class demonstration.
