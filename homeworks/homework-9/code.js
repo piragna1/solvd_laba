@@ -73,6 +73,17 @@ class Queue {
     return this.#queue[0];
   }
 }
+/**
+ * Represents a binary search tree (BST) data structure.
+ * Supports insertion, search, and traversal operations (pre-order, in-order, post-order).
+ * 
+ * @class
+ * @example
+ * const tree = new BinaryTree([5, 3, 7, 2, 4, 6, 8]);
+ * tree.add(1);
+ * console.log(tree.search(4)); // true
+ * tree.preOrder(); // Logs nodes in pre-order
+ */
 class BinaryTree {
   #root = {
     value: undefined,
@@ -94,24 +105,19 @@ class BinaryTree {
       }
     }
 
-    Object.defineProperty(this.#root, "value", {
-      writable: false,
-    });
-
     return;
   }
   get root() {
     return this.#root;
   }
   add(element, root = this.#root) {
-    //verifying if element is number
+
     let isNumber = typeof element === "number";
     if (!isNumber) {
       return;
     }
-    //------
 
-    //---checking if the main root exists
+    //--- if the main root does not exist
     if (!this.#root.value) {
       this.#root.value = element;
       Object.defineProperty(this.#root, "value", {
@@ -124,6 +130,7 @@ class BinaryTree {
     //for subsequents nodes:
 
     if (root.value === element) return; //value already exists
+
     //if root.value's value is smaller
     else if (root.value < element) {
       //if root.right does not exist
@@ -138,7 +145,7 @@ class BinaryTree {
           writable: false,
         });
       } else {
-        //rooght right already exists
+        //root right already exists
         //recall function with root.right as 'root' argument.
         this.add(element, root.right);
       }
@@ -166,18 +173,31 @@ class BinaryTree {
   search(element, root = this.#root) {
     let ret = false;
     if (!root) {
+      //empty tree
       return ret;
     } else if (root.value === element) {
+      //value found
       ret = true;
     } else if (!root.left && !root.right) {
+      //leaf node
       ret = false;
     } else if (root.value > element) {
+      //value is smaller: look in left subtree
       ret = this.search(element, root.left);
     } else if (root.value < element) {
+      //value is bigger: look in right subtree
       ret = this.search(element, root.right);
     }
     return ret;
   }
+  
+  /**
+   * Performs a pre-order traversal of the binary tree starting from the given root node.
+   * Visits the current node first, then recursively traverses the left and right subtrees.
+   *
+   * @param {TreeNode} [root=this.#root] - The root node to start the traversal from. Defaults to the tree's root.
+   * @returns {void}
+   */
   preOrder(root = this.#root) {
     if (!root) return;
 
