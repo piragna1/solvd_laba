@@ -392,7 +392,6 @@ class Graph {
 class LinkedList {
   #node = {};
   constructor(collection) {
-    console.log("collection;", collection);
 
     if (!collection) return;
 
@@ -404,11 +403,12 @@ class LinkedList {
     }
     //non iterable as input
     else {
-      console.log("non iterable input");
       this.#node["value"] = collection;
     }
   }
-
+  getNode(){
+    return this.#node;
+  }
   insertNode(node) {
     //empty linkedList
     if (!this.#node["value"]) {
@@ -516,7 +516,7 @@ Stack.prototype["getMax"] = function getMax() {
 
   return max;
 };
-// const s = new Stack();
+const s = new Stack();
 // for (let index = 0; index < 50; index++) {
 //   s.push(Math.random() * 100);
 //   s.push(Math.random() * -100);
@@ -571,7 +571,7 @@ function isBST(root) {
   }
   return right && left;
 }
-// const tree = new BinaryTree();
+const tree = new BinaryTree();
 // tree.add(2);
 // tree.add(1);
 // tree.add(123);
@@ -783,8 +783,6 @@ function shortestPathDijkstra(graph, v1, v2) {
   path.push(aux["vertice"]);
   return path;
 }
-
-//-
 const graph = new Graph();
 //----------
 // //case 1: isolated v2
@@ -871,41 +869,53 @@ const graph = new Graph();
 //----------
 
 //----------
-// case 4: existent path/s
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
-graph.addVertice(1);
+// // case 4: existent path/s
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
+// graph.addVertice(1);
 
-graph.addEdge(0, 1);
-graph.addEdge(0, 2);
-graph.addEdge(0, 4);
+// graph.addEdge(0, 1);
+// graph.addEdge(0, 2);
+// graph.addEdge(0, 4);
 
-graph.addEdge(1, 0);
-graph.addEdge(1, 2);
-graph.addEdge(1, 3);
+// graph.addEdge(1, 0);
+// graph.addEdge(1, 2);
+// graph.addEdge(1, 3);
 
-graph.addEdge(2, 0);
-graph.addEdge(2, 1);
-graph.addEdge(2, 4);
+// graph.addEdge(2, 0);
+// graph.addEdge(2, 1);
+// graph.addEdge(2, 4);
 
-graph.addEdge(3, 1);
-graph.addEdge(3, 4);
-graph.addEdge(3, 5);
+// graph.addEdge(3, 1);
+// graph.addEdge(3, 4);
+// graph.addEdge(3, 5);
 
-graph.addEdge(4, 0);
-graph.addEdge(4, 2);
-graph.addEdge(4, 3);
-graph.addEdge(4, 5);
+// graph.addEdge(4, 0);
+// graph.addEdge(4, 2);
+// graph.addEdge(4, 3);
+// graph.addEdge(4, 5);
 
-graph.addEdge(5, 3);
-graph.addEdge(5, 4);
-console.log(shortestPathWithBFS(graph, 0, 5));
-// console.log(shortestPathDijkstra(graph, 0, 5));
+// graph.addEdge(5, 3);
+// graph.addEdge(5, 4);
+// console.log(shortestPathWithBFS(graph, 0, 5));
+// // console.log(shortestPathDijkstra(graph, 0, 5));
 // ----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
-Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this problem efficiently.
+Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this 
+problem efficiently.
 */
+function hasCycle(linkedList){
+  const visited =[];
+  while (linkedList != null){
+    if (visited.includes(linkedList)) return true;
+    visited.push(linkedList);
+    linkedList=linkedList['next'];
+  }
+  return false;
+}
+const linkedList= new LinkedList(2);
+console.log(linkedList.getNode());
