@@ -590,14 +590,6 @@ function isEmpty(graph) {
   return !graph.vertices.length;
 }
 function shortestPathWithBFS(graph, v1, v2) {
-  //Unexpected inputs
-  if (typeof path !== "string")
-    throw Error("Existent path as input is not supported");
-  if (!Array.isArray(visited))
-    throw Error("Please do not provie the 4th argument");
-  if (!Array.isArray(pending))
-    throw Error("Please do not provie the 5th argument");
-
   //invalid input!
   if (typeof v1 !== "number" || typeof v2 !== "number") {
     throw Error("Please enter the number of each vertice!");
@@ -608,63 +600,78 @@ function shortestPathWithBFS(graph, v1, v2) {
     throw Error("The graph is empty!");
   }
 
-  //one of the nodes is isolated so there is no path possible!
+  //one of the nodes is isolated so there is no possible path!
   if (isIsolated(graph, v1) || isIsolated(graph, v2)) {
     throw Error("One of the nodes is isolated!");
   }
 
-  //visited nodes
-  const visited = [];
-
-  //pending to analyze nodes
-  const pending = [];
-
-  //possible paths
-  const paths = [];
-
-  //current path number
-  let path = 0;
-
-  //push first node into visited & pending arrays
-  visited.push(v1);
-  pending.push(v1);
-
-  //while the first node of a given path is not v2
-  while (paths[path] !== v2) {
-    console.log("visited.length:", visited.length);
-    console.log("graph.edges.length:", graph.edges.length);
-
-    //first node of `pending` array
-    let first = pending[0];
-    console.log("first", first);
-
-    //
-    paths[path].push(first);
-
-    //neighbours of the first node
-    let neighbours = graph.edges[first];
-    console.log("neighbours", neighbours);
-
-    //visit first node's neighbours
-    for (const element of neighbours) {
-      console.log("visited", visited);
-      console.log("pending", pending);
-
-      if (!visited.includes(element)) {
-        paths[path++] = element;
-        visited.push(element);
-        pending.push(element);
-      }
-    }
-
-    //remove first node of the queue
-    pending.shift();
+  //vertice's index does not exist
+  if (graph.length < v1 || graph.length < v2) {
+    throw Error("One of the nodes does not exist");
   }
 
-  return "There is no path between the indicated nodes!";
+  const table = new Map();
+  const queue = [];
+  const path = [];
+
+  //first addition to the queue:
+  queue.push(
+  {
+    from: undefined,
+    to: v1,
+    cost: 0,
+  }
+  );
+
+  //main loop
+  while (queue.length > 0) {
+
+    //first node in the queue
+    let first = queue.shift();
+    console.log("first:", first);
+
+    //neighbours of the first node
+    let neighbours = graph.edges[first["to"]];
+    console.log("neighbours: of ",first['to'],':', neighbours);
+
+    //adding neighbours in the queue
+    neighbours.forEach((vertice) => {
+
+      if (vertice !== first['from']) {
+      console.log('neighbour:',vertice,'first["from"]:',first['from'])
+
+      
+        queue.push({
+          from: first["to"],
+          to: vertice,
+          cost: first["cost"] + 1,
+        });
+
+        //update table
+        //vertice was not in the table
+        if (!table.get(vertice)) {
+          table.set(vertice, {
+            from: first["to"],
+            cost: first["cost"] + 1,
+          });
+        }
+        //vertice was in table
+        else {
+          let copy = table.get(vertice);
+          if (copy["cost"] > first["cost"] + 1) {
+            copy["from"] = first["to"];
+            copy["cost"] = first["cost"] + 1;
+            table.set(vertice, copy);
+          }
+        }
+      }
+    });
+
+
+    console.log('queue:',queue)
+  }
 }
 function shortestPathDijkstra(graph, v1, v2) {
-
   //ERROR
   //empty graph
   if (isEmpty(graph)) {
@@ -723,7 +730,6 @@ function shortestPathDijkstra(graph, v1, v2) {
     let currentNeighbours = graph.edges[curr["vertice"]];
     //remove visited neighbours
 
-
     //update table
     currentNeighbours.forEach((vertice) => {
       if (!visited.includes(vertice)) {
@@ -739,7 +745,6 @@ function shortestPathDijkstra(graph, v1, v2) {
           copy["steps"] = currNodeSteps + 1;
           copy["previousNode"] = curr["vertice"];
 
-
           //update
           pathsTable.set(vertice, copy);
         }
@@ -751,9 +756,7 @@ function shortestPathDijkstra(graph, v1, v2) {
 
     for (const neighbour of currentNeighbours) {
       let neighbourSteps = pathsTable.get(neighbour)["steps"];
-      if (lessStepsNeighbour > neighbourSteps
-        && !visited.includes(neighbour)
-      ) {
+      if (lessStepsNeighbour > neighbourSteps && !visited.includes(neighbour)) {
         lessStepsNeighbour = neighbour;
       }
     }
@@ -761,19 +764,16 @@ function shortestPathDijkstra(graph, v1, v2) {
     visited.push(unvisited.splice(unvisited.indexOf(lessStepsNeighbour), 1)[0]);
   }
 
-  let path =[];
+  let path = [];
   let aux = pathsTable.get(v2);
-  while(aux.previousNode!== undefined){
+  while (aux.previousNode !== undefined) {
+    path.push(aux["vertice"]);
 
-    path.push(aux['vertice']);
-    
-
-    if(aux.previousNode!==undefined){
-      aux = pathsTable.get(aux['previousNode'])
+    if (aux.previousNode !== undefined) {
+      aux = pathsTable.get(aux["previousNode"]);
     }
-
   }
-  path.push(aux['vertice']);
+  path.push(aux["vertice"]);
   return path;
 }
 
@@ -895,9 +895,9 @@ graph.addEdge(4, 5);
 
 graph.addEdge(5, 3);
 graph.addEdge(5, 4);
-// console.log(shortestPathWithBFS(graph,0,5));
+console.log(shortestPathWithBFS(graph, 0, 5));
 // console.log(shortestPathDijkstra(graph, 0, 5));
-//----------
+// ----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
 Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this problem efficiently.
