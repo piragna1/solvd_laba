@@ -2,4 +2,4 @@
 - Check peek method for Queue's class. (ok)
 - Check search method for binary tree. (ok)
 - Check order of path in Dijkstra method. (corrected)
-- Check LinkedList's class demonstration. 
+- Check LinkedList's class demonstration. (corrected)
