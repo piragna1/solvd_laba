@@ -945,3 +945,68 @@ aux['next']=linkedList.getNode();//creating circular reference (cycle)
 
 console.log(hasCycle(linkedList));//true
 console.log(hasCycle(linkedList1));//false
+
+//----------------------------- PART 3: Demonstration -----------------------------
+
+console.log("\n--- Stack Demonstration ---");
+const demoStack = new Stack([1, 2, 3]);
+console.log("Initial stack (top):", demoStack.peek());
+demoStack.push(4);
+console.log("After push(4):", demoStack.peek());
+console.log("Pop:", demoStack.pop());
+console.log("Peek after pop:", demoStack.peek());
+console.log("Min in stack:", demoStack.getMin());
+console.log("Max in stack:", demoStack.getMax());
+
+console.log("\n--- Queue Demonstration ---");
+const demoQueue = new Queue([10, 20, 30]);
+console.log("First in queue:", demoQueue.peek());
+demoQueue.enqueue(40);
+console.log("After enqueue(40):", demoQueue.peek());
+console.log("Dequeue:", demoQueue.dequeue());
+console.log("Peek after dequeue:", demoQueue.peek());
+
+console.log("\n--- BinaryTree Demonstration ---");
+const demoTree = new BinaryTree([5, 3, 7, 2, 4, 6, 8]);
+console.log("Pre-order traversal:");
+demoTree.preOrder();
+console.log("In-order traversal:");
+demoTree.inOrder();
+console.log("Post-order traversal:");
+demoTree.postOrder();
+console.log("Search 6:", demoTree.search(6));
+console.log("Search 10:", demoTree.search(10));
+console.log("Is BST:", isBST(demoTree.root));
+
+console.log("\n--- Graph Demonstration ---");
+const demoGraph = new Graph();
+for (let i = 0; i < 6; i++) demoGraph.addVertice(i);
+demoGraph.addEdge(0, 1);
+demoGraph.addEdge(0, 2);
+demoGraph.addEdge(1, 3);
+demoGraph.addEdge(2, 4);
+demoGraph.addEdge(3, 5);
+demoGraph.addEdge(4, 5);
+console.log("Vertices:", demoGraph.vertices.map(v => v.value));
+console.log("Edges:", demoGraph.edges);
+console.log("Shortest path (BFS) from 0 to 5:", shortestPathWithBFS(demoGraph, 0, 5));
+console.log("Shortest path (Dijkstra) from 0 to 5:", shortestPathDijkstra(demoGraph, 0, 5));
+
+console.log("\n--- LinkedList Demonstration ---");
+const demoList = new LinkedList([1, 2, 3, 4, 5]);
+console.log("Search 3:", demoList.searchNode(3));
+console.log("Search 10:", demoList.searchNode(10));
+demoList.insertNode(6);
+console.log("After insertNode(6), search 6:", demoList.searchNode(6));
+demoList.deleteNode(3);
+console.log("After deleteNode(3), search 3:", demoList.searchNode(3));
+
+// Cycle detection
+let cycleList = new LinkedList([1, 2, 3]);
+let node = cycleList.getNode();
+while (node.next) node = node.next;
+node.next = cycleList.getNode(); // create cycle
+console.log("Has cycle (should be true):", hasCycle(cycleList));
+
+let noCycleList = new LinkedList([1, 2, 3]);
+console.log("Has cycle (should be false):",
