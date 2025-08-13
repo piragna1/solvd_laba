@@ -909,13 +909,39 @@ Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve thi
 problem efficiently.
 */
 function hasCycle(linkedList){
-  const visited =[];
-  while (linkedList != null){
-    if (visited.includes(linkedList)) return true;
-    visited.push(linkedList);
-    linkedList=linkedList['next'];
+  let fast =linkedList.getNode();
+  let slow =linkedList.getNode();
+  while (fast != null && fast['next'] != null){
+    fast = fast['next']['next'];
+    slow = slow['next'];
+    if (fast === slow) return true;
   }
   return false;
 }
 const linkedList= new LinkedList(2);
-console.log(linkedList.getNode());
+const linkedList1= new LinkedList(2);
+linkedList1.getNode()['next']={value:3,next:{value:2}};
+linkedList.insertNode(2);
+linkedList.insertNode(3);
+linkedList.insertNode(4);
+linkedList.insertNode(2);
+linkedList.insertNode(5);
+linkedList.insertNode(6);
+linkedList.insertNode(7);
+linkedList.insertNode(8);
+linkedList.insertNode(9);
+linkedList.insertNode(11);
+linkedList.insertNode(11);
+linkedList.insertNode(12);
+linkedList.insertNode(13);
+linkedList.insertNode(14);
+
+let aux = linkedList.getNode();
+while(aux['next'] != null){
+  aux=aux['next'];
+  console.log(aux);
+}
+aux['next']=linkedList.getNode();//creating circular reference (cycle)
+
+console.log(hasCycle(linkedList));//true
+console.log(hasCycle(linkedList1));//false
