@@ -615,61 +615,68 @@ function shortestPathWithBFS(graph, v1, v2) {
   const path = [];
 
   //first addition to the queue:
-  queue.push(
-  {
+  queue.push({
     from: undefined,
     to: v1,
     cost: 0,
-  }
-  );
+  });
 
   //main loop
   while (queue.length > 0) {
-
     //first node in the queue
     let first = queue.shift();
-    console.log("first:", first);
 
     //neighbours of the first node
-    let neighbours = graph.edges[first["to"]];
-    console.log("neighbours: of ",first['to'],':', neighbours);
+    let neighbours = graph.edges[first["to"]]; //accessing first['to'] like the current node
 
     //adding neighbours in the queue
     neighbours.forEach((vertice) => {
-
-      if (vertice !== first['from']) {
-      console.log('neighbour:',vertice,'first["from"]:',first['from'])
-
-      
-        queue.push({
+      if (vertice !== first["to"]) {
+        let currentNeighbour = {
           from: first["to"],
           to: vertice,
           cost: first["cost"] + 1,
-        });
+        };
 
-        //update table
-        //vertice was not in the table
-        if (!table.get(vertice)) {
-          table.set(vertice, {
-            from: first["to"],
-            cost: first["cost"] + 1,
-          });
-        }
-        //vertice was in table
-        else {
+        //vertice was in the table
+        if (table.get(vertice)) {
           let copy = table.get(vertice);
-          if (copy["cost"] > first["cost"] + 1) {
-            copy["from"] = first["to"];
-            copy["cost"] = first["cost"] + 1;
-            table.set(vertice, copy);
+
+          if (copy["cost"] <= currentNeighbour["cost"]) {
+            //unconvienent costs:
+          } else {
+            //convenient costs:
+            //updating to table
+            table.set(currentNeighbour["to"], {
+              from: currentNeighbour["from"],
+              cost: currentNeighbour["cost"],
+            });
+            //adding to queue
+            queue.push(currentNeighbour);
           }
+        }
+        //vertice was not in table
+        else {
+          //adding to table
+          table.set(currentNeighbour["to"], {
+            from: currentNeighbour["from"],
+            cost: currentNeighbour["cost"],
+          });
+
+          //adding to queue
+          queue.push(currentNeighbour);
         }
       }
     });
-
-
-    console.log('queue:',queue)
   }
+  //track backwards the path following table's information:
+  let track = v2;
+  while (track !== v1) {
+    path.unshift(track);
+    track = table.get(track)["from"];
+  }
+  path.unshift(track);
+  return path;
 }
 function shortestPathDijkstra(graph, v1, v2) {
   //ERROR
