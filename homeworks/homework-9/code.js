@@ -39,15 +39,10 @@ class Stack {
 }
 class Queue {
   #queue;
-  #first;
   constructor(collection) {
     this.#queue = new Array();
     if (collection && collection[Symbol.iterator])
-      this.#queue = this.#queue.concat(Array.from(collection));
-    this.#first = this.#queue[0];
-  }
-  get first() {
-    return this.#first;
+      this.#queue = collection.slice();
   }
   //adding elements (at the rear)
   enqueue(element) {
@@ -57,12 +52,11 @@ class Queue {
   dequeue() {
     let ret = this.#queue[0];
     this.#queue = this.#queue.slice(1); //remove first element
-    this.#first = this.#queue[0]; //uppdate pointer to the new first element
     return ret;
   }
   //getting peek element (from the front)
   peek() {
-    return this.#first;
+    return this.#queue[0];
   }
 }
 class BinaryTree {
