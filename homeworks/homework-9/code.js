@@ -441,12 +441,12 @@ class LinkedList {
     let current = this.#node;
     let next = current["next"];
 
-    while (next !== undefined && node !== next["value"]) {
+    while (current !== undefined && next !== undefined && node !== next['value']) {
       [current, next] = [next, next["next"]];
     }
 
-    if (next !== undefined) {
-      [current, next] = [next["next"], null];
+    if (node === next['value']) {
+      [current['next'], next] = [next["next"], null];
     }
   }
   searchNode(node) {
