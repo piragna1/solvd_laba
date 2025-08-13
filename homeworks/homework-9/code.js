@@ -232,6 +232,22 @@ class BinaryTree {
     console.log(root.value);
   }
 }
+/**
+ * Represents an undirected graph data structure.
+ * 
+ * @class
+ * @classdesc
+ * The Graph class supports adding vertices and edges, and provides methods for
+ * depth-first search (DFS) and breadth-first search (BFS) to find a value in the graph.
+ * Vertices are stored as objects with an index and value. Edges are represented as adjacency lists.
+ * 
+ * @example
+ * const g = new Graph();
+ * g.addVertice('A');
+ * g.addVertice('B');
+ * g.addEdge(0, 1);
+ * const found = g.dfs('A'); // true
+ */
 class Graph {
   #vertices;
   #edges;
@@ -247,12 +263,12 @@ class Graph {
   }
   addVertice(vValue) {
     const index = this.#vertices.length;
-    if (vValue == null) vValue = index;
+    if (vValue == null) vValue = index; //default value
     this.#vertices[index] = {
       vertice: index,
       value: vValue,
     };
-    this.#edges[index] = [];
+    this.#edges[index] = [];//edges slot for new index
   }
   addEdge(v1, v2) {
     //edges for the given nodes were not found
@@ -281,6 +297,7 @@ class Graph {
     }
     //if not empty stack:
     else {
+
       //last node (at the top) of the stack
       let lastNode = visitedNodes[visitedNodes.length - 1];
 
@@ -291,12 +308,11 @@ class Graph {
       }
       //value not found
       else {
-        //look at last node edges for neighbours
-        //accessing to the edges of the graph through the lastNode id
+        //look at last node's edges' neighbours
         let lastNodeNeighbours = this.#edges[lastNode];
 
         //put neighbours of the last node at the top of the stack:
-        //visiting every neighbour of the last node (if exist)
+        //visiting every neighbour of the last node (if they exist)
         if (lastNodeNeighbours) {
           let i = 0;
           while (i < lastNodeNeighbours.length) {
