@@ -442,6 +442,22 @@ class Graph {
     return ret;
   }
 }
+/**
+ * Represents a singly linked list data structure.
+ * 
+ * @class
+ * @classdesc
+ * Provides methods to insert, delete, and search nodes in a singly linked list.
+ * The list can be initialized with an iterable collection or a single value.
+ * 
+ * @example
+ * const list = new LinkedList([1, 2, 3]);
+ * list.insertNode(4);
+ * list.deleteNode(2);
+ * const found = list.searchNode(3); // true
+ * 
+ * @param {Iterable<any>|any} [collection] - An optional iterable or single value to initialize the linked list.
+ */
 class LinkedList {
   #node = {};
   constructor(collection) {
@@ -482,8 +498,10 @@ class LinkedList {
   }
 
   deleteNode(node) {
+    //empty linked list
     if (this.#node["value"] === undefined) return;
 
+    //first node to be deleted
     if (node === this.#node["value"]) {
       let current = this.#node;
       this.#node = this.#node["next"];
@@ -494,30 +512,38 @@ class LinkedList {
     let current = this.#node;
     let next = current["next"];
 
+    //traversing linked list until end is reached or value is found
     while (current !== undefined && next !== undefined && node !== next['value']) {
       [current, next] = [next, next["next"]];
     }
 
+    //checking if value was found
     if (node === next['value']) {
+      //removing node
       [current['next'], next] = [next["next"], null];
     }
   }
   searchNode(node) {
+    //empty linkedlist
     if (this.#node === undefined) return false;
 
+    //first node equals to value for search
     if (node === this.#node["value"]) return true;
 
     let current = this.#node;
     let next = current["next"];
 
+    //traverse until end of list is reached or values is found
     while (next !== undefined && node !== next["value"]) {
       [current, next] = [next, next["next"]];
     }
 
+    //linked list was not  reached meaning that value was found
     if (next !== undefined) {
       return true;
     }
 
+    //false otherwise
     return false;
   }
 }
