@@ -781,7 +781,7 @@ function shortestPathDijkstra(graph, v1, v2) {
     }
   }
   path.push(aux["vertice"]);
-  return path;
+  return path.reverse();
 }
 const graph = new Graph();
 //----------
@@ -952,7 +952,7 @@ console.log("\n--- Stack Demonstration ---");
 const demoStack = new Stack([1, 2, 3]);
 console.log("Initial stack (top):", demoStack.peek());
 demoStack.push(4);
-console.log("After push(4):", demoStack.peek());
+console.log("Top after push(4):", demoStack.peek());
 console.log("Pop:", demoStack.pop());
 console.log("Peek after pop:", demoStack.peek());
 console.log("Min in stack:", demoStack.getMin());
