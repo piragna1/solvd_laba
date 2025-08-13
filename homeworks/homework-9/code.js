@@ -37,6 +37,20 @@ class Stack {
     return this.#stack[this.#stack.length - 1]; //returning current last element
   }
 }
+/**
+ * Represents a queue data structure (FIFO - First In, First Out).
+ * Allows adding elements to the rear and removing elements from the front.
+ *
+ * @class Queue
+ * @template T
+ * @param {Iterable<T>} [collection] - Optional initial collection to populate the queue.
+ *
+ * @example
+ * const q = new Queue([1, 2, 3]);
+ * q.enqueue(4); // [1, 2, 3, 4]
+ * q.dequeue(); // 1
+ * q.peek(); // 2
+ */
 class Queue {
   #queue;
   constructor(collection) {
