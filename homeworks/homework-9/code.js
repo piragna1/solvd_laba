@@ -1,12 +1,11 @@
 //-------------------------------------------------------------------------PART 1
 class Stack {
-  #stack; //private field!
+  #stack; 
 
   constructor(collection) {
-    //constructor
     this.#stack = [];
     if (collection && collection[Symbol.iterator])
-      this.#stack = this.#stack.concat(Array.from(collection));
+      this.#stack = collection.slice();
   }
 
   //method for adding new elements
@@ -516,18 +515,6 @@ Stack.prototype["getMax"] = function getMax() {
 
   return max;
 };
-const s = new Stack();
-// for (let index = 0; index < 50; index++) {
-//   s.push(Math.random() * 100);
-//   s.push(Math.random() * -100);
-// }
-// console.log(s.peek());
-// console.log("min", s.getMin()); //
-// console.log("Max", s.getMax()); //
-// while (s.peek() != null) {
-//   console.log(s.pop());
-// }
-
 /*
 2. **Binary Search Tree**: Implement a function to determine if a binary tree is a 
 binary search tree (BST). Provide an efficient algorithm that checks whether the tree 
@@ -571,14 +558,6 @@ function isBST(root) {
   }
   return right && left;
 }
-const tree = new BinaryTree();
-// tree.add(2);
-// tree.add(1);
-// tree.add(123);
-// tree.add(12);
-// tree.add(4);
-// console.log(isBST(tree.root));
-
 /*
 3. **Graph Algorithms**: Implement algorithms to find the shortest path between two 
 vertices in a graph using both Dijkstra's algorithm and Breadth-First Search (BFS).
@@ -783,126 +762,6 @@ function shortestPathDijkstra(graph, v1, v2) {
   path.push(aux["vertice"]);
   return path.reverse();
 }
-const graph = new Graph();
-//----------
-// //case 1: isolated v2
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-
-// graph.addEdge(0, 1);
-// graph.addEdge(0, 2);
-
-// graph.addEdge(1, 0);
-// graph.addEdge(1, 2);
-// graph.addEdge(1, 3);
-
-// graph.addEdge(2, 0);
-// graph.addEdge(2, 1);
-// graph.addEdge(2, 4);
-
-// graph.addEdge(3, 4);
-// graph.addEdge(3, 1);
-
-// graph.addEdge(4, 2);
-// graph.addEdge(4, 3);
-// console.log(shortestPathWithBFS(graph,0,5));
-//----------
-
-//----------
-// //case 2:no path from v1 to v2
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-
-// graph.addEdge(0, 1);
-
-// graph.addEdge(2, 3);
-// graph.addEdge(2, 4);
-
-// graph.addEdge(3, 2);
-// graph.addEdge(3, 4);
-// graph.addEdge(3, 5);
-
-// graph.addEdge(4, 2);
-// graph.addEdge(4, 3);
-// graph.addEdge(4, 5);
-
-// graph.addEdge(5, 4);
-// graph.addEdge(5, 3);
-// console.log(shortestPathWithBFS(graph, 0, 5));
-//----------
-
-//----------
-// //case 3: isolated v1
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-
-// graph.addEdge(1, 2);
-// graph.addEdge(1, 3);
-
-// graph.addEdge(2, 1);
-// graph.addEdge(2, 3);
-// graph.addEdge(2, 4);
-
-// graph.addEdge(3, 1);
-// graph.addEdge(3, 2);
-// graph.addEdge(3, 4);
-
-// graph.addEdge(4, 2);
-// graph.addEdge(4, 3);
-// graph.addEdge(4, 5);
-
-// graph.addEdge(5,4);
-// // console.log(shortestPathWithBFS(graph,0,5));
-// // console.log(shortestPathDijkstra(graph,0,5));
-//----------
-
-//----------
-// // case 4: existent path/s
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-// graph.addVertice(1);
-
-// graph.addEdge(0, 1);
-// graph.addEdge(0, 2);
-// graph.addEdge(0, 4);
-
-// graph.addEdge(1, 0);
-// graph.addEdge(1, 2);
-// graph.addEdge(1, 3);
-
-// graph.addEdge(2, 0);
-// graph.addEdge(2, 1);
-// graph.addEdge(2, 4);
-
-// graph.addEdge(3, 1);
-// graph.addEdge(3, 4);
-// graph.addEdge(3, 5);
-
-// graph.addEdge(4, 0);
-// graph.addEdge(4, 2);
-// graph.addEdge(4, 3);
-// graph.addEdge(4, 5);
-
-// graph.addEdge(5, 3);
-// graph.addEdge(5, 4);
-// console.log(shortestPathWithBFS(graph, 0, 5));
-// // console.log(shortestPathDijkstra(graph, 0, 5));
-// ----------
 /*
 4. **Linked List Cycle**: Implement a function to detect if a linked list has a cycle. 
 Use Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm) to solve this 
@@ -918,34 +777,6 @@ function hasCycle(linkedList){
   }
   return false;
 }
-const linkedList= new LinkedList(2);
-const linkedList1= new LinkedList(2);
-linkedList1.getNode()['next']={value:3,next:{value:2}};
-linkedList.insertNode(2);
-linkedList.insertNode(3);
-linkedList.insertNode(4);
-linkedList.insertNode(2);
-linkedList.insertNode(5);
-linkedList.insertNode(6);
-linkedList.insertNode(7);
-linkedList.insertNode(8);
-linkedList.insertNode(9);
-linkedList.insertNode(11);
-linkedList.insertNode(11);
-linkedList.insertNode(12);
-linkedList.insertNode(13);
-linkedList.insertNode(14);
-
-let aux = linkedList.getNode();
-while(aux['next'] != null){
-  aux=aux['next'];
-  console.log(aux);
-}
-aux['next']=linkedList.getNode();//creating circular reference (cycle)
-
-console.log(hasCycle(linkedList));//true
-console.log(hasCycle(linkedList1));//false
-
 //----------------------------- PART 3: Demonstration -----------------------------
 
 console.log("\n--- Stack Demonstration ---");
