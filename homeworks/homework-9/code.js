@@ -1,4 +1,14 @@
 //-------------------------------------------------------------------------PART 1
+/**
+ * Represents a stack data structure (LIFO - Last In, First Out).
+ * 
+ * @class
+ * @classdesc A simple stack implementation with push, pop, and peek methods.
+ * @privateField {Array} #stack - Internal array to store stack elements.
+ * 
+ * @param {Iterable} [collection] - Optional initial collection to populate the stack.
+ * 
+ */
 class Stack {
   #stack; 
 
