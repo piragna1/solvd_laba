@@ -15,37 +15,118 @@ function hash(string) {
   if (typeof string !== "string") {
     throw Error("Invalid input key");
   }
-  const prime1 = 3;
-  const prime3= 199;
+  const prime1 = 2;
+  const prime3 = 137;
 
   let sum = 0;
   for (let index = 0; index < string.length; index++) {
     let charcode = string.charCodeAt(index);
-    sum += charcode;
+    sum += Math.trunc(charcode);
   }
-  return ((prime3*sum)%prime1);
+  return Math.trunc((prime1 * sum) % prime3);
 }
 let arr = [
-    "cześć", "witaj", "dzień dobry", "dobry wieczór", "dobranoc", "siema", "hejka", "elo", "czesc", "witam",
-    "hola", "holb", "aloh", "bye", "bio", "bios", "ciao", "nv", "adeu", "hi",
-    "chau", "nos vemos", "adios", "adios!", "hello", "hella", "holla", "hey", "heya", "heyo",
-    "greetings", "greetz", "salut", "saludo", "saludos", "aloha", "alohaa", "alohaa!", "alo", "alo!",
-    "yo", "sup", "wassup", "whatsup", "howdy", "hiya", "oi", "oy", "oy!", "bonjour",
-    "bonsoir", "buenos dias", "buenas", "buenas tardes", "buenas noches", "shalom", "namaste", "namaskar", "namaskaram", "namastey",
-    "ciao!", "tschuss", "tschüss", "hallo", "hallo!", "ola", "olá", "olaa", "olaaa", "olá!",
-    "later", "laters", "laters!", "peace", "peace out", "take care", "take it easy", "catch you", "catch ya", "catch ya later",
-    "olá bom dia", "boa tarde", "boa noite", "até logo", "até amanhã", "até breve", "até já", "adeusinho", "tchau", "xau",
-    "cumprimentos", "saudações", "bem-vindo", "bem-vinda", "bem-vindos", "bem-vindas", "abraço", "beijinhos", "fique bem", "vá com Deus"
+  "cześć",
+  "witaj",
+  "dzień dobry",
+  "dobry wieczór",
+  "dobranoc",
+  "siema",
+  "hejka",
+  "elo",
+  "czesc",
+  "witam",
+  "hola",
+  "holb",
+  "aloh",
+  "bye",
+  "bio",
+  "bios",
+  "ciao",
+  "nv",
+  "adeu",
+  "hi",
+  "chau",
+  "nos vemos",
+  "adios",
+  "adios!",
+  "hello",
+  "hella",
+  "holla",
+  "hey",
+  "heya",
+  "heyo",
+  "greetings",
+  "greetz",
+  "salut",
+  "saludo",
+  "saludos",
+  "aloha",
+  "alohaa",
+  "alohaa!",
+  "alo",
+  "alo!",
+  "yo",
+  "sup",
+  "wassup",
+  "whatsup",
+  "howdy",
+  "hiya",
+  "oi",
+  "oy",
+  "oy!",
+  "bonjour",
+  "bonsoir",
+  "buenos dias",
+  "buenas",
+  "buenas tardes",
+  "buenas noches",
+  "shalom",
+  "namaste",
+  "namaskar",
+  "namaskaram",
+  "namastey",
+  "ciao!",
+  "tschuss",
+  "tschüss",
+  "hallo",
+  "hallo!",
+  "ola",
+  "olá",
+  "olaa",
+  "olaaa",
+  "olá!",
+  "later",
+  "laters!",
+  "peace",
+  "peace out",
+  "take care",
+  "take it easy",
+  "catch you",
+  "catch ya",
+  "catch ya later",
+  "olá bom dia",
+  "boa tarde",
+  "boa noite",
+  "até logo",
+  "até amanhã",
+  "até breve",
+  "até já",
+  "adeusinho",
+  "tchau",
+  "xau",
+  "cumprimentos",
+  "saudações",
+  "bem-vindo",
+  "bem-vinda",
+  "bem-vindos",
+  "bem-vindas",
+  "abraço",
+  "beijinhos",
+  "fique bem",
+  "vá com Deus",
+  "`holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaealsdjaspodk0329i0293849",
 ];
-arr = arr.sort();
-const res = [];
-console.log(7 / 2);
-arr.forEach((s) => {
-  console.log(s, ":", hash(s));
-  res.push(hash(s));
-});
-console.log(res);
-console.log(res.sort((a, b) => a - b));
 /*
 2. **Collision Handling**: Implement a collision resolution strategy. You can choose from methods like 
   separate chaining (using linked lists), open addressing (linear probing, quadratic probing), or any other 
