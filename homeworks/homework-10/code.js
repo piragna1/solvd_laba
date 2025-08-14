@@ -132,3 +132,33 @@ let arr = [
   separate chaining (using linked lists), open addressing (linear probing, quadratic probing), or any other 
   technique you prefer.
 */
+const table = [].fill(null);
+arr.forEach((str) => {
+  let key = hash(str);
+  if (table[key] !== null){
+    const obj = {
+      value:str,
+      head:table[key]
+    }
+    table[key] = obj;
+  }
+  else{
+    table[value]={
+      value:str,
+      head:undefined
+    };
+  }
+});
+
+// table.forEach(el => console.log(el));
+console.log(table);//
+/*
+### **Part 3: Building a Hash Table**
+
+1. **Hash Table Class**: Create a JavaScript class for a hash table that uses your custom hash function. 
+  Include methods for inserting key-value pairs, retrieving values by key, and deleting key-value pairs.
+2. **Testing**: Create test cases to ensure that your hash table and custom hash function work correctly. 
+  Test scenarios should include inserting, retrieving, and deleting values, as well as handling collisions 
+  gracefully.
+
+*/
