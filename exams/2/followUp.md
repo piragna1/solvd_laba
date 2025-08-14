@@ -94,3 +94,8 @@ Express -> 12/08/2025
 
 
 CURRENT POSITION: Dijkstra shortest path method. Homework9 part2
+
+
+personal project's technologies: 
+	- expressjs
+	- (Sql)
