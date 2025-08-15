@@ -167,8 +167,8 @@ class HashTable {
   #table;
   size;
   constructor() {
-    this.#table = new Array(50).fill(null);
-    this.size=0;
+    this.#table = new Array(15).fill(null);
+    this.size = 0;
   }
   #hash(string) {
     if (typeof string !== "string") {
@@ -178,11 +178,11 @@ class HashTable {
     const prime3 = 137;
 
     let sum = 0;
-    for (let index = 0; index < string.length; index++) {
-      let charcode = string.charCodeAt(index);
-      sum += Math.trunc(charcode);
-    }
-    return Math.trunc((prime1 * sum) % prime3);
+
+    for (let index = 0; index < string.length; index++)
+      sum += string.charCodeAt(index);
+
+    return Math.trunc((prime1 * prime3 * sum) % this.#table.length);
   }
   insert(key, value) {
     if (typeof key !== "string") {
@@ -192,52 +192,102 @@ class HashTable {
     //empty slot
     if (this.#table[hash] == null) {
       this.#table[hash] = {
-        key:key,
-        value:value
+        key: key,
+        value: value,
       };
     }
     //not empty slot -> handling collision
     else {
       const obj = {
-        key:key,
-        value:value,
-        head:this.#table[hash]
+        key: key,
+        value: value,
+        head: this.#table[hash],
       };
       this.#table[hash] = obj;
     }
-      this.size++;
-
+    this.size++;
   }
-  retrieve(key){
+  retrieve(key) {
     let hash = this.#hash(key);
-    if (this.#table[hash]){
+    if (this.#table[hash]) {
       let head = this.#table[hash];
-      while (head != null){
-        if (head['key'] === key){
+      while (head != null) {
+        if (head["key"] === key) {
           return head;
         }
-        head=head['next'];
+        head = head["next"];
       }
     }
     return undefined;
   }
-  display(){
+  display() {
     console.log(this.#table);
+  }
+  remove(key) {
+    let hash = this.#hash(key);
+    //hash found
+    if (this.#table[hash]) {
+      //there is no chain
+      if (this.#table[hash]['head'] == null && this.#table[hash]['key'] === key) {
+        //make null and return;
+        this.#table[hash] = null;
+        return true;
+      }
+      //there is an existing chain due to collisions
+      else {
+        //check first node
+        if (this.#table[hash]["key"] === key) {
+          let curr = this.#table[hash]; //current head
+          let next = curr['head'];
+          this.#table[hash]=next;
+          curr=null;
+          return true;
+        } else {
+          //serach the corresponding node
+          let head = this.#table[hash];
+          let next = head["head"];
+          while (next != null && next["key"] !== key) {
+            head = next;
+            next = next["head"];
+          }
+          if (next != null && next["key"] === key) {
+            head["head"] = next["head"];
+            next = null;
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 }
 const ht = new HashTable();
-ht.insert('alamaula', 'gonzalextrix');
-ht.insert('alamaulaeee', 'gonzalextrix');
-ht.insert('alamaulaq', 'gonzalextrix');
-ht.insert('alamaulaw', 'gonzalextrix');
-ht.insert('alamaulae', 'gonzalextrix');
-ht.insert('alamaular', 'gonzalextrix');
-ht.insert('alamaulat', 'gonzalextrix');
-ht.insert('alamaulay', 'gonzalextrix');
-ht.insert('alamaulau', 'gonzalextrix');
-ht.insert('alamaulai', 'gonzalextrix');
-ht.insert('alamaulao', 'gonzalextrix');
-ht.insert('alamaulap', 'gonzalextrix');
-console.log(ht.size);//
+ht.insert("alamaula", "gonzalextrix");
+ht.insert("alamaulaeee", "gonzalextrix");
+ht.insert("alamaulaq", "gonzalextrix");
+ht.insert("alamaulaw", "gonzalextrix");
+ht.insert("alamaulae", "EEEEEEEEEEEEEEEEEgonzalextrixasdasdasdasdasdESAAAAAAAAAAAAAAaa");
+ht.insert("alamaular", "gonzalextrix");
+ht.insert("alamaulat", "gonzalextrix");
+ht.insert("alamaulay", "gonzalextrix");
+ht.insert("alamaulau", "gonzalextrix");
+ht.insert("alamaulai", "gonzalextrix");
+ht.insert("alamaulao", "gonzalextrix");
+ht.insert("alamaulap", "gonzalextrix");
+console.log(ht.size); //12
+console.log(ht.retrieve("alamaulat")); 
+/*{
+  key: 'alamaulat',
+  value: 'gonzalextrix',
+  head: {
+    key: 'alamaulae',
+    value: 'EEEEEEEEEEEEEEEEEgonzalextrixasdasdasdasdasdESAAAAAAAAAAAAAAaa'
+  }
+}*/
+console.log(ht.remove('alamaulat'));//true
+console.log(ht.remove('alamaulat'));//false
+console.log(ht.remove('alamaulat'));//false
+console.log(ht.retrieve("alamaulat")); //undefined
 ht.display();
-console.log(ht.retrieve('alamaulap'));//
+console.log(ht.remove('alamaulae'));//true
+ht.display();
