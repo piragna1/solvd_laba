@@ -413,10 +413,12 @@ ht.display();
         Tradeoffs:
           - It requires some extra memory in a certain period when making copies of the current table in order to regenerate hashes and pass
           all elements from one to another collection.
-        +#checkLoadFactor(
-        Time complexity:
-        Space complexity:
+        +#checkLoadFactor: It returns the current load factor that the table has.
+        Time complexity: O(1) because it is a constant calculation of two numbers.
+        Space complexity: O(1) because it just need space for the size variable and the length variable, that are already allocated.
         Tradeoffs:
+          - It is not very flexible since the load factor on which the table relies is fixed to a number that is hard coded in the return
+          statement.
         +#resizing(
         Time complexity:
         Space complexity:
