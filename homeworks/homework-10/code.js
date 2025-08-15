@@ -21,9 +21,9 @@ function hash(string, length) {
   let sum = 0;
   for (let index = 0; index < string.length; index++) {
     let charcode = string.charCodeAt(index);
-    sum += Math.trunc(charcode);
+    sum += charcode;
   }
-  return Math.trunc((prime1 * prime3 * sum) % length);
+  return (prime1 * prime3 * sum) % length;
 }
 
 /*
@@ -316,52 +316,77 @@ ht.display();
   Discuss the time complexity of key operations (insertion, retrieval, deletion) and any trade-offs you 
   made in your implementation.
 
- */
+*/
 /*
 
-1. Documentation
-
-Custom Hash Function:
-- The `hash` function takes a string and the table length as input and returns an integer hash code.
-- It works by summing the character codes of each character in the string, multiplying by two prime numbers, and taking the modulus with the table size.
-- This helps distribute hash values more uniformly and reduces clustering, but collisions are still possible.
-
-HashTable Class:
-- The `HashTable` class encapsulates the hash table logic.
-- It uses a private array (`#table`) to store entries and a private hash function (`#hash`) for key hashing.
-- **insert(key, value)**: Adds a key-value pair. If a collision occurs, the new entry is added to the front of the chain (separate chaining).
-- **retrieve(key)**: Searches for a key in the chain at the hashed index and returns the corresponding entry if found.
-- **remove(key)**: Removes a key-value pair from the table, handling both single entries and chains.
-- **search(key)**: Returns `true` if the key exists in the table, otherwise `false`.
-- **display()**: Prints the current state of the hash table.
-- Error handling: The hash function and insert method throw errors if the key is not a string, ensuring type safety.
-
-Collision Handling:
-- The hash table uses **separate chaining** for collision resolution.
-- If two different keys produce the same hash, their entries are stored as a linked list (chain) at that table index.
-- Each node in the chain contains the key, value, and a reference (`head`) to the next node.
-
-Usage:
-- The hash table supports insertion, retrieval, deletion, and search operations for string keys.
-- Collisions are handled gracefully using chaining, so multiple values can exist at the same index.
-
-2. Analysis
-
-Performance:
-- **Insertion**: Average case O(1), worst case O(n) if all keys hash to the same index (rare with a good hash function and reasonable load factor).
-- **Retrieval**: Average case O(1), worst case O(n) for the same reason.
-- **Deletion**: Average case O(1), worst case O(n) if traversing a long chain.
-- **Display**: O(table size), as it prints the entire internal array.
-
-Trade-offs:
-- **Separate Chaining**: Simple and effective, but increases memory usage due to extra objects for chains. Lookup time can degrade if many collisions occur.
-- **Fixed Table Size**: The hash table uses a fixed-size array. If the number of entries grows much larger than the table size, collisions will increase, making operations slower. Dynamic resizing (rehashing) would improve scalability.
-- **Simple Hash Function**: Easy to implement, but may not distribute keys as uniformly as more advanced hash functions, especially for similar input strings. This can lead to clustering and more collisions.
-- **String Keys Only**: The implementation only supports string keys. Supporting other types would require additional logic.
-- **No Load Factor Management**: There is no mechanism to monitor or adjust the load factor (ratio of entries to table size), which is important for maintaining performance in real-world hash tables.
-
-Summary:
-This approach is great for learning and small datasets, but for production or large-scale use, consider dynamic resizing, a more robust hash function, and possibly alternative collision strategies.
+  1. Documentation
+    Custom hash function: Receives as arugments the string that represents the key of the pair and a number that
+      represents the current length of the collection that is storing the pairs.
+    For generating a hash, it:
+      - Takes a string and calculates the total of summing every character's charcode based on Unicode.
+      - After calculating the sum, another calculation is executed, in which: 
+        + the total sum is multiplicated by 2 different constant prime numbers,
+        + the modulus of the collection's length is obtained from the previous multiplication calculation.
+    Hash Table: It has an array that represents the table in which all pairs will be stored while tracking the size
+    (amount of elements held) and it implements various methods for handling the different process that are commonly
+    executed in the process of interacting with hash tables, such as:
+      - inserting key-value pairs,
+      - retrieving values,
+      - search if some value exists,
+      - remove pairs,
+      - hashing the keys receipt,
+      - checking and handling the load factor of the table,
+      - handling collision utilizing the separate-chaining technique with linked lists
+  
+  2. Analysis
+    Performance analysis:
+      Method:
+        + constructor
+          Time complexity: O(n) being n the capacity indicated.
+          Space complexity: O(n) being n the capacity of the table.
+          Tradeoffs:
+            - There is an argument accepted for assigning an initial capacity, which can lead to have unused slots.
+            - There is no argument for setting the accepted load factor before resize and rehashing table and elements.
+            This will reduce flexibility because it is hardcoded for resizing (and rehashing) when load factor reaches
+            the value of 0.75.
+        +hash: Utilizes  a custom function for generating a hash given an input string and the length of the table.
+          Time complexity: O(n) being n the length of the key.
+          Space complexity: O(1) since the amount of space used keeps constant independenlty of the length of the input.
+          Tradeoffs: It is simple to read an understand the mechanism for generating a new hash for a given key but 
+          it is relatively easy to reach the threshold of the load factor due to the lack of uniformity when inserting 
+          new values also, because of the use of the modulus based on the current length of the table.
+        + insert
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        + retrieve
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        + display
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        +remove
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        +search
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        +#rehashing(
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        +#checkLoadFactor(
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
+        +#resizing(
+        Time complexity:
+        Space complexity:
+        Tradeoffs:
 */
 
 /**TODO: 
@@ -371,9 +396,7 @@ This approach is great for learning and small datasets, but for production or la
 For an extra challenge, consider implementing additional features for your hash table, such as resizing the 
   table dynamically to maintain an efficient load factor, or implementing a method to iterate through all 
   key-value pairs in the hash table.
-
-
- */
+*/
 
 // Test case for rehashing functionality
 
@@ -397,7 +420,10 @@ console.log("After inserting 'three':");
 rehashTable.display();
 
 rehashTable.insert("four", 4);
-console.log("After inserting 'four':");
+
+
+
+rehashTable.insert("twoqwkuirhqowiejo1i2u3192381923810293", 'hola que tal');
 rehashTable.display();
 
 // Verify all elements are still accessible after rehashing
