@@ -122,9 +122,13 @@ class HashTable {
     }
     this.size++;
     if (this.#checkLoadFactor()) {
+
       console.log('load faactor exceeded load faactor exceeded load faactor exceeded load faactor exceeded')
+
       this.#resizing();
       console.log('new size:', this.#table.length)
+
+      console.log('initializing rehashing')
       this.#rehashing();
     }
   }
@@ -221,16 +225,14 @@ class HashTable {
     }
     return false;
   }
-  #rehashing(table) {//todo: finish implementation
+  #rehashing(table) {
     //copy
-    console.log('initializing rehashing')
     const copy = this.#table.slice();
     console.log('copy:',copy)
 
     //new table
     table = new Array(this.#table.length).fill(null);
     this.size=0;
-
 
     //traverse copy
     for (const element of copy) {
@@ -247,13 +249,12 @@ class HashTable {
         let next = curr["head"];
 
         curr["head"] = undefined;
-        console.log('recalling insert() with isolated node curr:',curr)
-        this.insert(curr["key"], curr["value"]);
-        curr = null;
+        curr = null; //freeing curr
 
         //free and re insert nodes into the new table
         while (next != null) {
           console.log('traversing chain')
+
           curr = next;
           next = next["head"];
           curr["head"] = undefined;
@@ -405,7 +406,7 @@ rehashTable.display();
 // This insert should trigger resizing and rehashing
 rehashTable.insert("four", 4);
 
-console.log("Table BEFORE!! triggering rehashing (should have resized):");
+console.log("Table BEFORE!! triggering rehashing:");
 rehashTable.display();
 console.log("Table after triggering rehashing (should have resized):");
 rehashTable.display();
