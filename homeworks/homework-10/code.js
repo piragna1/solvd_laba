@@ -395,10 +395,14 @@ ht.display();
           - Similar to search method, and considering that separate-chaining technique is being implemented for collision handling,
           the time complexity increments from O(1) to O(n) compared to other collision handling techniques which can lead to bigger 
           execution times.
-        +search:
-        Time complexity:
-        Space complexity:
+        +search: This method return a boolean indicating if there exists an object in the table that matches the given key. When it does,
+        it returns true and false otherwise.
+        Time complexity: O(n) in the worst case, being needed to travel and read all the elements.
+        Space complexity: O(1) because the amount of space required to store temporal values is always the same.
         Tradeoffs:
+          - Due to the reason that sometimes there could exist some key-value pairs that produces the same hash value, a linked
+          list might be created in order to avoid the collision of those elements, and for that reason the time complexity increments
+          from O(1) to O(n) being n the size of the chain that have to be traversed.
         +#rehashing(
         Time complexity:
         Space complexity:
