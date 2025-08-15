@@ -419,10 +419,11 @@ ht.display();
         Tradeoffs:
           - It is not very flexible since the load factor on which the table relies is fixed to a number that is hard coded in the return
           statement.
-        +#resizing(
-        Time complexity:
-        Space complexity:
+        +#resizing: Assign a new value to the maximum capacity of the current table, by ducplicating the currently existent.
+        Time complexity: O(1) since the operation is always the same.
+        Space complexity: O(1) since there is no need for extra space assignment.
         Tradeoffs:
+          - The bigger the table is, the bigger will be the amount of unused space from one moment to another.
 */
 
 /**TODO: 
