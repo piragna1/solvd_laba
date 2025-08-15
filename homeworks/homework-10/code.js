@@ -122,13 +122,7 @@ class HashTable {
     }
     this.size++;
     if (this.#checkLoadFactor()) {
-
-      console.log('load faactor exceeded load faactor exceeded load faactor exceeded load faactor exceeded')
-
       this.#resizing();
-      console.log('new size:', this.#table.length)
-
-      console.log('initializing rehashing')
       this.#rehashing();
     }
   }
@@ -148,7 +142,6 @@ class HashTable {
             key:head['key'],
             value:head['value']
           }
-          console.log('DEBUG PURPOSES:',head['head']);
           return copy;
         }
         head = head["head"];
@@ -228,7 +221,6 @@ class HashTable {
   #rehashing(table) {
     //copy
     const copy = this.#table.slice();
-    console.log('copy:',copy)
 
     //new table
     table = new Array(this.#table.length).fill(null);
@@ -239,11 +231,9 @@ class HashTable {
 
       if (element == null)continue;
 
-      console.log('REHASHING TO:', element)
       //existing chain
       if (element["head"] != null) {
 
-        console.log('EXISTING CHAIN')
 
         let curr = element;
         let next = curr["head"];
@@ -253,19 +243,16 @@ class HashTable {
 
         //free and re insert nodes into the new table
         while (next != null) {
-          console.log('traversing chain')
 
           curr = next;
           next = next["head"];
           curr["head"] = undefined;
-          console.log('recalling insert() inside chain with curr being:', curr)
           this.insert(curr["key"], curr["value"]);
         }
 
       }
       else{
         //if there is no chain in slot:
-        console.log('NON EXISTING CHAIN')
         this.insert(element['key'], element['value']);
       }
     }
@@ -393,22 +380,24 @@ For an extra challenge, consider implementing additional features for your hash 
 console.log("\n--- Rehashing Test Case ---");
 const rehashTable = new HashTable(4); // small initial capacity to trigger rehashing quickly
 
-// Insert enough elements to exceed the load factor threshold (0.75)
+// Insert elements one by one and display after each insert to observe resizing and rehashing
 rehashTable.insert("one", 1);
+console.log("After inserting 'one':");
 rehashTable.display();
 
 rehashTable.insert("two", 2);
-rehashTable.display();
+console.log("After inserting 'two':");
 
-rehashTable.insert("three", 3);
+console.log("Table BEFORE triggering rehashing (next insert should trigger resize):");
 rehashTable.display();
 
 // This insert should trigger resizing and rehashing
-rehashTable.insert("four", 4);
-
-console.log("Table BEFORE!! triggering rehashing:");
+rehashTable.insert("three", 3);
+console.log("After inserting 'three':");
 rehashTable.display();
-console.log("Table after triggering rehashing (should have resized):");
+
+rehashTable.insert("four", 4);
+console.log("After inserting 'four':");
 rehashTable.display();
 
 // Verify all elements are still accessible after rehashing

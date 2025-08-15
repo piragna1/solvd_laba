@@ -1,2 +1,2 @@
 - Retrieving data is showing the continued part of a chain if it exists (should hide that) (done)
-- Seems like the rehashing process is duplicating key-value pairs. ()
+- Seems like the rehashing process is duplicating key-value pairs. (done)
