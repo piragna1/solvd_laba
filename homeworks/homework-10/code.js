@@ -261,7 +261,17 @@ class HashTable {
     return false;
   }
   search(key){
-    
+    let hash = this.#hash(key);
+    if (this.#table[hash]) {
+      let head = this.#table[hash];
+      while (head != null) {
+        if (head["key"] === key) {
+          return true;
+        }
+        head = head["next"];
+      }
+    }
+    return false;
   }
 }
 const ht = new HashTable();
