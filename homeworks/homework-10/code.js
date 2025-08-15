@@ -304,3 +304,5 @@ console.log(ht.retrieve("alamaulat")); //undefined
 ht.display();
 console.log(ht.remove('alamaulae'));//true
 ht.display();
+console.log(ht.search('alamaulao'));//true
+console.log(ht.search('alamaulaoaaaaa'));//false
