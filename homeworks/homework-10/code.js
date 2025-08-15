@@ -386,6 +386,8 @@ ht.display();
         Time complexity: O(n) being n the amount of elements stored in the table.
         Space complexity: O(1) since there is no need for extra space
         Tradeoffs:
+          - It shows data inside every separate chain, but not all
+          - It does not display the information individually per every element
         +remove
         Time complexity:
         Space complexity:
