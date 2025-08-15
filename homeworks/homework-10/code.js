@@ -217,7 +217,14 @@ class HashTable {
       let curr = element;
       let next = curr['head'];
       curr['head']=undefined;
-      
+      this.insert(curr['key'], curr['value']);
+      curr = null;
+      while(next != null){
+        curr = next;
+        next = next['head'];
+        curr['head']= undefined;
+        this.insert(curr['key'], curr['value']);
+      }
     }
   }
 }
