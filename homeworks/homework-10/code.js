@@ -260,6 +260,9 @@ class HashTable {
     }
     return false;
   }
+  search(key){
+    
+  }
 }
 const ht = new HashTable();
 ht.insert("alamaula", "gonzalextrix");
