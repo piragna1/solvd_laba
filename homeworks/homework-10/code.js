@@ -119,6 +119,10 @@ class HashTable {
       this.#table[hash] = obj;
     }
     this.size++;
+    if (this.checkLoadFactor()){
+      this.#table.length = this.resizing(this.#table.length);
+      this.#rehashing(this.#table);
+    }
   }
   /**
    * It returns the object that matches with the key that the user provides or undefined otherwise.
@@ -205,6 +209,18 @@ class HashTable {
     }
     return false;
   }
+  #rehashing(table){
+  const arr = new Array(table.length).fill(null);
+  for (const element of table) {
+    console.log(element);
+    if (element['head'] != null){
+      let curr = element;
+      let next = curr['head'];
+      curr['head']=undefined;
+      
+    }
+  }
+}
 }
 
 const ht = new HashTable();
@@ -310,5 +326,16 @@ For an extra challenge, consider implementing additional features for your hash 
   table dynamically to maintain an efficient load factor, or implementing a method to iterate through all 
   key-value pairs in the hash table.
 
-  
+
  */
+
+
+HashTable.prototype['checkLoadFactor'] = function(size,length){
+  return (size/length) > 0.75;
+}
+
+HashTable.prototype['resizing'] = function (length){
+  return length*2;
+}
+
+//rehashing will be implemented at class level.
