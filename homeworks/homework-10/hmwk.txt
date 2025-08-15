@@ -25,7 +25,7 @@ This assignment will test your understanding of hash functions, collision resolu
 
 1. **Hash Table Class**: Create a JavaScript class for a hash table that uses your custom hash function. 
   Include methods for inserting key-value pairs, retrieving values by key, and deleting key-value pairs.
-2. **Testing**: Create test cases to ensure that your hash table and custom hash function work correctly. 
+2. **Testing**: Create cases to ensure that your hash table and custom hash function work correctly. 
   Test scenarios should include inserting, retrieving, and deleting values, as well as handling collisions 
   gracefully.
 

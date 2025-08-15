@@ -135,30 +135,109 @@ let arr = [
 const table = [].fill(null);
 arr.forEach((str) => {
   let key = hash(str);
-  if (table[key] !== null){
+  if (table[key] !== null) {
     const obj = {
-      value:str,
-      head:table[key]
-    }
+      value: str,
+      head: table[key],
+    };
     table[key] = obj;
-  }
-  else{
-    table[value]={
-      value:str,
-      head:undefined
+  } else {
+    table[value] = {
+      value: str,
+      head: undefined,
     };
   }
 });
 
 // table.forEach(el => console.log(el));
-console.log(table);//
+// console.log(table);
 /*
 ### **Part 3: Building a Hash Table**
 
 1. **Hash Table Class**: Create a JavaScript class for a hash table that uses your custom hash function. 
   Include methods for inserting key-value pairs, retrieving values by key, and deleting key-value pairs.
+
 2. **Testing**: Create test cases to ensure that your hash table and custom hash function work correctly. 
   Test scenarios should include inserting, retrieving, and deleting values, as well as handling collisions 
   gracefully.
 
 */
+
+class HashTable {
+  #table;
+  size;
+  constructor() {
+    this.#table = new Array(50).fill(null);
+    this.size=0;
+  }
+  #hash(string) {
+    if (typeof string !== "string") {
+      throw Error("Invalid input key");
+    }
+    const prime1 = 2;
+    const prime3 = 137;
+
+    let sum = 0;
+    for (let index = 0; index < string.length; index++) {
+      let charcode = string.charCodeAt(index);
+      sum += Math.trunc(charcode);
+    }
+    return Math.trunc((prime1 * sum) % prime3);
+  }
+  insert(key, value) {
+    if (typeof key !== "string") {
+      throw new Error("please provide a key in string format");
+    }
+    const hash = this.#hash(key);
+    //empty slot
+    if (this.#table[hash] == null) {
+      this.#table[hash] = {
+        key:key,
+        value:value
+      };
+    }
+    //not empty slot -> handling collision
+    else {
+      const obj = {
+        key:key,
+        value:value,
+        head:this.#table[hash]
+      };
+      this.#table[hash] = obj;
+    }
+      this.size++;
+
+  }
+  retrieve(key){
+    let hash = this.#hash(key);
+    if (this.#table[hash]){
+      let head = this.#table[hash];
+      while (head != null){
+        if (head['key'] === key){
+          return head;
+        }
+        head=head['next'];
+      }
+    }
+    return undefined;
+  }
+  display(){
+    console.log(this.#table);
+  }
+}
+const ht = new HashTable();
+ht.insert('alamaula', 'gonzalextrix');
+ht.insert('alamaulaeee', 'gonzalextrix');
+ht.insert('alamaulaq', 'gonzalextrix');
+ht.insert('alamaulaw', 'gonzalextrix');
+ht.insert('alamaulae', 'gonzalextrix');
+ht.insert('alamaular', 'gonzalextrix');
+ht.insert('alamaulat', 'gonzalextrix');
+ht.insert('alamaulay', 'gonzalextrix');
+ht.insert('alamaulau', 'gonzalextrix');
+ht.insert('alamaulai', 'gonzalextrix');
+ht.insert('alamaulao', 'gonzalextrix');
+ht.insert('alamaulap', 'gonzalextrix');
+console.log(ht.size);//
+ht.display();
+console.log(ht.retrieve('alamaulap'));//
