@@ -383,8 +383,8 @@ ht.display();
           - Due to the possibility of the existence of a separate chain, the time complexity of this approach will be increased from O(1)
           to O(n).
         + display
-        Time complexity:
-        Space complexity:
+        Time complexity: O(n) being n the amount of elements stored in the table.
+        Space complexity: O(1) since there is no need for extra space
         Tradeoffs:
         +remove
         Time complexity:
