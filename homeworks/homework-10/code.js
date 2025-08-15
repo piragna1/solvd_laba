@@ -100,27 +100,27 @@ class HashTable {
       throw new Error("Error: Please provide a key in string format");
     }
 
-    console.log('Trying to insert:','[' ,key, value,']')
-
     const hash = this.#hash(key);
 
-    //empty slot
+    const obj = {
+      key:key,
+      value:value
+    }
+
+    //empty table slot
     if (this.#table[hash] == null) {
-      this.#table[hash] = {
-        key: key,
-        value: value,
-      };
+      //just assign the object to that location
+      this.#table[hash] = obj;
     }
     //not empty slot -> handle collision
     else {
-      const obj = {
-        key: key,
-        value: value,
-        head: this.#table[hash],
-      };
+      //update pointers
+      obj['head']=this.#table[hash]
       this.#table[hash] = obj;
     }
-    this.size++;
+    this.size++; //increment size by one
+
+    //check load factor
     if (this.#checkLoadFactor()) {
       this.#resizing();
       this.#rehashing();
@@ -222,7 +222,7 @@ class HashTable {
     //copy
     const copy = this.#table.slice();
 
-    //new table
+    //reassign table
     table = new Array(this.#table.length).fill(null);
     this.size=0;
 
@@ -355,10 +355,24 @@ ht.display();
           Tradeoffs: It is simple to read an understand the mechanism for generating a new hash for a given key but 
           it is relatively easy to reach the threshold of the load factor due to the lack of uniformity when inserting 
           new values also, because of the use of the modulus based on the current length of the table.
-        + insert
-        Time complexity:
-        Space complexity:
+        + insert: Inserts a new key-value pair into the hash table mapping it with the calculated hash utilizing separate-
+        chaining tecnhnique for avoiding collisions and using resize and rehashing techniques for maintaining a non-clustered
+        informational structure.
+        Time complexity: 
+           - Average case: O(1) since it is straightforward the process of inserting a new value even if there are collisions.
+           - Worst case: O(n) being `n` the amount of existing pairs in the table. This happens when load factor triggers
+           the resize and rehashing functions and every existing element (n elements) should be rehashed and inserted into a 
+           new collection.
+        Space complexity: 
+          -Average case: O(n) In this case an insertion directly to the current table will be executed. So, n being the amount
+          of exiting elements, the algorithm  need the computer to store n elements in table. Hence O(n) is the space complexity.
+          -Worst case: O(n) In the worst case, rehashing would be executed. In such situation, the algorithm stil needs a
+          constant amount of collections (a copy, the new and the old table) proportional to the amount of elements,
+          `current table`O(n)+`copyOfTable`O(n)+`newTabe`O(2n) = O(3n) -> dropping constants: O(n)
         Tradeoffs:
+          - Some of the disadvantages emerge due to the fact ot using the separate-chaining collision handling technique. Commonly,
+          it will use some extra space and lead to unused slots inside the table. In addition, performance of cache type operations
+          will be reduced because the slots of the collection can be not singly valued.
         + retrieve
         Time complexity:
         Space complexity:
