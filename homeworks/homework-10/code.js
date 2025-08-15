@@ -31,7 +31,7 @@ function hash(string, length) {
   separate chaining (using linked lists), open addressing (linear probing, quadratic probing), or any other 
   technique you prefer.
 */
- / Separate chaining will be used for collision handling. /
+/ Separate chaining will be used for collision handling. /;
 /*
 ### **Part 3: Building a Hash Table**
 
@@ -43,17 +43,16 @@ function hash(string, length) {
   gracefully.
 */
 
-
 /**
  * A custom Hash Table implementation using separate chaining for collision handling.
- * 
+ *
  * @class
  * @classdesc
  * Stores key-value pairs with string keys, supporting insertion, retrieval, removal, and search operations.
  * Uses a private array as the underlying storage and handles collisions via linked objects (separate chaining).
- * 
+ *
  * @property {number} size - The current number of elements in the hash table.
- * 
+ *
  * @example
  * const table = new HashTable(10);
  * table.insert('foo', 123);
@@ -68,33 +67,32 @@ class HashTable {
   /**This number represents the current elements that were added to the collection */
   size;
 
-  
   /**
    * Creates an instance of this custom Hash Table class accepting a number representing the initial
    * capacity of the inner collection. If there is no input or it is invalid, then a default value is
    * used for the storing capacity.
-   * @param {number} capacity 
+   * @param {number} capacity
    */
   constructor(capacity) {
-    if (!capacity || typeof capacity !== 'number') capacity = 25;
+    if (!capacity || typeof capacity !== "number") capacity = 25;
     this.#table = new Array(capacity).fill(null);
     this.size = 0;
   }
   /**
-   * 
-   * @param {string} string 
+   *
+   * @param {string} string
    * @returns a number to which the input is converted
    * @throws Error if an invalid input is receipt
    */
   #hash(string) {
-    return hash(string,this.#table.length);
+    return hash(string, this.#table.length);
   }
   /**
-   * Inserts a key-value pair into the Hash Table after applying the hashing to the key provided and 
+   * Inserts a key-value pair into the Hash Table after applying the hashing to the key provided and
    * incrementing the size if the table.
    * If there is a collision, separate chaining will be used as a collision handling technique.
-   * @param {string} key 
-   * @param {any} value 
+   * @param {string} key
+   * @param {any} value
    * @throws { "Error: Please provide a key in string format" } If the given key is not a string formatted key.
    */
   insert(key, value) {
@@ -119,15 +117,15 @@ class HashTable {
       this.#table[hash] = obj;
     }
     this.size++;
-    if (this.checkLoadFactor()){
-      this.#table.length = this.resizing(this.#table.length);
-      this.#rehashing(this.#table);
+    if (this.checkLoadFactor()) {
+      this.resizing();
+      this.#rehashing();
     }
   }
   /**
    * It returns the object that matches with the key that the user provides or undefined otherwise.
-   * @param {string} key 
-   * @returns The object that matches with the key provided or undefined if such object does not exist in the 
+   * @param {string} key
+   * @returns The object that matches with the key provided or undefined if such object does not exist in the
    * table.
    */
   retrieve(key) {
@@ -151,7 +149,7 @@ class HashTable {
   }
   /**
    * It removes an object based on the input given and returns true in the successful case.
-   * @param {string} key 
+   * @param {string} key
    * @returns true if an object was removed and false otherwise.
    */
   remove(key) {
@@ -159,7 +157,10 @@ class HashTable {
     //hash found
     if (this.#table[hash]) {
       //there is no chain
-      if (this.#table[hash]['head'] == null && this.#table[hash]['key'] === key) {
+      if (
+        this.#table[hash]["head"] == null &&
+        this.#table[hash]["key"] === key
+      ) {
         //make null and return;
         this.#table[hash] = null;
         return true;
@@ -169,9 +170,9 @@ class HashTable {
         //check first node
         if (this.#table[hash]["key"] === key) {
           let curr = this.#table[hash]; //current head
-          let next = curr['head'];
-          this.#table[hash]=next;
-          curr=null;
+          let next = curr["head"];
+          this.#table[hash] = next;
+          curr = null;
           return true;
         } else {
           //serach the corresponding node
@@ -193,10 +194,10 @@ class HashTable {
   }
   /**
    * Searches based on the given key if there is an object that matches with it.
-   * @param {string} key 
+   * @param {string} key
    * @returns true if there already exists an object matching with the given key or false otherwise.
    */
-  search(key){
+  search(key) {
     let hash = this.#hash(key);
     if (this.#table[hash]) {
       let head = this.#table[hash];
@@ -209,30 +210,56 @@ class HashTable {
     }
     return false;
   }
-  #rehashing(table){
-  const arr = new Array(table.length).fill(null);
-  for (const element of table) {
-    console.log(element);
-    if (element['head'] != null){
-      let curr = element;
-      let next = curr['head'];
-      curr['head']=undefined;
-      this.insert(curr['key'], curr['value']);
-      curr = null;
-      while(next != null){
-        curr = next;
-        next = next['head'];
-        curr['head']= undefined;
-        this.insert(curr['key'], curr['value']);
+  #rehashing(table) {//todo: finish implementation
+    //copy
+    const copy = this.#table.slice();
+
+    //new table
+    table = new Array(table.length).fill(null);
+
+
+    //traverse copy
+    for (const element of copy) {
+      console.log(element);
+      //existing chain
+      if (element["head"] != null) {
+        let curr = element;
+        let next = curr["head"];
+
+        curr["head"] = undefined;
+        this.insert(curr["key"], curr["value"]);
+        curr = null;
+
+        //free and re insert nodes into the new table
+        while (next != null) {
+          curr = next;
+          next = next["head"];
+          curr["head"] = undefined;
+          this.insert(curr["key"], curr["value"]);
+        }
+
+      }
+      else{
+        //if there is no chain in slot:
+        this.insert(element['key'], element['value']);
       }
     }
   }
-}
+
+  checkLoadFactor() {
+    return this.size / this.#table.length > 0.75;
+  }
+
+  resizing() {
+    this.#table.length=this.#table.length*2;
+  }
 }
 
 const ht = new HashTable();
 
-console.log("Inserting keys: 'apple', 'banana', 'grape', 'apricot', 'berry', 'melon', 'lemon'");
+console.log(
+  "Inserting keys: 'apple', 'banana', 'grape', 'apricot', 'berry', 'melon', 'lemon'"
+);
 ht.insert("apple", "🍎");
 ht.insert("banana", "🍌");
 ht.insert("grape", "🍇");
@@ -266,6 +293,7 @@ console.log("Removing 'apricot'...");
 ht.remove("apricot");
 console.log("Hash table after removing 'apricot':");
 ht.display();
+
 /*
 ### **Part 4: Documentation and Analysis**
 
@@ -324,7 +352,6 @@ Summary:
 This approach is great for learning and small datasets, but for production or large-scale use, consider dynamic resizing, a more robust hash function, and possibly alternative collision strategies.
 */
 
-
 /**TODO: 
  * 
  * ### **Bonus Challenge**
@@ -336,13 +363,23 @@ For an extra challenge, consider implementing additional features for your hash 
 
  */
 
+// Test case for rehashing functionality
 
-HashTable.prototype['checkLoadFactor'] = function(size,length){
-  return (size/length) > 0.75;
-}
+console.log("\n--- Rehashing Test Case ---");
+const rehashTable = new HashTable(4); // small initial capacity to trigger rehashing quickly
 
-HashTable.prototype['resizing'] = function (length){
-  return length*2;
-}
+// Insert enough elements to exceed the load factor threshold (0.75)
+rehashTable.insert("one", 1);
+rehashTable.insert("two", 2);
+rehashTable.insert("three", 3);
+// This insert should trigger resizing and rehashing
+rehashTable.insert("four", 4);
 
-//rehashing will be implemented at class level.
+console.log("Table after triggering rehashing (should have resized):");
+rehashTable.display();
+
+// Verify all elements are still accessible after rehashing
+console.log("Retrieve 'one':", rehashTable.retrieve("one"));
+console.log("Retrieve 'two':", rehashTable.retrieve("two"));
+console.log("Retrieve 'three':", rehashTable.retrieve("three"));
+console.log("Retrieve 'four':", rehashTable.retrieve("four"));
