@@ -403,10 +403,16 @@ ht.display();
           - Due to the reason that sometimes there could exist some key-value pairs that produces the same hash value, a linked
           list might be created in order to avoid the collision of those elements, and for that reason the time complexity increments
           from O(1) to O(n) being n the size of the chain that have to be traversed.
-        +#rehashing(
-        Time complexity:
-        Space complexity:
+        +#rehashing:  Creates a new table, re make the hash value for every exiting element in the old table and insert all of them into
+        the new one, discarding the old table.
+        Time complexity: O(n) The more element the previous table has, the more time will be needed to reconvert the hashing for every of
+        them. So it depends directly of the amount of key-value pairs existing.
+        Space complexity: O(n) At one exact time, there are 2 variables referring to a collections, which are `copy`, `table`(the new table)
+        which has the double of length than te old table. This amount of collections is constant and the space they require depends directly
+        on the amount of elements and the length of the old table, which is n.
         Tradeoffs:
+          - It requires some extra memory in a certain period when making copies of the current table in order to regenerate hashes and pass
+          all elements from one to another collection.
         +#checkLoadFactor(
         Time complexity:
         Space complexity:
