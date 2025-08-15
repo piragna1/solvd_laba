@@ -388,10 +388,14 @@ ht.display();
         Tradeoffs:
           - It shows data inside every separate chain, but not all
           - It does not display the information individually per every element
-        +remove
-        Time complexity:
-        Space complexity:
+        +remove: removes an element from the table.
+        Time complexity: O(n) considering the worst case, in which the element is 
+        found last or does not exist, being necessary to traverse the whole structure.
+        Space complexity: O(1) since the amount of extra space required does not increment depending of the input size.
         Tradeoffs:
+          - Similar to search method, and considering that separate-chaining technique is being implemented for collision handling,
+          the time complexity increments from O(1) to O(n) compared to other collision handling techniques which can lead to bigger 
+          execution times.
         +search
         Time complexity:
         Space complexity:
