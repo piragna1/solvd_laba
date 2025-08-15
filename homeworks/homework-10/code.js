@@ -44,8 +44,28 @@ function hash(string, length) {
 */
 
 
+/**
+ * A custom Hash Table implementation using separate chaining for collision handling.
+ * 
+ * @class
+ * @classdesc
+ * Stores key-value pairs with string keys, supporting insertion, retrieval, removal, and search operations.
+ * Uses a private array as the underlying storage and handles collisions via linked objects (separate chaining).
+ * 
+ * @property {number} size - The current number of elements in the hash table.
+ * 
+ * @example
+ * const table = new HashTable(10);
+ * table.insert('foo', 123);
+ * table.insert('bar', 456);
+ * const item = table.retrieve('foo'); // { key: 'foo', value: 123 }
+ * table.remove('bar'); // true
+ * table.display(); // Shows internal table state
+ */
 class HashTable {
+  /**Inner collection of the class */
   #table;
+  /**This number represents the current elements that were added to the collection */
   size;
 
   
@@ -70,13 +90,16 @@ class HashTable {
     return hash(string,this.#table.length);
   }
   /**
-   * 
+   * Inserts a key-value pair into the Hash Table after applying the hashing to the key provided and 
+   * incrementing the size if the table.
+   * If there is a collision, separate chaining will be used as a collision handling technique.
    * @param {string} key 
    * @param {any} value 
+   * @throws { "Error: Please provide a key in string format" } If the given key is not a string formatted key.
    */
   insert(key, value) {
     if (typeof key !== "string") {
-      throw new Error("please provide a key in string format");
+      throw new Error("Error: Please provide a key in string format");
     }
     const hash = this.#hash(key);
     //empty slot
@@ -97,6 +120,12 @@ class HashTable {
     }
     this.size++;
   }
+  /**
+   * It returns the object that matches with the key that the user provides or undefined otherwise.
+   * @param {string} key 
+   * @returns The object that matches with the key provided or undefined if such object does not exist in the 
+   * table.
+   */
   retrieve(key) {
     let hash = this.#hash(key);
     if (this.#table[hash]) {
@@ -110,9 +139,17 @@ class HashTable {
     }
     return undefined;
   }
+  /**
+   * Shows the current state of the table.
+   */
   display() {
     console.log(this.#table);
   }
+  /**
+   * It removes an object based on the input given and returns true in the successful case.
+   * @param {string} key 
+   * @returns true if an object was removed and false otherwise.
+   */
   remove(key) {
     let hash = this.#hash(key);
     //hash found
@@ -150,6 +187,11 @@ class HashTable {
     }
     return false;
   }
+  /**
+   * Searches based on the given key if there is an object that matches with it.
+   * @param {string} key 
+   * @returns true if there already exists an object matching with the given key or false otherwise.
+   */
   search(key){
     let hash = this.#hash(key);
     if (this.#table[hash]) {
@@ -213,45 +255,60 @@ ht.display();
 
  */
 /*
----------------------------------------
-    Custom Hash Function & Hash Table
--------------------------------------
 
-1. Custom Hash Function :
+1. Documentation
 
-- The `hash` function takes a string as input and returns an integer hash code.
-- It works by summing the character codes of each character in the string, multiplying by two prime, 
-numbers taking the modulus with the table size.
-- This approach helps distribute hash values more uniformly and reduces clustering, but collisions are 
-still possible.
+Custom Hash Function:
+- The `hash` function takes a string and the table length as input and returns an integer hash code.
+- It works by summing the character codes of each character in the string, multiplying by two prime numbers, and taking the modulus with the table size.
+- This helps distribute hash values more uniformly and reduces clustering, but collisions are still possible.
 
-2. Collision Handling:
-
-- The hash table uses **separate chaining** for collision resolution.
-- If two different keys produce the same hash, their entries are stored as a linked list (chain) at that table 
-index.
-- Each node in the chain contains the key, value, and a reference (`head`) to the next node.
-
-3. HashTable Class:
-
+HashTable Class:
 - The `HashTable` class encapsulates the hash table logic.
 - It uses a private array (`#table`) to store entries and a private hash function (`#hash`) for key hashing.
-- **insert(key, value)**: Adds a key-value pair. If a collision occurs, the new entry is added to the front of 
-the chain.
-- **retrieve(key)**: Searches for a key in the chain at the hashed index and returns the corresponding entry 
-if found.
+- **insert(key, value)**: Adds a key-value pair. If a collision occurs, the new entry is added to the front of the chain (separate chaining).
+- **retrieve(key)**: Searches for a key in the chain at the hashed index and returns the corresponding entry if found.
 - **remove(key)**: Removes a key-value pair from the table, handling both single entries and chains.
 - **search(key)**: Returns `true` if the key exists in the table, otherwise `false`.
 - **display()**: Prints the current state of the hash table.
+- Error handling: The hash function and insert method throw errors if the key is not a string, ensuring type safety.
 
-4. Usage:
+Collision Handling:
+- The hash table uses **separate chaining** for collision resolution.
+- If two different keys produce the same hash, their entries are stored as a linked list (chain) at that table index.
+- Each node in the chain contains the key, value, and a reference (`head`) to the next node.
 
+Usage:
 - The hash table supports insertion, retrieval, deletion, and search operations for string keys.
 - Collisions are handled gracefully using chaining, so multiple values can exist at the same index.
 
-5. Error Handling:
+2. Analysis
 
-- The hash function and insert method throw errors if the key is not a string, ensuring type safety.
+Performance:
+- **Insertion**: Average case O(1), worst case O(n) if all keys hash to the same index (rare with a good hash function and reasonable load factor).
+- **Retrieval**: Average case O(1), worst case O(n) for the same reason.
+- **Deletion**: Average case O(1), worst case O(n) if traversing a long chain.
+- **Display**: O(table size), as it prints the entire internal array.
 
------------------------------------------------
+Trade-offs:
+- **Separate Chaining**: Simple and effective, but increases memory usage due to extra objects for chains. Lookup time can degrade if many collisions occur.
+- **Fixed Table Size**: The hash table uses a fixed-size array. If the number of entries grows much larger than the table size, collisions will increase, making operations slower. Dynamic resizing (rehashing) would improve scalability.
+- **Simple Hash Function**: Easy to implement, but may not distribute keys as uniformly as more advanced hash functions, especially for similar input strings. This can lead to clustering and more collisions.
+- **String Keys Only**: The implementation only supports string keys. Supporting other types would require additional logic.
+- **No Load Factor Management**: There is no mechanism to monitor or adjust the load factor (ratio of entries to table size), which is important for maintaining performance in real-world hash tables.
+
+Summary:
+This approach is great for learning and small datasets, but for production or large-scale use, consider dynamic resizing, a more robust hash function, and possibly alternative collision strategies.
 */
+
+
+/**TODO: 
+ * 
+ * ### **Bonus Challenge**
+
+For an extra challenge, consider implementing additional features for your hash table, such as resizing the 
+  table dynamically to maintain an efficient load factor, or implementing a method to iterate through all 
+  key-value pairs in the hash table.
+
+  
+ */
