@@ -99,7 +99,11 @@ class HashTable {
     if (typeof key !== "string") {
       throw new Error("Error: Please provide a key in string format");
     }
+
+    console.log('Trying to insert:','[' ,key, value,']')
+
     const hash = this.#hash(key);
+
     //empty slot
     if (this.#table[hash] == null) {
       this.#table[hash] = {
@@ -107,7 +111,7 @@ class HashTable {
         value: value,
       };
     }
-    //not empty slot -> handling collision
+    //not empty slot -> handle collision
     else {
       const obj = {
         key: key,
@@ -117,8 +121,10 @@ class HashTable {
       this.#table[hash] = obj;
     }
     this.size++;
-    if (this.checkLoadFactor()) {
-      this.resizing();
+    if (this.#checkLoadFactor()) {
+      console.log('load faactor exceeded load faactor exceeded load faactor exceeded load faactor exceeded')
+      this.#resizing();
+      console.log('new size:', this.#table.length)
       this.#rehashing();
     }
   }
@@ -134,7 +140,12 @@ class HashTable {
       let head = this.#table[hash];
       while (head != null) {
         if (head["key"] === key) {
-          return head;
+          let copy = {
+            key:head['key'],
+            value:head['value']
+          }
+          console.log('DEBUG PURPOSES:',head['head']);
+          return copy;
         }
         head = head["head"];
       }
@@ -145,7 +156,7 @@ class HashTable {
    * Shows the current state of the table.
    */
   display() {
-    console.log(this.#table);
+    console.log(this.#table)
   }
   /**
    * It removes an object based on the input given and returns true in the successful case.
@@ -212,45 +223,58 @@ class HashTable {
   }
   #rehashing(table) {//todo: finish implementation
     //copy
+    console.log('initializing rehashing')
     const copy = this.#table.slice();
+    console.log('copy:',copy)
 
     //new table
-    table = new Array(table.length).fill(null);
+    table = new Array(this.#table.length).fill(null);
+    this.size=0;
 
 
     //traverse copy
     for (const element of copy) {
-      console.log(element);
+
+      if (element == null)continue;
+
+      console.log('REHASHING TO:', element)
       //existing chain
       if (element["head"] != null) {
+
+        console.log('EXISTING CHAIN')
+
         let curr = element;
         let next = curr["head"];
 
         curr["head"] = undefined;
+        console.log('recalling insert() with isolated node curr:',curr)
         this.insert(curr["key"], curr["value"]);
         curr = null;
 
         //free and re insert nodes into the new table
         while (next != null) {
+          console.log('traversing chain')
           curr = next;
           next = next["head"];
           curr["head"] = undefined;
+          console.log('recalling insert() inside chain with curr being:', curr)
           this.insert(curr["key"], curr["value"]);
         }
 
       }
       else{
         //if there is no chain in slot:
+        console.log('NON EXISTING CHAIN')
         this.insert(element['key'], element['value']);
       }
     }
   }
 
-  checkLoadFactor() {
-    return this.size / this.#table.length > 0.75;
+  #checkLoadFactor() {
+    return this.size / this.#table.length >= 0.75;
   }
 
-  resizing() {
+  #resizing() {
     this.#table.length=this.#table.length*2;
   }
 }
@@ -370,11 +394,19 @@ const rehashTable = new HashTable(4); // small initial capacity to trigger rehas
 
 // Insert enough elements to exceed the load factor threshold (0.75)
 rehashTable.insert("one", 1);
+rehashTable.display();
+
 rehashTable.insert("two", 2);
+rehashTable.display();
+
 rehashTable.insert("three", 3);
+rehashTable.display();
+
 // This insert should trigger resizing and rehashing
 rehashTable.insert("four", 4);
 
+console.log("Table BEFORE!! triggering rehashing (should have resized):");
+rehashTable.display();
 console.log("Table after triggering rehashing (should have resized):");
 rehashTable.display();
 
