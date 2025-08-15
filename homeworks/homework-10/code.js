@@ -373,8 +373,7 @@ ht.display();
           - Some of the disadvantages emerge due to the fact ot using the separate-chaining collision handling technique. Commonly,
           it will use some extra space and lead to unused slots inside the table. In addition, performance of cache type operations
           will be reduced because the slots of the collection can be not singly valued.
-        + retrieve: This methods returns true if the table has an object that has the same key that the one receipt as input argument.
-        It returns false otherwise.
+        + retrieve: This methods returns the object in the table associated with the key or false otherwise.
         Time complexity: O(n) being n the total amount of key-value pairs stored and assuming that the one it looks for is the last
         readed.
         Space complexity: O(1) since no matter how it goes with the process of searching an element, the same amount of space will be
@@ -396,7 +395,7 @@ ht.display();
           - Similar to search method, and considering that separate-chaining technique is being implemented for collision handling,
           the time complexity increments from O(1) to O(n) compared to other collision handling techniques which can lead to bigger 
           execution times.
-        +search
+        +search:
         Time complexity:
         Space complexity:
         Tradeoffs:
