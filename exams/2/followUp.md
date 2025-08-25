@@ -24,6 +24,13 @@
 ##### Event Driven Programming -> 07/08/2025
 
 Express -> 12/08/2025
+	-express http module
+		-createServer(callback(req,res){}
+			-res(ponse) methods:
+				-statusCode: Indicates with a code the current status of the response.
+				-setHeader: Indicates the format of the response
+				-end: 
+	-listen(port, callback): makes the server listen through the indicated port
 
 &nbsp;	-why to create a server passing a request and answer? 
 
