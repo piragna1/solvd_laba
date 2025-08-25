@@ -135,7 +135,7 @@ git hash-object
 //Note that in some cases when a bug appears and it is needed to revert, rebasing help us in debugging rather than merging construction
 //That is because merging will generate a single commit with ALL the changes of the other branch 
 //While rebase will take from the corresponding base branch EVERY commit separately that were created into the branch where the command is run with the corresponding order.
-//That way, the commits are more and the changed more separated in order to access them.
+//That way, the commits are more and the changes more separated in order to access them.
 //-----------------------------------
 
 //-----------------------------------Conflicts
@@ -145,7 +145,6 @@ git hash-object
 //Small pull requests
 //Small branches
 //With small commits
-
 //plis
 
 //everything as small as possible
